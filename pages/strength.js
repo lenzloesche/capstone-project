@@ -12,6 +12,7 @@ export default function Strength() {
   ];
 
   const date = new Date();
+  console.log(date);
   let day = weekday[date.getDay()];
   return (
     <>
