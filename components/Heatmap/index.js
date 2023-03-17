@@ -14,6 +14,15 @@ const ContainerDiv = styled.div`
   grid-template-rows: repeat(7, 1fr);
   grid-auto-flow: column;
 `;
+
+const RightAlignText = styled.p`
+  text-align: right;
+`;
+
+const SmallContainer = styled.div`
+  width: 240px;
+`;
+
 const heatmap = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -22,15 +31,19 @@ const heatmap = [
 export default function Heatmap({ data }) {
   return (
     <>
-      <ContainerDiv>
-        {heatmap.map((dat, index) => {
-          return (
-            <div key={uid()}>
-              <Div className="red">{index}</Div>
-            </div>
-          );
-        })}
-      </ContainerDiv>
+      <SmallContainer>
+        <ContainerDiv>
+          {heatmap.map((dat, index) => {
+            return (
+              <div key={uid()}>
+                <Div className="red">{index}</Div>
+              </div>
+            );
+          })}
+        </ContainerDiv>
+
+        <RightAlignText>-Today-</RightAlignText>
+      </SmallContainer>
     </>
   );
 }
