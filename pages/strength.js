@@ -1,5 +1,5 @@
 import Heatmap from "../components/Heatmap";
-const data = [1, 0, 0, 0, 0, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 0, 0, 6, 6];
+const data = [];
 export default function Strength() {
   const weekday = [
     "Sunday",
@@ -12,29 +12,60 @@ export default function Strength() {
   ];
 
   const date = new Date();
-  console.log(date);
   let day = weekday[date.getDay()];
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const save = {
+      date: date.getDate(),
+      month: date.getMonth(),
+      year: date.getFullYear(),
+      reps: event.target.elements.reps.value,
+      sets: event.target.elements.sets.value,
+      kilos: event.target.elements.kilos.value,
+    };
+    pushIntoData(save);
+  }
+
+  function pushIntoData(objectToPush) {
+    const doublePostIndex = data.findIndex(
+      (dat) =>
+        dat.date === objectToPush.date &&
+        dat.month === objectToPush.month &&
+        dat.year === objectToPush.year
+    );
+    if (doublePostIndex > -1) {
+      data.splice(doublePostIndex, 1);
+      data.push(objectToPush);
+    } else {
+      data.push(objectToPush);
+    }
+  }
+
   return (
     <>
       <h1>Yet Another Fitness App</h1>
       <p>Today is {day}</p>
-      <form>
-        <label htmlFor="kilo">
+      <form
+        onSubmit={(event) => {
+          handleSubmit(event);
+        }}
+      >
+        <label htmlFor="kilos">
           How many kilograms?
-          <input id="kilo" typ="text"></input>
+          <input id="kilos" type="number" required></input>
         </label>
         <br />
         <label htmlFor="reps">
           How many reps?
-          <input id="reps" typ="text"></input>
+          <input id="reps" type="number" required></input>
         </label>
         <br />
-        <label htmlFor="sets">
-          How many sets?
-          <input id="sets" typ="text"></input>
-        </label>
+        <label htmlFor="sets">How many sets?</label>
+        <input id="sets" type="number" required></input>
+
         <br />
-        <button>Done</button>
+        <button type="submit">Done</button>
       </form>
       <Heatmap data={data} />
     </>
