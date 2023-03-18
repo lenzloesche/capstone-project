@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { uid } from "uid";
+import { useState } from "react";
 const Div = styled.div`
   background-color: white;
   border: 1px solid black;
@@ -32,24 +33,35 @@ const SmallContainer = styled.div`
 `;
 const date = new Date();
 const heatmap = [];
-const lengthOfHeatmap = 140;
+const lengthOfHeatmap = 105;
 
 for (let day = 0; day < lengthOfHeatmap; day++) {
   const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
   heatmap.unshift(new Date(date - dayInMilliseconds));
 }
 
+let dateSelectedStart = -1;
+
 export default function Heatmap({ data }) {
+  const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
+
+  function handleClick(event, dat) {
+    setDateSelected(dat);
+  }
+  const selectedData = data.filter(
+    (dat) => dat.date.toDateString() === dateSelected.toDateString()
+  );
+  console.log(selectedData);
   return (
     <>
       <SmallContainer>
         <ContainerDiv>
           {heatmap.map((dat) => {
             return (
-              <div key={uid()}>
+              <div key={dat} onClick={(event) => handleClick(event, dat)}>
                 {lastXDays.some(
                   (lastDay) =>
                     dat.toDateString() === lastDay.date.toDateString()
@@ -64,6 +76,21 @@ export default function Heatmap({ data }) {
         </ContainerDiv>
 
         <RightAlignText>-Today-</RightAlignText>
+        <p>
+          {dateSelected != -1
+            ? "Date Selected:" + dateSelected.toString()
+            : "Select a Date"}
+        </p>
+        <br />
+        {selectedData.map((selectedDat) => {
+          return (
+            <>
+              <p>{selectedDat ? "Reps: " + selectedDat?.reps : ""}</p>
+              <p>{selectedDat ? "Sets: " + selectedDat?.sets : ""}</p>
+              <p>{selectedDat ? "Kilograms: " + selectedDat?.kilos : ""}</p>
+            </>
+          );
+        })}
       </SmallContainer>
     </>
   );

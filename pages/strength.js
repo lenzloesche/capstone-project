@@ -2,14 +2,7 @@ import Heatmap from "../components/Heatmap";
 import { useState } from "react";
 
 const date = new Date();
-const dayInMilliseconds = 24 * 60 * 60 * 1000;
 const startingData = [];
-for (let day = 0; day < 100; day++) {
-  const randomNumber = day * Math.random() * 100;
-  startingData.push({
-    date: new Date(date - randomNumber * dayInMilliseconds),
-  });
-}
 
 export default function Strength() {
   const [data, setData] = useState(startingData);
