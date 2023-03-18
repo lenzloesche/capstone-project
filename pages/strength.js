@@ -1,7 +1,7 @@
 import Heatmap from "../components/Heatmap";
 import { useState } from "react";
 
-const date = new Date();
+let date = new Date();
 const startingData = [];
 
 export default function Strength() {
@@ -20,11 +20,13 @@ export default function Strength() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    date = new Date();
     const save = {
       date: date,
       reps: event.target.elements.reps.value,
       sets: event.target.elements.sets.value,
       kilos: event.target.elements.kilos.value,
+      exercise: event.target.elements.exercise.value,
     };
 
     const newData = data.slice();
@@ -41,6 +43,11 @@ export default function Strength() {
           handleSubmit(event);
         }}
       >
+        <label htmlFor="exercise">
+          Which exercise?
+          <input id="exercise" type="text" required></input>
+        </label>
+        <br />
         <label htmlFor="kilos">
           How many kilograms?
           <input id="kilos" type="number" required></input>
@@ -51,13 +58,14 @@ export default function Strength() {
           <input id="reps" type="number" required></input>
         </label>
         <br />
-        <label htmlFor="sets">How many sets?</label>
-        <input id="sets" type="number" required></input>
-
+        <label htmlFor="sets">
+          How many sets?
+          <input id="sets" type="number" required></input>
+        </label>
         <br />
         <button type="submit">Done</button>
       </form>
-      <Heatmap data={data} />
+      <Heatmap data={data} setData={setData} />
     </>
   );
 }

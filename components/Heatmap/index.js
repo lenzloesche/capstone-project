@@ -4,16 +4,16 @@ import { useState } from "react";
 const Div = styled.div`
   background-color: white;
   border: 1px solid black;
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   margin: 1px;
 `;
 
 const RedDiv = styled.div`
   background-color: red;
   border: 1px solid black;
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   margin: 1px;
 `;
 
@@ -24,25 +24,18 @@ const ContainerDiv = styled.div`
   grid-auto-flow: column;
 `;
 
-const RightAlignText = styled.p`
-  text-align: right;
-`;
-
-const SmallContainer = styled.div`
-  width: 240px;
-`;
 const date = new Date();
 const heatmap = [];
-const lengthOfHeatmap = 105;
+const lengthOfHeatmap = 70;
 
 for (let day = 0; day < lengthOfHeatmap; day++) {
   const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
   heatmap.unshift(new Date(date - dayInMilliseconds));
 }
 
-let dateSelectedStart = -1;
+let dateSelectedStart = undefined;
 
-export default function Heatmap({ data }) {
+export default function Heatmap({ data, setData }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
@@ -51,47 +44,63 @@ export default function Heatmap({ data }) {
   function handleClick(event, dat) {
     setDateSelected(dat);
   }
-  const selectedData = data.filter(
-    (dat) => dat.date.toDateString() === dateSelected.toDateString()
-  );
-  console.log(selectedData);
+  const selectedData = data
+    .filter((dat) => dat.date.toDateString() === dateSelected?.toDateString())
+    .slice();
+
+  function handleDeleteClick(event, date) {
+    const indexToDelete = data.findIndex((dat) => {
+      return dat.date.toString() === date.toString();
+    });
+    if (indexToDelete != -1) {
+      const newData = data.slice();
+      newData.splice(indexToDelete, 1);
+      setData(newData);
+    }
+  }
   return (
     <>
-      <SmallContainer>
-        <ContainerDiv>
-          {heatmap.map((dat) => {
-            return (
-              <div key={dat} onClick={(event) => handleClick(event, dat)}>
-                {lastXDays.some(
-                  (lastDay) =>
-                    dat.toDateString() === lastDay.date.toDateString()
-                ) ? (
-                  <RedDiv>{dat.getDate()}</RedDiv>
-                ) : (
-                  <Div>{dat.getDate()}</Div>
-                )}
-              </div>
-            );
-          })}
-        </ContainerDiv>
-
-        <RightAlignText>-Today-</RightAlignText>
-        <p>
-          {dateSelected != -1
-            ? "Date Selected:" + dateSelected.toString()
-            : "Select a Date"}
-        </p>
-        <br />
-        {selectedData.map((selectedDat) => {
+      <ContainerDiv>
+        {heatmap.map((dat) => {
           return (
-            <>
-              <p>{selectedDat ? "Reps: " + selectedDat?.reps : ""}</p>
-              <p>{selectedDat ? "Sets: " + selectedDat?.sets : ""}</p>
-              <p>{selectedDat ? "Kilograms: " + selectedDat?.kilos : ""}</p>
-            </>
+            <div key={dat} onClick={(event) => handleClick(event, dat)}>
+              {lastXDays.some(
+                (lastDay) => dat.toDateString() === lastDay.date.toDateString()
+              ) ? (
+                <RedDiv>{dat.getDate()}</RedDiv>
+              ) : (
+                <Div>{dat.getDate()}</Div>
+              )}
+            </div>
           );
         })}
-      </SmallContainer>
+      </ContainerDiv>
+
+      <p>
+        {dateSelected
+          ? "Date Selected:" + dateSelected.toString()
+          : "Select a Date"}
+      </p>
+      <br />
+      {selectedData.map((selectedDat) => {
+        return (
+          <p key={uid()}>
+            {selectedDat ? "Exercise: " + selectedDat?.exercise : ""}
+            <br />
+            {selectedDat ? "Reps: " + selectedDat?.reps : ""}
+            <br />
+            {selectedDat ? "Sets: " + selectedDat?.sets : ""}
+            <br />
+            {selectedDat ? "Kilograms: " + selectedDat?.kilos : ""}
+            <br />
+            <button
+              onClick={(event) => handleDeleteClick(event, selectedDat.date)}
+            >
+              Delete
+            </button>
+          </p>
+        );
+      })}
     </>
   );
 }
