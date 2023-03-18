@@ -8,6 +8,14 @@ const Div = styled.div`
   margin: 1px;
 `;
 
+const RedDiv = styled.div`
+  background-color: red;
+  border: 1px solid black;
+  height: 20px;
+  width: 20px;
+  margin: 1px;
+`;
+
 const ContainerDiv = styled.div`
   display: grid;
   justify-content: center;
@@ -22,74 +30,34 @@ const RightAlignText = styled.p`
 const SmallContainer = styled.div`
   width: 240px;
 `;
+const date = new Date();
+const heatmap = [];
+const lengthOfHeatmap = 140;
 
-const heatmap = [
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-];
-const monthLength = [30, 27, 30, 29, 30, 29, 30, 29, 30, 30, 29, 30];
-const lengthOfHeatmap = 70;
+for (let day = 0; day < lengthOfHeatmap; day++) {
+  const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
+  heatmap.unshift(new Date(date - dayInMilliseconds));
+}
+
 export default function Heatmap({ data }) {
-  const date = new Date();
-  getAllVisibleData();
-
-  function subDate(count, newDate) {
-    count -= newDate.minDate;
-    console.log(count);
-    if (count < 0) {
-      newDate.minDate = -count;
-      count = 0;
-    } else {
-      newDate.minDate = monthLength[newDate.minMonth];
-      newDate.minMonth--;
-      if (newDate.minMonth === -1) {
-        newDate.minMonth = 11;
-        newDate.minYear--;
-      }
-    }
-    return { count, newDate };
-  }
-
-  function getNewDate(maxYear, maxMonth, maxDate) {
-    let count = lengthOfHeatmap;
-    let newDate = { minYear: maxYear, minMonth: maxMonth, minDate: maxDate };
-    let newObject = {};
-    for (let i = 0; i < lengthOfHeatmap; i++) {
-      newObject = subDate(count, newDate);
-      count = newObject.count;
-      newDate = newObject.newDate;
-      console.log(count, maxYear, maxMonth, maxDate, newDate);
-      if (count <= 0) {
-        return newDate;
-      }
-    }
-  }
-  function getAllVisibleData() {
-    const visibleData = [];
-    const maxYear = date.getFullYear();
-    const maxMonth = date.getMonth();
-    const maxDate = date.getDate();
-    const newDate = getNewDate(maxYear, maxMonth, maxDate);
-
-    const minYear = newDate.minYear;
-    const minMonth = newDate.minMonth;
-    const minDate = newDate.minDate;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].year >= minYear && data[i].year <= maxYear) {
-        visibleData.push(data[i]);
-      }
-    }
-    console.log(visibleData);
-  }
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - lengthOfHeatmap);
+  const lastXDays = data?.filter((date) => date.date >= startDate);
   return (
     <>
       <SmallContainer>
         <ContainerDiv>
-          {heatmap.map((dat, index) => {
+          {heatmap.map((dat) => {
             return (
               <div key={uid()}>
-                <Div className="red">{index}</Div>
+                {lastXDays.some(
+                  (lastDay) =>
+                    dat.toDateString() === lastDay.date.toDateString()
+                ) ? (
+                  <RedDiv>{dat.getDate()}</RedDiv>
+                ) : (
+                  <Div>{dat.getDate()}</Div>
+                )}
               </div>
             );
           })}

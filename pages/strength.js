@@ -1,6 +1,18 @@
 import Heatmap from "../components/Heatmap";
-const data = [{ year: 2023, month: 2, date: 15 }];
+import { useState } from "react";
+
+const date = new Date();
+const dayInMilliseconds = 24 * 60 * 60 * 1000;
+const startingData = [];
+for (let day = 0; day < 100; day++) {
+  const randomNumber = day * Math.random() * 100;
+  startingData.push({
+    date: new Date(date - randomNumber * dayInMilliseconds),
+  });
+}
+
 export default function Strength() {
+  const [data, setData] = useState(startingData);
   const weekday = [
     "Sunday",
     "Monday",
@@ -11,35 +23,20 @@ export default function Strength() {
     "Saturday",
   ];
 
-  const date = new Date();
   let day = weekday[date.getDay()];
 
   function handleSubmit(event) {
     event.preventDefault();
     const save = {
-      date: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear(),
+      date: date,
       reps: event.target.elements.reps.value,
       sets: event.target.elements.sets.value,
       kilos: event.target.elements.kilos.value,
     };
-    pushIntoData(save);
-  }
 
-  function pushIntoData(objectToPush) {
-    const doublePostIndex = data.findIndex(
-      (dat) =>
-        dat.date === objectToPush.date &&
-        dat.month === objectToPush.month &&
-        dat.year === objectToPush.year
-    );
-    if (doublePostIndex > -1) {
-      data.splice(doublePostIndex, 1);
-      data.push(objectToPush);
-    } else {
-      data.push(objectToPush);
-    }
+    const newData = data.slice();
+    newData.push(save);
+    setData(newData);
   }
 
   return (
