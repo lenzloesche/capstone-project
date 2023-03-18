@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { uid } from "uid";
 import { useState } from "react";
+import { useEffect } from "react";
 const Div = styled.div`
   background-color: white;
   border: 1px solid black;
@@ -37,6 +38,7 @@ let dateSelectedStart = undefined;
 
 export default function Heatmap({ data, setData }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
+
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
@@ -44,9 +46,17 @@ export default function Heatmap({ data, setData }) {
   function handleClick(event, dat) {
     setDateSelected(dat);
   }
-  const selectedData = data
+  let selectedData = data
     .filter((dat) => dat.date.toDateString() === dateSelected?.toDateString())
     .slice();
+  const [editField, setEditField] = useState([]);
+
+  useEffect(() => {
+    selectedData = data
+      .filter((dat) => dat.date.toDateString() === dateSelected?.toDateString())
+      .slice();
+    setEditField(selectedData.slice());
+  }, [data]);
 
   function handleDeleteClick(event, date) {
     const indexToDelete = data.findIndex((dat) => {
@@ -58,6 +68,23 @@ export default function Heatmap({ data, setData }) {
       setData(newData);
     }
   }
+
+  function handleEditClick(event, date) {
+    event.preventDefault();
+    const indexToChange = data.findIndex((dat) => {
+      return dat.date.toString() === date.toString();
+    });
+    if (indexToChange != -1) {
+      const newData = data.slice();
+      newData[indexToChange].exercise = event.target.elements.exercise.value;
+      newData[indexToChange].reps = event.target.elements.reps.value;
+      newData[indexToChange].sets = event.target.elements.sets.value;
+      newData[indexToChange].kilos = event.target.elements.kilos.value;
+
+      setData(newData);
+    }
+  }
+
   return (
     <>
       <ContainerDiv>
@@ -82,23 +109,69 @@ export default function Heatmap({ data, setData }) {
           : "Select a Date"}
       </p>
       <br />
-      {selectedData.map((selectedDat) => {
+      {selectedData.map((selectedDat, index) => {
         return (
-          <p key={uid()}>
-            {selectedDat ? "Exercise: " + selectedDat?.exercise : ""}
+          <form
+            key={uid()}
+            onSubmit={(event) => {
+              handleEditClick(event, selectedDat.date);
+            }}
+          >
+            <label htmlFor="exercise">
+              Exercise:
+              <input
+                id="exercise"
+                type="text"
+                value={editField[index]?.exercise}
+                onChange={(event) => {
+                  const newEditField = [...editField];
+                  console.log(index, newEditField);
+                  if (newEditField[index]) {
+                    newEditField[index].exercise = event.target.value;
+                    setEditField(newEditField);
+                  }
+                }}
+                required
+              ></input>
+            </label>
             <br />
-            {selectedDat ? "Reps: " + selectedDat?.reps : ""}
+            <label htmlFor="reps">
+              Reps:
+              <input
+                id="reps"
+                type="number"
+                value={selectedDat?.reps}
+                required
+              ></input>
+            </label>
             <br />
-            {selectedDat ? "Sets: " + selectedDat?.sets : ""}
+            <label htmlFor="sets">
+              Sets:
+              <input
+                id="sets"
+                type="number"
+                value={selectedDat?.sets}
+                required
+              ></input>
+            </label>
             <br />
-            {selectedDat ? "Kilograms: " + selectedDat?.kilos : ""}
+            <label htmlFor="kilos">
+              Kilograms:
+              <input
+                id="kilos"
+                type="number"
+                value={selectedDat?.kilos}
+                required
+              ></input>
+            </label>
             <br />
             <button
               onClick={(event) => handleDeleteClick(event, selectedDat.date)}
             >
               Delete
             </button>
-          </p>
+            <button type="submit">Save Edit</button>
+          </form>
         );
       })}
     </>
