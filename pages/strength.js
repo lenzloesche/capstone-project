@@ -1,5 +1,5 @@
 import Heatmap from "../components/Heatmap";
-const data = [];
+const data = [{ year: 2023, month: 2, date: 15 }];
 export default function Strength() {
   const weekday = [
     "Sunday",
