@@ -38,7 +38,7 @@ let dateSelectedStart = undefined;
 
 export default function Heatmap({ data, setData }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
-
+  const [editField, setEditField] = useState([{ exercise: "a" }]);
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
@@ -49,14 +49,6 @@ export default function Heatmap({ data, setData }) {
   let selectedData = data
     .filter((dat) => dat.date.toDateString() === dateSelected?.toDateString())
     .slice();
-  const [editField, setEditField] = useState([]);
-
-  useEffect(() => {
-    selectedData = data
-      .filter((dat) => dat.date.toDateString() === dateSelected?.toDateString())
-      .slice();
-    setEditField(selectedData.slice());
-  }, [data]);
 
   function handleDeleteClick(event, date) {
     const indexToDelete = data.findIndex((dat) => {
@@ -83,6 +75,13 @@ export default function Heatmap({ data, setData }) {
 
       setData(newData);
     }
+  }
+  function handleChange(event, index, type) {
+    const newEditField = [...editField];
+    newEditField[index][type] = event.target.value;
+    setEditField(newEditField);
+    event.target.focus();
+    console.log(index, newEditField);
   }
 
   return (
@@ -124,12 +123,7 @@ export default function Heatmap({ data, setData }) {
                 type="text"
                 value={editField[index]?.exercise}
                 onChange={(event) => {
-                  const newEditField = [...editField];
-                  console.log(index, newEditField);
-                  if (newEditField[index]) {
-                    newEditField[index].exercise = event.target.value;
-                    setEditField(newEditField);
-                  }
+                  handleChange(event, index, "exercise");
                 }}
                 required
               ></input>
@@ -140,7 +134,10 @@ export default function Heatmap({ data, setData }) {
               <input
                 id="reps"
                 type="number"
-                value={selectedDat?.reps}
+                value={editField[index]?.reps}
+                onChange={(event) => {
+                  handleChange(event, index, "reps");
+                }}
                 required
               ></input>
             </label>
@@ -150,7 +147,10 @@ export default function Heatmap({ data, setData }) {
               <input
                 id="sets"
                 type="number"
-                value={selectedDat?.sets}
+                value={editField[index]?.sets}
+                onChange={(event) => {
+                  handleChange(event, index, "sets");
+                }}
                 required
               ></input>
             </label>
@@ -160,7 +160,10 @@ export default function Heatmap({ data, setData }) {
               <input
                 id="kilos"
                 type="number"
-                value={selectedDat?.kilos}
+                value={editField[index]?.kilos}
+                onChange={(event) => {
+                  handleChange(event, index, "kilos");
+                }}
                 required
               ></input>
             </label>
@@ -170,7 +173,7 @@ export default function Heatmap({ data, setData }) {
             >
               Delete
             </button>
-            <button type="submit">Save Edit</button>
+            <button type="submit"> Edit</button>
           </form>
         );
       })}
