@@ -36,7 +36,7 @@ for (let day = 0; day < lengthOfHeatmap; day++) {
 
 let dateSelectedStart = undefined;
 
-export default function Heatmap({ data, setData }) {
+export default function Heatmap({ data, setData, editMode, setEditMode }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const [editField, setEditField] = useState([{ exercise: "a" }]);
   const startDate = new Date();
@@ -62,7 +62,9 @@ export default function Heatmap({ data, setData }) {
   }
 
   function handleEditClick(event, date) {
-    event.preventDefault();
+    const newEditMode = { editModeOn: true, date: date };
+    setEditMode(newEditMode);
+    /* event.preventDefault();
     const indexToChange = data.findIndex((dat) => {
       return dat.date.toString() === date.toString();
     });
@@ -74,7 +76,7 @@ export default function Heatmap({ data, setData }) {
       newData[indexToChange].kilos = event.target.elements.kilos.value;
 
       setData(newData);
-    }
+    } */
   }
   function handleChange(event, index, type) {
     const newEditField = [...editField];
@@ -110,71 +112,27 @@ export default function Heatmap({ data, setData }) {
       <br />
       {selectedData.map((selectedDat, index) => {
         return (
-          <form
-            key={uid()}
-            onSubmit={(event) => {
-              handleEditClick(event, selectedDat.date);
-            }}
-          >
-            <label htmlFor="exercise">
-              Exercise:
-              <input
-                id="exercise"
-                type="text"
-                value={editField[index]?.exercise}
-                onChange={(event) => {
-                  handleChange(event, index, "exercise");
-                }}
-                required
-              ></input>
-            </label>
+          <p key={uid()}>
+            Exercise: {selectedDat.exercise}
             <br />
-            <label htmlFor="reps">
-              Reps:
-              <input
-                id="reps"
-                type="number"
-                value={editField[index]?.reps}
-                onChange={(event) => {
-                  handleChange(event, index, "reps");
-                }}
-                required
-              ></input>
-            </label>
+            Reps: {selectedDat.reps}
             <br />
-            <label htmlFor="sets">
-              Sets:
-              <input
-                id="sets"
-                type="number"
-                value={editField[index]?.sets}
-                onChange={(event) => {
-                  handleChange(event, index, "sets");
-                }}
-                required
-              ></input>
-            </label>
+            Sets: {selectedDat.sets}
             <br />
-            <label htmlFor="kilos">
-              Kilograms:
-              <input
-                id="kilos"
-                type="number"
-                value={editField[index]?.kilos}
-                onChange={(event) => {
-                  handleChange(event, index, "kilos");
-                }}
-                required
-              ></input>
-            </label>
+            Kilograms: {selectedDat.kilos}
             <br />
             <button
               onClick={(event) => handleDeleteClick(event, selectedDat.date)}
             >
               Delete
             </button>
-            <button type="submit"> Edit</button>
-          </form>
+            <button
+              onClick={(event) => handleEditClick(event, selectedDat.date)}
+            >
+              {" "}
+              Edit
+            </button>
+          </p>
         );
       })}
     </>

@@ -6,6 +6,8 @@ const startingData = [];
 
 export default function Strength() {
   const [data, setData] = useState(startingData);
+  const [editMode, setEditMode] = useState({ editModeOn: false, date: date });
+  const [inputText, setInputText] = useState(["", "", "", ""]);
   const weekday = [
     "Sunday",
     "Monday",
@@ -20,24 +22,51 @@ export default function Strength() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    date = new Date();
-    const save = {
-      date: date,
-      reps: event.target.elements.reps.value,
-      sets: event.target.elements.sets.value,
-      kilos: event.target.elements.kilos.value,
-      exercise: event.target.elements.exercise.value,
-    };
-
-    const newData = data.slice();
-    newData.push(save);
-    setData(newData);
+    console.log(editMode.editModeOn);
+    if (editMode.editModeOn) {
+      date = editMode.date;
+      const save = {
+        date: date,
+        reps: event.target.elements.reps.value,
+        sets: event.target.elements.sets.value,
+        kilos: event.target.elements.kilos.value,
+        exercise: event.target.elements.exercise.value,
+      };
+      const newData = data.slice();
+      const indexToChange = newData.findIndex((dat) => {
+        return dat.date.toString() === editMode.date.toString();
+      });
+      console.log(indexToChange);
+      newData[indexToChange] = save;
+      setData(newData);
+      editMode.editModeOn = false;
+    } else {
+      date = new Date();
+      const save = {
+        date: date,
+        reps: event.target.elements.reps.value,
+        sets: event.target.elements.sets.value,
+        kilos: event.target.elements.kilos.value,
+        exercise: event.target.elements.exercise.value,
+      };
+      const newData = data.slice();
+      newData.push(save);
+      setData(newData);
+    }
   }
-
+  function handleCancelClick() {
+    const newEditMode = { ...editMode };
+    newEditMode.editModeOn = false;
+    setEditMode(newEditMode);
+  }
   return (
     <>
       <h1>Yet Another Fitness App</h1>
-      <p>Today is {day}</p>
+      <p>
+        {!editMode.editModeOn
+          ? "Today is " + day
+          : "Editing for " + editMode.date.toString()}
+      </p>
       <form
         onSubmit={(event) => {
           handleSubmit(event);
@@ -64,8 +93,24 @@ export default function Strength() {
         </label>
         <br />
         <button type="submit">Done</button>
+        {editMode.editModeOn ? (
+          <button
+            onClick={() => {
+              handleCancelClick();
+            }}
+          >
+            Cancel
+          </button>
+        ) : (
+          ""
+        )}
       </form>
-      <Heatmap data={data} setData={setData} />
+      <Heatmap
+        data={data}
+        setData={setData}
+        editMode={editMode}
+        setEditMode={setEditMode}
+      />
     </>
   );
 }
