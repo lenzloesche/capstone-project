@@ -105,6 +105,10 @@ export default function Heatmap({
       }
       return <RedDiv></RedDiv>;
     }
+    if (dateSelected === dat) {
+      return <DivSelected>{dat.getDate()}</DivSelected>;
+    }
+    return <Div></Div>;
   }
   return (
     <>
