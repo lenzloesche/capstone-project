@@ -195,7 +195,12 @@ export default function Calendar() {
       <p>
         {!editMode.editModeOn
           ? "Did you workout today? It's " + day
-          : "Editing for " + editMode.selectedData.date.toString()}
+          : "Editing for: " +
+            (editMode.selectedData.date.getMonth() + 1).toString() +
+            "/" +
+            editMode.selectedData.date.getDate().toString() +
+            "/" +
+            editMode.selectedData.date.getFullYear().toString()}
       </p>
       {sportSelected === "strength" ? (
         <StrengthForm

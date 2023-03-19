@@ -126,7 +126,12 @@ export default function Heatmap({
 
       <p>
         {dateSelected
-          ? "Date Selected:" + dateSelected.toString()
+          ? "Date Selected: " +
+            (dateSelected.getMonth() + 1).toString() +
+            "/" +
+            dateSelected.getDate().toString() +
+            "/" +
+            dateSelected.getFullYear().toString()
           : "Select a Date"}
       </p>
       {dateSelected ? (
