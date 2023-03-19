@@ -1,29 +1,8 @@
-import styled from "styled-components";
 import { uid } from "uid";
 import { useState } from "react";
-import { useEffect } from "react";
-const Div = styled.div`
-  background-color: white;
-  border: 1px solid black;
-  height: 30px;
-  width: 30px;
-  margin: 1px;
-`;
-
-const RedDiv = styled.div`
-  background-color: red;
-  border: 1px solid black;
-  height: 30px;
-  width: 30px;
-  margin: 1px;
-`;
-
-const ContainerDiv = styled.div`
-  display: grid;
-  justify-content: center;
-  grid-template-rows: repeat(7, 1fr);
-  grid-auto-flow: column;
-`;
+import ContainerDiv from "../ContainerDiv";
+import Div from "../Div";
+import RedDiv from "../RedDiv";
 
 const date = new Date();
 const heatmap = [];
