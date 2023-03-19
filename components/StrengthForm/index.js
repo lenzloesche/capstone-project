@@ -17,7 +17,7 @@ export default function StrengthForm({
       }}
     >
       <Label htmlFor="exercise">Which exercise?</Label>
-      <br />
+
       <Input
         id="exercise"
         type="text"
@@ -26,9 +26,8 @@ export default function StrengthForm({
         required
       ></Input>
 
-      <br />
       <Label htmlFor="kilos">How many kilograms?</Label>
-      <br />
+
       <Input
         id="kilos"
         type="number"
@@ -37,9 +36,8 @@ export default function StrengthForm({
         required
       ></Input>
 
-      <br />
       <Label htmlFor="reps">How many reps?</Label>
-      <br />
+
       <Input
         id="reps"
         type="number"
@@ -48,9 +46,8 @@ export default function StrengthForm({
         required
       ></Input>
 
-      <br />
       <Label htmlFor="sets">How many sets?</Label>
-      <br />
+
       <Input
         id="sets"
         type="number"
@@ -59,7 +56,6 @@ export default function StrengthForm({
         required
       ></Input>
 
-      <br />
       <StyledButton type="submit">Save</StyledButton>
       {editMode.editModeOn ? (
         <StyledButton

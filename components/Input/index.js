@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 const StyledInput = styled.input`
   font-size: 18px;
-  border: 1px solid lightgrey;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin: 5px;
 `;
 
 export default function Input({ id, type, value, onChange, required }) {

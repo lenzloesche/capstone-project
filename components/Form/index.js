@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 const StyledForm = styled.form`
   width: 100%;
-  diplay: flex;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

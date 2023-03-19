@@ -1,6 +1,7 @@
 import Heatmap from "../components/Heatmap";
 import { useEffect, useState } from "react";
 import StrengthForm from "../components/StrengthForm";
+import StrengthContainer from "../components/StrengthContainer";
 
 let date = new Date();
 let startingData = [];
@@ -111,11 +112,11 @@ export default function Strength() {
   }
 
   return (
-    <>
+    <StrengthContainer>
       <h1>Yet Another Fitness App</h1>
       <p>
         {!editMode.editModeOn
-          ? "Today is " + day
+          ? "Did you workout today? It's " + day
           : "Editing for " + editMode.selectedData.date.toString()}
       </p>
       <StrengthForm
@@ -133,6 +134,6 @@ export default function Strength() {
         setEditMode={setEditMode}
         addNewEntry={addNewEntry}
       />
-    </>
+    </StrengthContainer>
   );
 }
