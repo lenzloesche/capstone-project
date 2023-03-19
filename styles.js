@@ -22,4 +22,7 @@ export default createGlobalStyle`
   .light-border{
     border:1px solid grey;
   }
+  .big-text{
+    font-weight: bold;
+  }
 `;

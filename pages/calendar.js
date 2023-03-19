@@ -127,19 +127,36 @@ export default function Calendar() {
   function clearForm() {
     const newEditMode = {
       editModeOn: false,
-      selectedData: { exercise: "", kilos: "", reps: "", sets: "" },
+      selectedData: {
+        exercise: "",
+        kilos: "",
+        reps: "",
+        sets: "",
+        kiloms: "",
+        mins: "",
+      },
     };
     newEditMode.editModeOn = false;
     setEditMode(newEditMode);
   }
 
   useEffect(() => {
-    const newInputText = [
-      editMode.selectedData.exercise,
-      editMode.selectedData.kilos,
-      editMode.selectedData.reps,
-      editMode.selectedData.sets,
-    ];
+    let newInputText = [];
+    if (sportSelected === "strength") {
+      newInputText = [
+        editMode.selectedData.exercise,
+        editMode.selectedData.kilos,
+        editMode.selectedData.reps,
+        editMode.selectedData.sets,
+      ];
+    } else {
+      newInputText = [
+        editMode.selectedData.exercise,
+        editMode.selectedData.kiloms,
+        editMode.selectedData.mins,
+      ];
+    }
+
     setInputText(newInputText);
   }, [editMode]);
 
@@ -196,19 +213,25 @@ export default function Calendar() {
           height="100"
         ></Image>
       </ImageContainer>
-      <p>
-        {!editMode.editModeOn
-          ? "It's " +
-            day +
-            `. Did you ${
-              sportSelected === "running" ? "run" : "workout"
-            } today?`
-          : "Editing for: " +
-            (editMode.selectedData.date.getMonth() + 1).toString() +
-            "/" +
-            editMode.selectedData.date.getDate().toString() +
-            "/" +
-            editMode.selectedData.date.getFullYear().toString()}
+      <p className="big-text">
+        {!editMode.editModeOn ? (
+          <>
+            {"New Entry:"}
+            <br />
+            {"It's " +
+              day +
+              `. Did you ${
+                sportSelected === "running" ? "run" : "workout"
+              } today?`}
+          </>
+        ) : (
+          "Editing for: " +
+          (editMode.selectedData.date.getMonth() + 1).toString() +
+          "/" +
+          editMode.selectedData.date.getDate().toString() +
+          "/" +
+          editMode.selectedData.date.getFullYear().toString()
+        )}
       </p>
       {sportSelected === "strength" ? (
         <StrengthForm
