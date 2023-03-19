@@ -11,4 +11,7 @@ export default createGlobalStyle`
     font-family: system-ui;
     font-size:18px;
   }
+  .border{
+    border:4px solid black
+  }
 `;

@@ -3,9 +3,13 @@ import { useState } from "react";
 import ContainerDiv from "../ContainerDiv";
 import Div from "../Div";
 import RedDiv from "../RedDiv";
-import RedDivSelected from "../RedDiSelected";
+import RedDivSelected from "../RedDivSelected";
 import DivSelected from "../DivSelected";
 import StyledButton from "../StyledButton";
+import GreenDiv from "../GreenDiv";
+import GreenDivSelected from "../GreenDivSelected";
+import BlueDiv from "../BlueDiv";
+import BlueDivSelected from "../BlueDivSelected";
 
 const date = new Date();
 const heatmap = [];
@@ -64,31 +68,51 @@ export default function Heatmap({
     setEditMode(newEditMode);
   }
 
+  function PaintDiv(dat, heatmapPosition) {
+    const allEntries = lastXDays.filter(
+      (lastDay) =>
+        heatmap[heatmapPosition].toDateString() === lastDay.date.toDateString()
+    );
+    if (allEntries.length === 0) {
+      if (dateSelected === dat) {
+        return <DivSelected>{dat.getDate()}</DivSelected>;
+      }
+      return <Div></Div>;
+    }
+
+    const filterRunning = allEntries.find((entry) => {
+      return entry.sportSelected === "running";
+    });
+    const filterStrength = allEntries.find((entry) => {
+      return entry.sportSelected === "strength";
+    });
+
+    if (filterRunning && filterStrength) {
+      if (dateSelected === dat) {
+        return <GreenDivSelected>{dat.getDate()}</GreenDivSelected>;
+      }
+      return <GreenDiv></GreenDiv>;
+    }
+    if (filterRunning) {
+      if (dateSelected === dat) {
+        return <BlueDivSelected>{dat.getDate()}</BlueDivSelected>;
+      }
+      return <BlueDiv></BlueDiv>;
+    }
+    if (filterStrength) {
+      if (dateSelected === dat) {
+        return <RedDivSelected>{dat.getDate()}</RedDivSelected>;
+      }
+      return <RedDiv></RedDiv>;
+    }
+  }
   return (
     <>
       <ContainerDiv>
-        {heatmap.map((dat) => {
+        {heatmap.map((dat, index) => {
           return (
             <div key={dat} onClick={(event) => handleClick(event, dat)}>
-              {lastXDays.some(
-                (lastDay) => dat.toDateString() === lastDay.date.toDateString()
-              ) ? (
-                <>
-                  {dateSelected === dat ? (
-                    <RedDivSelected>{dat.getDate()}</RedDivSelected>
-                  ) : (
-                    <RedDiv></RedDiv>
-                  )}
-                </>
-              ) : (
-                <>
-                  {dateSelected === dat ? (
-                    <DivSelected>{dat.getDate()}</DivSelected>
-                  ) : (
-                    <Div></Div>
-                  )}
-                </>
-              )}
+              {PaintDiv(dat, index)}
             </div>
           );
         })}
@@ -109,14 +133,29 @@ export default function Heatmap({
       {selectedData.map((selectedDat, index) => {
         return (
           <p key={uid()}>
-            Exercise: {selectedDat.exercise}
+            Type: {selectedDat.sportSelected}
             <br />
-            Reps: {selectedDat.reps}
-            <br />
-            Sets: {selectedDat.sets}
-            <br />
-            Kilograms: {selectedDat.kilos}
-            <br />
+            {selectedDat.sportSelected === "strength" ? (
+              <>
+                Exercise: {selectedDat.exercise}
+                <br />
+                Reps: {selectedDat.reps}
+                <br />
+                Sets: {selectedDat.sets}
+                <br />
+                Kilograms: {selectedDat.kilos}
+                <br />
+              </>
+            ) : (
+              <>
+                Exercise: {selectedDat.exercise}
+                <br />
+                Kilometers: {selectedDat.kiloms}
+                <br />
+                Minutes: {selectedDat.mins}
+                <br />
+              </>
+            )}
             <StyledButton
               onClick={(event) => handleDeleteClick(event, selectedDat.date)}
             >
