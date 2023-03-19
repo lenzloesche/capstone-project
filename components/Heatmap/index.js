@@ -66,6 +66,8 @@ export default function Heatmap({ data, setData, editMode, setEditMode }) {
     setEditMode(newEditMode);
   }
 
+  function handleNewEntryClick() {}
+
   return (
     <>
       <ContainerDiv>
@@ -89,7 +91,7 @@ export default function Heatmap({ data, setData, editMode, setEditMode }) {
           ? "Date Selected:" + dateSelected.toString()
           : "Select a Date"}
       </p>
-      <br />
+      <button onClick={handleNewEntryClick}>New Entry</button>
       {selectedData.map((selectedDat, index) => {
         return (
           <p key={uid()}>
