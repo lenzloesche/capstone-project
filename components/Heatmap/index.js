@@ -14,7 +14,7 @@ import BlueDivSelected from "../BlueDivSelected";
 const date = new Date();
 const heatmap = [];
 const lengthOfHeatmap = 70;
-
+//input
 for (let day = 0; day < lengthOfHeatmap; day++) {
   const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
   heatmap.unshift(new Date(date - dayInMilliseconds));
