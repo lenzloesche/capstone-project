@@ -4,6 +4,6 @@ const RedDivSelected = styled.div`
   border: 4px solid black;
   height: 30px;
   width: 30px;
-  margin: 1px;
+  margin: 0;
 `;
 export default RedDivSelected;

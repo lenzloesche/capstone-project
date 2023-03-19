@@ -1,4 +1,9 @@
-export default function Form({
+import Input from "../Input";
+import Label from "../Label";
+import Form from "../Form";
+import StyledButton from "../StyledButton";
+
+export default function StrengthForm({
   handleSubmit,
   handleCancelClick,
   handleChange,
@@ -6,67 +11,67 @@ export default function Form({
   inputText,
 }) {
   return (
-    <form
+    <Form
       onSubmit={(event) => {
         handleSubmit(event);
       }}
     >
-      <label htmlFor="exercise">
-        Which exercise?
-        <input
-          id="exercise"
-          type="text"
-          value={inputText[0]}
-          onChange={(event) => handleChange(event, 0)}
-          required
-        ></input>
-      </label>
+      <Label htmlFor="exercise">Which exercise?</Label>
       <br />
-      <label htmlFor="kilos">
-        How many kilograms?
-        <input
-          id="kilos"
-          type="number"
-          value={inputText[1]}
-          onChange={(event) => handleChange(event, 1)}
-          required
-        ></input>
-      </label>
+      <Input
+        id="exercise"
+        type="text"
+        value={inputText[0]}
+        onChange={(event) => handleChange(event, 0)}
+        required
+      ></Input>
+
       <br />
-      <label htmlFor="reps">
-        How many reps?
-        <input
-          id="reps"
-          type="number"
-          value={inputText[2]}
-          onChange={(event) => handleChange(event, 2)}
-          required
-        ></input>
-      </label>
+      <Label htmlFor="kilos">How many kilograms?</Label>
       <br />
-      <label htmlFor="sets">
-        How many sets?
-        <input
-          id="sets"
-          type="number"
-          value={inputText[3]}
-          onChange={(event) => handleChange(event, 3)}
-          required
-        ></input>
-      </label>
+      <Input
+        id="kilos"
+        type="number"
+        value={inputText[1]}
+        onChange={(event) => handleChange(event, 1)}
+        required
+      ></Input>
+
       <br />
-      <button type="submit">Save</button>
+      <Label htmlFor="reps">How many reps?</Label>
+      <br />
+      <Input
+        id="reps"
+        type="number"
+        value={inputText[2]}
+        onChange={(event) => handleChange(event, 2)}
+        required
+      ></Input>
+
+      <br />
+      <Label htmlFor="sets">How many sets?</Label>
+      <br />
+      <Input
+        id="sets"
+        type="number"
+        value={inputText[3]}
+        onChange={(event) => handleChange(event, 3)}
+        required
+      ></Input>
+
+      <br />
+      <StyledButton type="submit">Save</StyledButton>
       {editMode.editModeOn ? (
-        <button
+        <StyledButton
           onClick={(event) => {
             handleCancelClick(event);
           }}
         >
           Cancel
-        </button>
+        </StyledButton>
       ) : (
         ""
       )}
-    </form>
+    </Form>
   );
 }

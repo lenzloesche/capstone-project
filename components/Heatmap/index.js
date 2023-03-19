@@ -5,6 +5,7 @@ import Div from "../Div";
 import RedDiv from "../RedDiv";
 import RedDivSelected from "../RedDiSelected";
 import DivSelected from "../DivSelected";
+import StyledButton from "../StyledButton";
 
 const date = new Date();
 const heatmap = [];
@@ -36,9 +37,6 @@ export default function Heatmap({
   let selectedData = data
     ?.filter((dat) => dat.date?.toDateString() === dateSelected?.toDateString())
     .slice();
-  /* let selectedData = data
-    ?.filter((dat) => dat.date?.toDateString() === dateSelected?.toDateString())
-    .slice(); */
 
   function handleDeleteClick(event, date) {
     const indexToDelete = data.findIndex((dat) => {
@@ -57,7 +55,6 @@ export default function Heatmap({
   }
 
   function handleNewEntryClick(event, selectedDat) {
-    console.log(selectedDat);
     addNewEntry(selectedDat, "", "", "", "");
 
     const newEditMode = {
@@ -80,7 +77,7 @@ export default function Heatmap({
                   {dateSelected === dat ? (
                     <RedDivSelected>{dat.getDate()}</RedDivSelected>
                   ) : (
-                    <RedDiv>{dat.getDate()}</RedDiv>
+                    <RedDiv></RedDiv>
                   )}
                 </>
               ) : (
@@ -88,7 +85,7 @@ export default function Heatmap({
                   {dateSelected === dat ? (
                     <DivSelected>{dat.getDate()}</DivSelected>
                   ) : (
-                    <Div>{dat.getDate()}</Div>
+                    <Div></Div>
                   )}
                 </>
               )}
@@ -102,13 +99,13 @@ export default function Heatmap({
           ? "Date Selected:" + dateSelected.toString()
           : "Select a Date"}
       </p>
-      <button
+      <StyledButton
         onClick={(event) => {
           handleNewEntryClick(event, dateSelected);
         }}
       >
-        New Entry
-      </button>
+        New
+      </StyledButton>
       {selectedData.map((selectedDat, index) => {
         return (
           <p key={uid()}>
@@ -120,15 +117,17 @@ export default function Heatmap({
             <br />
             Kilograms: {selectedDat.kilos}
             <br />
-            <button
+            <StyledButton
               onClick={(event) => handleDeleteClick(event, selectedDat.date)}
             >
               Delete
-            </button>
-            <button onClick={(event) => handleEditClick(event, selectedDat)}>
+            </StyledButton>
+            <StyledButton
+              onClick={(event) => handleEditClick(event, selectedDat)}
+            >
               {" "}
               Edit
-            </button>
+            </StyledButton>
           </p>
         );
       })}

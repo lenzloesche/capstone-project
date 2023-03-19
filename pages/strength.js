@@ -1,28 +1,13 @@
 import Heatmap from "../components/Heatmap";
 import { useEffect, useState } from "react";
 import StrengthForm from "../components/StrengthForm";
-import useLocalStorageState from "use-local-storage-state";
 
 let date = new Date();
 let startingData = [];
 
-/* if (typeof window !== "undefined") {
-  const savedData = JSON.parse(localStorage.getItem("strength-data"));
-  if (savedData) {
-    for (let i = 0; i < savedData.length; i++) {
-      savedData[i].date = new Date(savedData[i].date);
-    }
-    //setData(savedData || startingData);
-    startingData = savedData;
-  } else {
-    startingData = [];
-  }
-} */
 export default function Strength() {
   const [data, setData] = useState(startingData);
-  /*  const [data, setData] = useLocalStorageState("strength-data", {
-    defaultValue: [...startingData],
-  }); */
+
   const [editMode, setEditMode] = useState({
     editModeOn: false,
     selectedData: "",
@@ -79,22 +64,10 @@ export default function Strength() {
         event.target.elements.kilos.value,
         event.target.elements.exercise.value
       );
-      /* date = new Date();
-      const save = {
-        date: date,
-        reps: event.target.elements.reps.value,
-        sets: event.target.elements.sets.value,
-        kilos: event.target.elements.kilos.value,
-        exercise: event.target.elements.exercise.value,
-      };
-      const newData = data.slice();
-      newData.push(save);
-      setData(newData); */
     }
     clearForm();
   }
   function handleCancelClick(event) {
-    //event.target.parentElement.reset();
     clearForm();
   }
 
@@ -118,7 +91,6 @@ export default function Strength() {
   }, [editMode]);
 
   useEffect(() => {
-    console.log("data", data);
     if (data.length !== 0) {
       localStorage.setItem("strength-data", JSON.stringify(data));
     }
