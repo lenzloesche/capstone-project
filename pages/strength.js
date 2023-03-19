@@ -1,12 +1,28 @@
 import Heatmap from "../components/Heatmap";
 import { useEffect, useState } from "react";
 import StrengthForm from "../components/StrengthForm";
+import useLocalStorageState from "use-local-storage-state";
 
 let date = new Date();
-const startingData = [];
+let startingData = [];
 
+/* if (typeof window !== "undefined") {
+  const savedData = JSON.parse(localStorage.getItem("strength-data"));
+  if (savedData) {
+    for (let i = 0; i < savedData.length; i++) {
+      savedData[i].date = new Date(savedData[i].date);
+    }
+    //setData(savedData || startingData);
+    startingData = savedData;
+  } else {
+    startingData = [];
+  }
+} */
 export default function Strength() {
   const [data, setData] = useState(startingData);
+  /*  const [data, setData] = useLocalStorageState("strength-data", {
+    defaultValue: [...startingData],
+  }); */
   const [editMode, setEditMode] = useState({
     editModeOn: false,
     selectedData: "",
@@ -21,7 +37,6 @@ export default function Strength() {
     "Friday",
     "Saturday",
   ];
-
   let day = weekday[date.getDay()];
 
   function addNewEntry(forDate, reps, sets, kilos, exercise) {
@@ -101,6 +116,21 @@ export default function Strength() {
     ];
     setInputText(newInputText);
   }, [editMode]);
+
+  useEffect(() => {
+    console.log("data", data);
+    if (data.length !== 0) {
+      localStorage.setItem("strength-data", JSON.stringify(data));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("strength-data"));
+    for (let i = 0; i < savedData.length; i++) {
+      savedData[i].date = new Date(savedData[i].date);
+    }
+    setData(savedData);
+  }, []);
 
   function handleChange(event, number) {
     const newInputText = [...inputText];

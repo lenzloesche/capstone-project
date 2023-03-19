@@ -34,8 +34,11 @@ export default function Heatmap({
     setDateSelected(dat);
   }
   let selectedData = data
-    .filter((dat) => dat.date.toDateString() === dateSelected?.toDateString())
+    ?.filter((dat) => dat.date?.toDateString() === dateSelected?.toDateString())
     .slice();
+  /* let selectedData = data
+    ?.filter((dat) => dat.date?.toDateString() === dateSelected?.toDateString())
+    .slice(); */
 
   function handleDeleteClick(event, date) {
     const indexToDelete = data.findIndex((dat) => {
