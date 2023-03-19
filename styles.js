@@ -19,5 +19,7 @@ export default createGlobalStyle`
     border:1px solid black;
     background-color:#A3B6E6;
   }
-  
+  .light-border{
+    border:1px solid grey;
+  }
 `;

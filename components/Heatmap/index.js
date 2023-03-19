@@ -58,6 +58,7 @@ export default function Heatmap({
     const newEditMode = { editModeOn: true, selectedData: selectedDate };
     setEditMode(newEditMode);
     setSportSelected(selectedDate.sportSelected);
+    scrollTo(0, 0);
   }
 
   function handleNewEntryClick(event, selectedDat) {
