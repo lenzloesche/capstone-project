@@ -28,6 +28,7 @@ export default function Heatmap({
   editMode,
   setEditMode,
   addNewEntry,
+  setSportSelected,
 }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const [editField, setEditField] = useState([{ exercise: "a" }]);
@@ -56,6 +57,7 @@ export default function Heatmap({
   function handleEditClick(event, selectedDate) {
     const newEditMode = { editModeOn: true, selectedData: selectedDate };
     setEditMode(newEditMode);
+    setSportSelected(selectedDate.sportSelected);
   }
 
   function handleNewEntryClick(event, selectedDat) {

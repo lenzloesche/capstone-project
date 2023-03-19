@@ -226,6 +226,7 @@ export default function Calendar() {
         editMode={editMode}
         setEditMode={setEditMode}
         addNewEntry={addNewEntryStrength}
+        setSportSelected={setSportSelected}
       />
     </StrengthContainer>
   );
