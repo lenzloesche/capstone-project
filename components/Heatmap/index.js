@@ -3,6 +3,8 @@ import { useState } from "react";
 import ContainerDiv from "../ContainerDiv";
 import Div from "../Div";
 import RedDiv from "../RedDiv";
+import RedDivSelected from "../RedDiSelected";
+import DivSelected from "../DivSelected";
 
 const date = new Date();
 const heatmap = [];
@@ -56,9 +58,21 @@ export default function Heatmap({ data, setData, editMode, setEditMode }) {
               {lastXDays.some(
                 (lastDay) => dat.toDateString() === lastDay.date.toDateString()
               ) ? (
-                <RedDiv>{dat.getDate()}</RedDiv>
+                <>
+                  {dateSelected === dat ? (
+                    <RedDivSelected>{dat.getDate()}</RedDivSelected>
+                  ) : (
+                    <RedDiv>{dat.getDate()}</RedDiv>
+                  )}
+                </>
               ) : (
-                <Div>{dat.getDate()}</Div>
+                <>
+                  {dateSelected === dat ? (
+                    <DivSelected>{dat.getDate()}</DivSelected>
+                  ) : (
+                    <Div>{dat.getDate()}</Div>
+                  )}
+                </>
               )}
             </div>
           );
