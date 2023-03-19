@@ -24,6 +24,20 @@ export default function Strength() {
 
   let day = weekday[date.getDay()];
 
+  function addNewEntry(forDate, reps, sets, kilos, exercise) {
+    date = forDate;
+    const save = {
+      date: date,
+      reps: reps,
+      sets: sets,
+      kilos: kilos,
+      exercise: exercise,
+    };
+    const newData = data.slice();
+    newData.push(save);
+    setData(newData);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     if (editMode.editModeOn) {
@@ -43,7 +57,14 @@ export default function Strength() {
       setData(newData);
       editMode.editModeOn = false;
     } else {
-      date = new Date();
+      addNewEntry(
+        new Date(),
+        event.target.elements.reps.value,
+        event.target.elements.sets.value,
+        event.target.elements.kilos.value,
+        event.target.elements.exercise.value
+      );
+      /* date = new Date();
       const save = {
         date: date,
         reps: event.target.elements.reps.value,
@@ -53,13 +74,12 @@ export default function Strength() {
       };
       const newData = data.slice();
       newData.push(save);
-      setData(newData);
+      setData(newData); */
     }
     clearForm();
   }
   function handleCancelClick(event) {
-    console.log(event.target.parentElement);
-    event.target.parentElement.reset();
+    //event.target.parentElement.reset();
     clearForm();
   }
 
@@ -109,6 +129,7 @@ export default function Strength() {
         setData={setData}
         editMode={editMode}
         setEditMode={setEditMode}
+        addNewEntry={addNewEntry}
       />
     </>
   );

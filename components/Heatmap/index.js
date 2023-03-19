@@ -17,7 +17,13 @@ for (let day = 0; day < lengthOfHeatmap; day++) {
 
 let dateSelectedStart = undefined;
 
-export default function Heatmap({ data, setData, editMode, setEditMode }) {
+export default function Heatmap({
+  data,
+  setData,
+  editMode,
+  setEditMode,
+  addNewEntry,
+}) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const [editField, setEditField] = useState([{ exercise: "a" }]);
   const startDate = new Date();
@@ -47,7 +53,16 @@ export default function Heatmap({ data, setData, editMode, setEditMode }) {
     setEditMode(newEditMode);
   }
 
-  function handleNewEntryClick() {}
+  function handleNewEntryClick(event, selectedDat) {
+    console.log(selectedDat);
+    addNewEntry(selectedDat, "", "", "", "");
+
+    const newEditMode = {
+      editModeOn: true,
+      selectedData: { date: selectedDat },
+    };
+    setEditMode(newEditMode);
+  }
 
   return (
     <>
@@ -84,7 +99,13 @@ export default function Heatmap({ data, setData, editMode, setEditMode }) {
           ? "Date Selected:" + dateSelected.toString()
           : "Select a Date"}
       </p>
-      <button onClick={handleNewEntryClick}>New Entry</button>
+      <button
+        onClick={(event) => {
+          handleNewEntryClick(event, dateSelected);
+        }}
+      >
+        New Entry
+      </button>
       {selectedData.map((selectedDat, index) => {
         return (
           <p key={uid()}>
