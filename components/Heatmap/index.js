@@ -59,7 +59,9 @@ export default function Heatmap({
   }
 
   function handleNewEntryClick(event, selectedDat) {
-    addNewEntry(selectedDat, "", "", "", "");
+    const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
+    const randomDate = new Date(selectedDat - randomDater);
+    addNewEntry(randomDate, "", "", "", "", "strength");
 
     const newEditMode = {
       editModeOn: true,
@@ -127,13 +129,18 @@ export default function Heatmap({
           ? "Date Selected:" + dateSelected.toString()
           : "Select a Date"}
       </p>
-      <StyledButton
-        onClick={(event) => {
-          handleNewEntryClick(event, dateSelected);
-        }}
-      >
-        New
-      </StyledButton>
+      {dateSelected ? (
+        <StyledButton
+          onClick={(event) => {
+            handleNewEntryClick(event, dateSelected);
+          }}
+        >
+          New
+        </StyledButton>
+      ) : (
+        ""
+      )}
+
       {selectedData.map((selectedDat, index) => {
         return (
           <p key={uid()}>
