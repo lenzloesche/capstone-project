@@ -10,6 +10,7 @@ import GreenDiv from "../GreenDiv";
 import GreenDivSelected from "../GreenDivSelected";
 import BlueDiv from "../BlueDiv";
 import BlueDivSelected from "../BlueDivSelected";
+import FormContainer from "../FormContainer";
 
 const date = new Date();
 const heatmap = [];
@@ -68,9 +69,10 @@ export default function Heatmap({
 
     const newEditMode = {
       editModeOn: true,
-      selectedData: { date: selectedDat },
+      selectedData: { date: randomDate },
     };
     setEditMode(newEditMode);
+    scrollTo(0, 0);
   }
 
   function PaintDiv(dat, heatmapPosition) {
@@ -126,32 +128,34 @@ export default function Heatmap({
           );
         })}
       </ContainerDiv>
-
-      <p>
-        {dateSelected
-          ? "Date Selected: " +
-            (dateSelected.getMonth() + 1).toString() +
-            "/" +
-            dateSelected.getDate().toString() +
-            "/" +
-            dateSelected.getFullYear().toString()
-          : "Select a Date"}
-      </p>
-      {dateSelected ? (
-        <StyledButton
-          onClick={(event) => {
-            handleNewEntryClick(event, dateSelected);
-          }}
-        >
-          New
-        </StyledButton>
-      ) : (
-        ""
-      )}
-
+      <FormContainer>
+        <p>
+          {dateSelected
+            ? "Date Selected: " +
+              (dateSelected.getMonth() + 1).toString() +
+              "/" +
+              dateSelected.getDate().toString() +
+              "/" +
+              dateSelected.getFullYear().toString()
+            : "Select a Date"}
+        </p>
+        {dateSelected ? (
+          <StyledButton
+            onClick={(event) => {
+              handleNewEntryClick(event, dateSelected);
+            }}
+          >
+            New
+          </StyledButton>
+        ) : (
+          ""
+        )}
+      </FormContainer>
       {selectedData.map((selectedDat, index) => {
         return (
-          <p key={uid()}>
+          <FormContainer key={uid()}>
+            {" "}
+            <br />
             Type: {selectedDat.sportSelected}
             <br />
             {selectedDat.sportSelected === "strength" ? (
@@ -186,7 +190,7 @@ export default function Heatmap({
               {" "}
               Edit
             </StyledButton>
-          </p>
+          </FormContainer>
         );
       })}
     </>

@@ -5,6 +5,7 @@ const StyledImageContainer = styled.div`
   flex-direction: row;
   align-items: center;
   opacity: 1;
+  margin: 10px;
 `;
 
 export default function ImageContainer({ children }) {

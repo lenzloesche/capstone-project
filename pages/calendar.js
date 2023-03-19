@@ -7,6 +7,7 @@ import ImageContainer from "../components/ImageContainer";
 import RunningForm from "../components/RunningForm";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
+import FormContainer from "../components/FormContainer";
 
 let date = new Date();
 let startingData = [];
@@ -39,9 +40,9 @@ export default function Calendar() {
     exercise,
     sportSelected
   ) {
-    date = forDate;
+    const NewDate = forDate;
     const save = {
-      date: date,
+      date: NewDate,
       sportSelected: sportSelected,
       reps: reps,
       sets: sets,
@@ -54,9 +55,9 @@ export default function Calendar() {
   }
 
   function addNewEntryRunning(forDate, kiloms, mins, exercise, sportSelected) {
-    date = forDate;
+    const NewDate = forDate;
     const save = {
-      date: date,
+      date: NewDate,
       sportSelected: sportSelected,
       kiloms: kiloms,
       mins: mins,
@@ -70,11 +71,11 @@ export default function Calendar() {
   function handleSubmit(event) {
     event.preventDefault();
     if (editMode.editModeOn) {
-      date = editMode.selectedData.date;
+      const NewDate = editMode.selectedData.date;
       let save = {};
       if (sportSelected === "strength") {
         save = {
-          date: date,
+          date: NewDate,
           sportSelected: sportSelected,
           reps: event.target.elements.reps.value,
           sets: event.target.elements.sets.value,
@@ -83,7 +84,7 @@ export default function Calendar() {
         };
       } else {
         save = {
-          date: date,
+          date: NewDate,
           sportSelected: sportSelected,
           kiloms: event.target.elements.kiloms.value,
           mins: event.target.elements.mins.value,
@@ -191,66 +192,67 @@ export default function Calendar() {
       <Header>
         <Heading>Fitness App</Heading>
       </Header>
-      <ImageContainer>
-        <Image
-          className={sportSelected === "strength" ? "border" : "small-border"}
-          onClick={() => {
-            handleImageClick("strength");
-          }}
-          src="/strength.svg"
-          alt="strength image of an Arm"
-          width="100"
-          height="100"
-        ></Image>
-        <Image
-          className={sportSelected === "running" ? "border" : "small-border"}
-          onClick={() => {
-            handleImageClick("running");
-          }}
-          src="/running.svg"
-          alt="running image female runner"
-          width="100"
-          height="100"
-        ></Image>
-      </ImageContainer>
-      <p className="big-text">
-        {!editMode.editModeOn ? (
-          <>
-            {"New Entry:"}
-            <br />
-            {"It's " +
-              day +
-              `. Did you ${
-                sportSelected === "running" ? "run" : "workout"
-              } today?`}
-          </>
+      <FormContainer>
+        <ImageContainer>
+          <Image
+            className={sportSelected === "strength" ? "border" : "small-border"}
+            onClick={() => {
+              handleImageClick("strength");
+            }}
+            src="/strength.svg"
+            alt="strength image of an Arm"
+            width="100"
+            height="100"
+          ></Image>
+          <Image
+            className={sportSelected === "running" ? "border" : "small-border"}
+            onClick={() => {
+              handleImageClick("running");
+            }}
+            src="/running.svg"
+            alt="running image runner"
+            width="100"
+            height="100"
+          ></Image>
+        </ImageContainer>
+        <p className="big-text">
+          {!editMode.editModeOn ? (
+            <>
+              {"New Entry:"}
+              <br />
+              {"It's " +
+                day +
+                `. Did you ${
+                  sportSelected === "running" ? "run" : "workout"
+                } today?`}
+            </>
+          ) : (
+            "Editing for: " +
+            (editMode.selectedData.date.getMonth() + 1).toString() +
+            "/" +
+            editMode.selectedData.date.getDate().toString() +
+            "/" +
+            editMode.selectedData.date.getFullYear().toString()
+          )}
+        </p>
+        {sportSelected === "strength" ? (
+          <StrengthForm
+            handleSubmit={handleSubmit}
+            handleCancelClick={handleCancelClick}
+            handleChange={handleChange}
+            editMode={editMode}
+            inputText={inputText}
+          />
         ) : (
-          "Editing for: " +
-          (editMode.selectedData.date.getMonth() + 1).toString() +
-          "/" +
-          editMode.selectedData.date.getDate().toString() +
-          "/" +
-          editMode.selectedData.date.getFullYear().toString()
+          <RunningForm
+            handleSubmit={handleSubmit}
+            handleCancelClick={handleCancelClick}
+            handleChange={handleChange}
+            editMode={editMode}
+            inputText={inputText}
+          />
         )}
-      </p>
-      {sportSelected === "strength" ? (
-        <StrengthForm
-          handleSubmit={handleSubmit}
-          handleCancelClick={handleCancelClick}
-          handleChange={handleChange}
-          editMode={editMode}
-          inputText={inputText}
-        />
-      ) : (
-        <RunningForm
-          handleSubmit={handleSubmit}
-          handleCancelClick={handleCancelClick}
-          handleChange={handleChange}
-          editMode={editMode}
-          inputText={inputText}
-        />
-      )}
-
+      </FormContainer>
       <Heatmap
         data={data}
         setData={setData}

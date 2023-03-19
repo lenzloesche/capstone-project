@@ -5,6 +5,7 @@ const ContainerDiv = styled.div`
   grid-template-rows: repeat(7, 1fr);
   grid-auto-flow: column;
   border: 5px solid grey;
+  border-radius: 10px;
   margin: 10px;
   width: fit-content;
   box-shadow: 0px 0px 10px black;
