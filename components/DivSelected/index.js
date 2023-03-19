@@ -1,6 +1,6 @@
 import styled from "styled-components";
 const DivSelected = styled.div`
-  background-color: lightgrey;
+  background-color: #a3b6e6;
   border: 4px solid black;
   height: 30px;
   width: 30px;

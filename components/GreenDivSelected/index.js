@@ -1,6 +1,6 @@
 import styled from "styled-components";
 const GreenDivSelected = styled.div`
-  background-color: green;
+  background-color: #d93f45;
   border: 4px solid black;
 
   height: 30px;

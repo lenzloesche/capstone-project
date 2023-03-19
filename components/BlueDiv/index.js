@@ -1,6 +1,6 @@
 import styled from "styled-components";
 const BlueDiv = styled.div`
-  background-color: blue;
+  background-color: #f89348;
   height: 30px;
   width: 30px;
   margin: 0;

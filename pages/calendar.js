@@ -5,6 +5,8 @@ import StrengthContainer from "../components/StrengthContainer";
 import Image from "next/image";
 import ImageContainer from "../components/ImageContainer";
 import RunningForm from "../components/RunningForm";
+import Header from "../components/Header";
+import Heading from "../components/Heading";
 
 let date = new Date();
 let startingData = [];
@@ -169,10 +171,12 @@ export default function Calendar() {
 
   return (
     <StrengthContainer>
-      <h1>Fitness App</h1>
+      <Header>
+        <Heading>Fitness App</Heading>
+      </Header>
       <ImageContainer>
         <Image
-          className={sportSelected === "strength" ? "border" : ""}
+          className={sportSelected === "strength" ? "border" : "small-border"}
           onClick={() => {
             handleImageClick("strength");
           }}
@@ -182,7 +186,7 @@ export default function Calendar() {
           height="100"
         ></Image>
         <Image
-          className={sportSelected === "running" ? "border" : ""}
+          className={sportSelected === "running" ? "border" : "small-border"}
           onClick={() => {
             handleImageClick("running");
           }}
@@ -194,7 +198,11 @@ export default function Calendar() {
       </ImageContainer>
       <p>
         {!editMode.editModeOn
-          ? "Did you workout today? It's " + day
+          ? "It's " +
+            day +
+            `. Did you ${
+              sportSelected === "running" ? "run" : "workout"
+            } today?`
           : "Editing for: " +
             (editMode.selectedData.date.getMonth() + 1).toString() +
             "/" +
