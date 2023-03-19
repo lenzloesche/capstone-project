@@ -61,29 +61,9 @@ export default function Heatmap({ data, setData, editMode, setEditMode }) {
     }
   }
 
-  function handleEditClick(event, date) {
-    const newEditMode = { editModeOn: true, date: date };
+  function handleEditClick(event, selectedDate) {
+    const newEditMode = { editModeOn: true, selectedData: selectedDate };
     setEditMode(newEditMode);
-    /* event.preventDefault();
-    const indexToChange = data.findIndex((dat) => {
-      return dat.date.toString() === date.toString();
-    });
-    if (indexToChange != -1) {
-      const newData = data.slice();
-      newData[indexToChange].exercise = event.target.elements.exercise.value;
-      newData[indexToChange].reps = event.target.elements.reps.value;
-      newData[indexToChange].sets = event.target.elements.sets.value;
-      newData[indexToChange].kilos = event.target.elements.kilos.value;
-
-      setData(newData);
-    } */
-  }
-  function handleChange(event, index, type) {
-    const newEditField = [...editField];
-    newEditField[index][type] = event.target.value;
-    setEditField(newEditField);
-    event.target.focus();
-    console.log(index, newEditField);
   }
 
   return (
@@ -126,9 +106,7 @@ export default function Heatmap({ data, setData, editMode, setEditMode }) {
             >
               Delete
             </button>
-            <button
-              onClick={(event) => handleEditClick(event, selectedDat.date)}
-            >
+            <button onClick={(event) => handleEditClick(event, selectedDat)}>
               {" "}
               Edit
             </button>

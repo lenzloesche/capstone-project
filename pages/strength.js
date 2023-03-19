@@ -1,12 +1,15 @@
 import Heatmap from "../components/Heatmap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 let date = new Date();
 const startingData = [];
 
 export default function Strength() {
   const [data, setData] = useState(startingData);
-  const [editMode, setEditMode] = useState({ editModeOn: false, date: date });
+  const [editMode, setEditMode] = useState({
+    editModeOn: false,
+    selectedData: "",
+  });
   const [inputText, setInputText] = useState(["", "", "", ""]);
   const weekday = [
     "Sunday",
@@ -22,9 +25,8 @@ export default function Strength() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(editMode.editModeOn);
     if (editMode.editModeOn) {
-      date = editMode.date;
+      date = editMode.selectedData.date;
       const save = {
         date: date,
         reps: event.target.elements.reps.value,
@@ -34,9 +36,8 @@ export default function Strength() {
       };
       const newData = data.slice();
       const indexToChange = newData.findIndex((dat) => {
-        return dat.date.toString() === editMode.date.toString();
+        return dat.date.toString() === editMode.selectedData.date.toString();
       });
-      console.log(indexToChange);
       newData[indexToChange] = save;
       setData(newData);
       editMode.editModeOn = false;
@@ -53,19 +54,44 @@ export default function Strength() {
       newData.push(save);
       setData(newData);
     }
+    clearForm();
   }
   function handleCancelClick() {
-    const newEditMode = { ...editMode };
+    clearForm();
+  }
+
+  function clearForm() {
+    const newEditMode = {
+      editModeOn: false,
+      selectedData: { exercise: "", kilos: "", reps: "", sets: "" },
+    };
     newEditMode.editModeOn = false;
     setEditMode(newEditMode);
   }
+
+  useEffect(() => {
+    const newInputText = [
+      editMode.selectedData.exercise,
+      editMode.selectedData.kilos,
+      editMode.selectedData.reps,
+      editMode.selectedData.sets,
+    ];
+    setInputText(newInputText);
+  }, [editMode]);
+
+  function handleChange(event, number) {
+    const newInputText = [...inputText];
+    newInputText[number] = event.target.value;
+    setInputText(newInputText);
+  }
+
   return (
     <>
       <h1>Yet Another Fitness App</h1>
       <p>
         {!editMode.editModeOn
           ? "Today is " + day
-          : "Editing for " + editMode.date.toString()}
+          : "Editing for " + editMode.selectedData.date.toString()}
       </p>
       <form
         onSubmit={(event) => {
@@ -74,22 +100,46 @@ export default function Strength() {
       >
         <label htmlFor="exercise">
           Which exercise?
-          <input id="exercise" type="text" required></input>
+          <input
+            id="exercise"
+            type="text"
+            value={inputText[0]}
+            onChange={(event) => handleChange(event, 0)}
+            required
+          ></input>
         </label>
         <br />
         <label htmlFor="kilos">
           How many kilograms?
-          <input id="kilos" type="number" required></input>
+          <input
+            id="kilos"
+            type="number"
+            value={inputText[1]}
+            onChange={(event) => handleChange(event, 1)}
+            required
+          ></input>
         </label>
         <br />
         <label htmlFor="reps">
           How many reps?
-          <input id="reps" type="number" required></input>
+          <input
+            id="reps"
+            type="number"
+            value={inputText[2]}
+            onChange={(event) => handleChange(event, 2)}
+            required
+          ></input>
         </label>
         <br />
         <label htmlFor="sets">
           How many sets?
-          <input id="sets" type="number" required></input>
+          <input
+            id="sets"
+            type="number"
+            value={inputText[3]}
+            onChange={(event) => handleChange(event, 3)}
+            required
+          ></input>
         </label>
         <br />
         <button type="submit">Done</button>
