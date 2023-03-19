@@ -5,6 +5,9 @@ const Container1 = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: lightgrey;
+  background-image: url("jumpwoman.jpg");
+  background-position: center top;
+  opacity: 1;
 `;
 
 export default function StrengthContainer({ children }) {

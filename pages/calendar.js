@@ -169,7 +169,7 @@ export default function Calendar() {
 
   return (
     <StrengthContainer>
-      <h1>Yet Another Fitness App</h1>
+      <h1>Fitness App</h1>
       <ImageContainer>
         <Image
           className={sportSelected === "strength" ? "border" : ""}
