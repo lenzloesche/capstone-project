@@ -83,9 +83,11 @@ export default function Heatmap({
     );
     if (allEntries.length === 0) {
       if (dateSelected === dat) {
-        return <DivSelected>{dat.getDate()}</DivSelected>;
+        return (
+          <DivSelected>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivSelected>
+        );
       }
-      return <Div></Div>;
+      return <Div>{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>;
     }
 
     const filterRunning = allEntries.find((entry) => {
@@ -97,26 +99,40 @@ export default function Heatmap({
 
     if (filterRunning && filterStrength) {
       if (dateSelected === dat) {
-        return <GreenDivSelected>{dat.getDate()}</GreenDivSelected>;
+        return (
+          <GreenDivSelected>
+            {dat.getMonth() + 1 + "/" + dat.getDate()}
+          </GreenDivSelected>
+        );
       }
-      return <GreenDiv></GreenDiv>;
+      return <GreenDiv>{dat.getMonth() + 1 + "/" + dat.getDate()}</GreenDiv>;
     }
     if (filterRunning) {
       if (dateSelected === dat) {
-        return <BlueDivSelected>{dat.getDate()}</BlueDivSelected>;
+        return (
+          <BlueDivSelected>
+            {dat.getMonth() + 1 + "/" + dat.getDate()}
+          </BlueDivSelected>
+        );
       }
-      return <BlueDiv></BlueDiv>;
+      return <BlueDiv>{dat.getMonth() + 1 + "/" + dat.getDate()}</BlueDiv>;
     }
     if (filterStrength) {
       if (dateSelected === dat) {
-        return <RedDivSelected>{dat.getDate()}</RedDivSelected>;
+        return (
+          <RedDivSelected>
+            {dat.getMonth() + 1 + "/" + dat.getDate()}
+          </RedDivSelected>
+        );
       }
-      return <RedDiv></RedDiv>;
+      return <RedDiv>{dat.getMonth() + 1 + "/" + dat.getDate()}</RedDiv>;
     }
     if (dateSelected === dat) {
-      return <DivSelected>{dat.getDate()}</DivSelected>;
+      return (
+        <DivSelected>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivSelected>
+      );
     }
-    return <Div></Div>;
+    return <Div>{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>;
   }
   return (
     <>

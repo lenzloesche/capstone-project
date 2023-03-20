@@ -5,5 +5,7 @@ const Div = styled.div`
   height: 30px;
   width: 30px;
   margin: 0;
+  font-size: 12px;
+  color: grey;
 `;
 export default Div;
