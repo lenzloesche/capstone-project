@@ -1,9 +1,7 @@
 import { uid } from "uid";
 import { useState } from "react";
 import ContainerDiv from "../ContainerDiv";
-
 import StyledButton from "../StyledButton";
-
 import FormContainer from "../FormContainer";
 import CalendarText from "../CalendarText";
 import Div from "../CalendarComponents/Div";
@@ -22,13 +20,11 @@ let dateSelectedStart = undefined;
 export default function CalendarHeatmap({
   data,
   setData,
-  editMode,
   setEditMode,
   addNewEntry,
   setSportSelected,
 }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
-  const [editField, setEditField] = useState([{ exercise: "a" }]);
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
