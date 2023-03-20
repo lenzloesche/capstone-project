@@ -7,6 +7,7 @@ import StyledButton from "../components/StyledButton";
 import Heading from "../components/Heading";
 import StrengthContainer from "../components/StrengthContainer";
 import Image from "next/image";
+import StyledSelect from "../components/StyledSelect";
 
 const apiKey = "/N+lgsT1Ci9aZ5EnpUlNFA==jE3hMgeWrU1Jd0q0";
 const url = "https://api.api-ninjas.com/v1/exercises";
@@ -38,7 +39,6 @@ export default function Strength() {
         const dataFetch = await response.json();
         SetData(dataFetch);
         resetDetails();
-        console.log(data);
       } else {
         console.log("Response not OK.");
       }
@@ -46,10 +46,6 @@ export default function Strength() {
       console.log("Error fetching: ", error);
     }
   }
-
-  useEffect(() => {
-    fetchData("");
-  }, []);
 
   function handleDetailsClick(index) {
     const newShowDetails = [...showDetails];
@@ -104,8 +100,7 @@ export default function Strength() {
             onChange={(event) => setSearchInput(event.target.value)}
           ></Input>
           <p>Filter:</p>
-          <br />
-          <select id="type" name="type">
+          <StyledSelect id="type" name="type">
             <option value="all_types">all types</option>
             <option value="cardio">cardio</option>
             <option value="olympic_weightlifting">olympic_weightlifting</option>
@@ -114,16 +109,16 @@ export default function Strength() {
             <option value="strength">strength</option>
             <option value="stretching">stretching</option>
             <option value="strongman">strongman</option>
-          </select>
+          </StyledSelect>
           <br />
-          <select id="difficulty" name="difficulty">
+          <StyledSelect id="difficulty" name="difficulty">
             <option value="all_difficulties">all difficulties</option>
             <option value="beginner">beginner</option>
             <option value="intermediate">intermediate</option>
             <option value="expert">expert</option>
-          </select>
+          </StyledSelect>
           <br />
-          <select id="muscle" name="muscle">
+          <StyledSelect id="muscle" name="muscle">
             <option value="all_muscles">all muscles</option>
             <option value="abdominals">abdominals</option>
             <option value="abductors">abductors</option>
@@ -141,10 +136,10 @@ export default function Strength() {
             <option value="quadriceps">quadriceps</option>
             <option value="traps">traps</option>
             <option value="triceps">triceps</option>
-          </select>
+          </StyledSelect>
         </form>
       </FormContainer>
-      {data.length === 0 ? (
+      {data?.length === 0 ? (
         <p>No Results</p>
       ) : (
         data?.map((dat, index) => {
