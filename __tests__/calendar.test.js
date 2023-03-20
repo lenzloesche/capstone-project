@@ -1,5 +1,5 @@
 import Calendar from "../pages/calendar";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 test("Test if there are Input fields with label: Kilograms, reps, sets", async () => {
   render(<Calendar />);
@@ -15,4 +15,13 @@ test("Test if there are Input fields with label: Kilograms, reps, sets", async (
   expect(inputsNumber.length).toBeGreaterThan(2);
   const inputsText = await screen.findAllByRole("textbox");
   expect(inputsText.length).toBeGreaterThan(0);
+});
+
+test("if you click on the image, then you have different input fields.", async () => {
+  render(<Calendar />);
+  const runnerImage = await screen.getByRole("img", { name: /runner/i });
+  const inputsNumberBefore = await screen.findAllByRole("spinbutton");
+  fireEvent.click(runnerImage);
+  const inputsNumberAfter = await screen.findAllByRole("spinbutton");
+  expect(inputsNumberAfter.length).toBeLessThan(inputsNumberBefore.length);
 });
