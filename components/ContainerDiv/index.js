@@ -6,7 +6,7 @@ const ContainerDiv = styled.div`
   grid-auto-flow: column;
   border: 5px solid grey;
   border-radius: 10px;
-  margin: 10px;
+  margin: 16px;
   width: fit-content;
   box-shadow: 0px 0px 10px black;
 `;

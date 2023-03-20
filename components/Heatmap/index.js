@@ -11,11 +11,12 @@ import GreenDivSelected from "../GreenDivSelected";
 import BlueDiv from "../BlueDiv";
 import BlueDivSelected from "../BlueDivSelected";
 import FormContainer from "../FormContainer";
+import CalendarText from "../CalendarText";
 
 const date = new Date();
 const heatmap = [];
 const lengthOfHeatmap = 70;
-//input
+
 for (let day = 0; day < lengthOfHeatmap; day++) {
   const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
   heatmap.unshift(new Date(date - dayInMilliseconds));
@@ -119,10 +120,16 @@ export default function Heatmap({
   }
   return (
     <>
-      <ContainerDiv>
+      {" "}
+      <CalendarText>Calendar</CalendarText>
+      <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
           return (
-            <div key={dat} onClick={(event) => handleClick(event, dat)}>
+            <div
+              key={dat}
+              onClick={(event) => handleClick(event, dat)}
+              aria-label={"Datebutton for " + dat}
+            >
               {PaintDiv(dat, index)}
             </div>
           );

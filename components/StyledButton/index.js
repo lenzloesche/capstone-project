@@ -8,7 +8,7 @@ const StyledButton1 = styled.button`
   background-color: #d96a3f;
   box-shadow: 5px 5px 5px grey;
   font-size: 18px;
-  margin: 5px;
+  margin: 10px;
 `;
 
 export default function StyledButton({ children, onClick, type }) {
