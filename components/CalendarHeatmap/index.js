@@ -6,14 +6,7 @@ import StyledButton from "../StyledButton";
 
 import FormContainer from "../FormContainer";
 import CalendarText from "../CalendarText";
-import DivColor0 from "../CalendarComponents/DivColor0";
-import DivColor0Selected from "../CalendarComponents/DivColor0Selected";
-import DivColor1 from "../CalendarComponents/DivColor1";
-import DivColor1Selected from "../CalendarComponents/DivColor1Selected";
-import DivColor2 from "../CalendarComponents/DivColor2";
-import DivColor2Selected from "../CalendarComponents/DivColor2Selected";
-import DivColor3 from "../CalendarComponents/DivColor3";
-import DivColor3Selected from "../CalendarComponents/DivColor3Selected";
+import Div from "../CalendarComponents/Div";
 
 const date = new Date();
 const heatmap = [];
@@ -26,7 +19,7 @@ for (let day = 0; day < lengthOfHeatmap; day++) {
 
 let dateSelectedStart = undefined;
 
-export default function Heatmap({
+export default function CalendarHeatmap({
   data,
   setData,
   editMode,
@@ -86,12 +79,14 @@ export default function Heatmap({
     if (allEntries.length === 0) {
       if (dateSelected === dat) {
         return (
-          <DivColor0Selected>
+          <Div color="#a3b6e6" isSelected>
             {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </DivColor0Selected>
+          </Div>
         );
       }
-      return <DivColor0>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor0>;
+      return (
+        <Div color="#a3b6e6">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
+      );
     }
 
     const filterRunning = allEntries.find((entry) => {
@@ -104,41 +99,49 @@ export default function Heatmap({
     if (filterRunning && filterStrength) {
       if (dateSelected === dat) {
         return (
-          <DivColor2Selected>
+          <Div color="#d93f45" isSelected>
             {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </DivColor2Selected>
+          </Div>
         );
       }
-      return <DivColor2>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor2>;
+      return (
+        <Div color="#d93f45">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
+      );
     }
     if (filterRunning) {
       if (dateSelected === dat) {
         return (
-          <DivColor1Selected>
+          <Div color="#f89348" isSelected>
             {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </DivColor1Selected>
+          </Div>
         );
       }
-      return <DivColor1>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor1>;
+      return (
+        <Div color="#f89348">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
+      );
     }
     if (filterStrength) {
       if (dateSelected === dat) {
         return (
-          <DivColor3Selected>
+          <Div color="#d96a3f" isSelected>
             {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </DivColor3Selected>
+          </Div>
         );
       }
-      return <DivColor3>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor3>;
+      return (
+        <Div color="#d96a3f">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
+      );
     }
     if (dateSelected === dat) {
       return (
-        <DivColor0Selected>
+        <Div color="#a3b6e6" isSelected>
           {dat.getMonth() + 1 + "/" + dat.getDate()}
-        </DivColor0Selected>
+        </Div>
       );
     }
-    return <DivColor0>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor0>;
+    return (
+      <Div color="#a3b6e6">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
+    );
   }
   return (
     <>
