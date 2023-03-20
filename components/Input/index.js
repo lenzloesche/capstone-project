@@ -5,6 +5,8 @@ const StyledInput = styled.input`
   border: 1px solid black;
   border-radius: 8px;
   margin: 5px;
+  background: hsla(226, 79%, 91%, 0.5);
+  padding 5px;
 `;
 
 export default function Input({ id, type, value, onChange, required }) {
