@@ -1,5 +1,5 @@
 import styled from "styled-components";
-const RedDiv = styled.div`
+const DivColor3 = styled.div`
   background-color: #d96a3f;
   height: 30px;
   width: 30px;
@@ -7,4 +7,4 @@ const RedDiv = styled.div`
   font-size: 12px;
   color: grey;
 `;
-export default RedDiv;
+export default DivColor3;

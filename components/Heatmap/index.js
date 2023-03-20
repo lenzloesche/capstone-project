@@ -1,17 +1,19 @@
 import { uid } from "uid";
 import { useState } from "react";
 import ContainerDiv from "../ContainerDiv";
-import Div from "../Div";
-import RedDiv from "../RedDiv";
-import RedDivSelected from "../RedDivSelected";
-import DivSelected from "../DivSelected";
+
 import StyledButton from "../StyledButton";
-import GreenDiv from "../GreenDiv";
-import GreenDivSelected from "../GreenDivSelected";
-import BlueDiv from "../BlueDiv";
-import BlueDivSelected from "../BlueDivSelected";
+
 import FormContainer from "../FormContainer";
 import CalendarText from "../CalendarText";
+import DivColor0 from "../CalendarComponents/DivColor0";
+import DivColor0Selected from "../CalendarComponents/DivColor0Selected";
+import DivColor1 from "../CalendarComponents/DivColor1";
+import DivColor1Selected from "../CalendarComponents/DivColor1Selected";
+import DivColor2 from "../CalendarComponents/DivColor2";
+import DivColor2Selected from "../CalendarComponents/DivColor2Selected";
+import DivColor3 from "../CalendarComponents/DivColor3";
+import DivColor3Selected from "../CalendarComponents/DivColor3Selected";
 
 const date = new Date();
 const heatmap = [];
@@ -84,10 +86,12 @@ export default function Heatmap({
     if (allEntries.length === 0) {
       if (dateSelected === dat) {
         return (
-          <DivSelected>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivSelected>
+          <DivColor0Selected>
+            {dat.getMonth() + 1 + "/" + dat.getDate()}
+          </DivColor0Selected>
         );
       }
-      return <Div>{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>;
+      return <DivColor0>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor0>;
     }
 
     const filterRunning = allEntries.find((entry) => {
@@ -100,39 +104,41 @@ export default function Heatmap({
     if (filterRunning && filterStrength) {
       if (dateSelected === dat) {
         return (
-          <GreenDivSelected>
+          <DivColor2Selected>
             {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </GreenDivSelected>
+          </DivColor2Selected>
         );
       }
-      return <GreenDiv>{dat.getMonth() + 1 + "/" + dat.getDate()}</GreenDiv>;
+      return <DivColor2>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor2>;
     }
     if (filterRunning) {
       if (dateSelected === dat) {
         return (
-          <BlueDivSelected>
+          <DivColor1Selected>
             {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </BlueDivSelected>
+          </DivColor1Selected>
         );
       }
-      return <BlueDiv>{dat.getMonth() + 1 + "/" + dat.getDate()}</BlueDiv>;
+      return <DivColor1>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor1>;
     }
     if (filterStrength) {
       if (dateSelected === dat) {
         return (
-          <RedDivSelected>
+          <DivColor3Selected>
             {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </RedDivSelected>
+          </DivColor3Selected>
         );
       }
-      return <RedDiv>{dat.getMonth() + 1 + "/" + dat.getDate()}</RedDiv>;
+      return <DivColor3>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor3>;
     }
     if (dateSelected === dat) {
       return (
-        <DivSelected>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivSelected>
+        <DivColor0Selected>
+          {dat.getMonth() + 1 + "/" + dat.getDate()}
+        </DivColor0Selected>
       );
     }
-    return <Div>{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>;
+    return <DivColor0>{dat.getMonth() + 1 + "/" + dat.getDate()}</DivColor0>;
   }
   return (
     <>
@@ -141,11 +147,7 @@ export default function Heatmap({
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
           return (
-            <div
-              key={dat}
-              onClick={(event) => handleClick(event, dat)}
-              aria-label={"Datebutton for " + dat}
-            >
+            <div key={dat} onClick={(event) => handleClick(event, dat)}>
               {PaintDiv(dat, index)}
             </div>
           );

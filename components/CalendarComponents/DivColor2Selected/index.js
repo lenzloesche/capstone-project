@@ -1,11 +1,12 @@
 import styled from "styled-components";
-const BlueDivSelected = styled.div`
-  background-color: #f89348;
+const DivColor2Selected = styled.div`
+  background-color: #d93f45;
   border: 4px solid black;
+
   height: 30px;
   width: 30px;
   margin: 0;
   font-size: 12px;
   color: grey;
 `;
-export default BlueDivSelected;
+export default DivColor2Selected;
