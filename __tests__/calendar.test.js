@@ -37,3 +37,27 @@ test("Test if there is a calendar with different divs that can be clicked and a 
   fireEvent.click(divToClick);
   expect(dateText.innerHTML.includes(dateMonth)).toBe(true);
 });
+
+test("Test if you create a new entry that you can display it (with the info) and delete it.", async () => {
+  render(<Calendar />);
+
+  const inputsNumber = await screen.findAllByRole("spinbutton");
+  const inputsText = await screen.findAllByRole("textbox");
+  fireEvent.change(inputsText[0], { target: { value: "test1" } });
+  fireEvent.change(inputsNumber[0], { target: { value: "123456" } });
+  fireEvent.change(inputsNumber[1], { target: { value: "09876" } });
+  fireEvent.change(inputsNumber[2], { target: { value: "123456789" } });
+  const saveButton = screen.getByText("Save");
+  fireEvent.click(saveButton);
+
+  const todaysDate = new Date();
+  const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
+  const divToClick = screen.getByText(dateMonth);
+  fireEvent.click(divToClick);
+  const testText = screen.getByText(/123456789/i);
+  expect(testText).toBeInTheDocument();
+
+  const deleteButton = screen.getByText("Delete");
+  fireEvent.click(deleteButton);
+  expect(testText).not.toBeInTheDocument();
+});
