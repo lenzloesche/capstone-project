@@ -1,4 +1,4 @@
-import Heatmap from "../components/Heatmap";
+import CalendarHeatmap from "../components/CalendarHeatmap";
 import { useEffect, useState } from "react";
 import StrengthForm from "../components/StrengthForm";
 import StrengthContainer from "../components/StrengthContainer";
@@ -253,7 +253,7 @@ export default function Calendar() {
           />
         )}
       </FormContainer>
-      <Heatmap
+      <CalendarHeatmap
         data={data}
         setData={setData}
         editMode={editMode}
