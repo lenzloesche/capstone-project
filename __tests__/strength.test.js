@@ -6,4 +6,6 @@ test("see if search bar is rendered.", () => {
   expect(searchName.length).toBeGreaterThan(0);
   const searchBar = screen.getAllByRole("textbox");
   expect(searchBar.length).toBeGreaterThan(0);
+  const selects = screen.getAllByRole("combobox");
+  expect(selects.length).toBeGreaterThan(2);
 });
