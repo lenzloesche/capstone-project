@@ -25,3 +25,15 @@ test("if you click on the image, then you have different input fields.", async (
   const inputsNumberAfter = await screen.findAllByRole("spinbutton");
   expect(inputsNumberAfter.length).toBeLessThan(inputsNumberBefore.length);
 });
+
+test("Test if there is a calendar with different divs that can be clicked and a different date is displayed.", async () => {
+  render(<Calendar />);
+  const divs = await screen.getAllByRole("generic");
+  expect(divs.length).toBeGreaterThanOrEqual(70);
+  const dateText = await screen.getByText(/select a date/i);
+  const todaysDate = new Date();
+  const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
+  const divToClick = screen.getByText(dateMonth);
+  fireEvent.click(divToClick);
+  expect(dateText.innerHTML.includes(dateMonth)).toBe(true);
+});
