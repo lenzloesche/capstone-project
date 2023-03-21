@@ -45,7 +45,7 @@ export default function Calendar() {
     reps,
     sets,
     kilos,
-    exercise,
+    exerciseStrength,
     sportSelected
   ) {
     const NewDate = forDate;
@@ -55,21 +55,27 @@ export default function Calendar() {
       reps: reps,
       sets: sets,
       kilos: kilos,
-      exercise: exercise,
+      exerciseStrength: exerciseStrength,
     };
     const newData = data.slice();
     newData.push(save);
     setData(newData);
   }
 
-  function addNewEntryRunning(forDate, kiloms, mins, exercise, sportSelected) {
+  function addNewEntryRunning(
+    forDate,
+    kiloms,
+    mins,
+    exerciseRunning,
+    sportSelected
+  ) {
     const NewDate = forDate;
     const save = {
       date: NewDate,
       sportSelected: sportSelected,
       kiloms: kiloms,
       mins: mins,
-      exercise: exercise,
+      exerciseRunning: exerciseRunning,
     };
     const newData = data.slice();
     newData.push(save);
@@ -88,7 +94,7 @@ export default function Calendar() {
           reps: event.target.elements.reps.value,
           sets: event.target.elements.sets.value,
           kilos: event.target.elements.kilos.value,
-          exercise: event.target.elements.exercise.value,
+          exerciseStrength: event.target.elements.exerciseStrength.value,
         };
       } else {
         save = {
@@ -96,7 +102,7 @@ export default function Calendar() {
           sportSelected: sportSelected,
           kiloms: event.target.elements.kiloms.value,
           mins: event.target.elements.mins.value,
-          exercise: event.target.elements.exercise.value,
+          exerciseRunning: event.target.elements.exerciseRunning.value,
         };
       }
 
@@ -156,22 +162,10 @@ export default function Calendar() {
       newInputText.kilos = editMode.selectedData.kilos;
       newInputText.reps = editMode.selectedData.reps;
       newInputText.sets = editMode.selectedData.sets;
-
-      /* newInputText = [
-        exerciseStrengtheditMode.selectedData.exercise,
-        editMode.selectedData.kilos,
-        editMode.selectedData.reps,
-        editMode.selectedData.sets,
-      ]; */
     } else {
       newInputText.exerciseRunning = editMode.selectedData.exercise;
       newInputText.kiloms = editMode.selectedData.kiloms;
       newInputText.mins = editMode.selectedData.mins;
-      /*  newInputText = [
-        editMode.selectedData.exercise,
-        editMode.selectedData.kiloms,
-        editMode.selectedData.mins,
-      ]; */
     }
 
     setInputText(newInputText);

@@ -16,10 +16,10 @@ export default function RunningForm({
         handleSubmit(event);
       }}
     >
-      <Label htmlFor="exercise">Which exercise?</Label>
+      <Label htmlFor="exerciseRunning">Which exercise?</Label>
 
       <Input
-        id="exercise"
+        id="exerciseRunning"
         type="text"
         value={inputText.exerciseRunning}
         onChange={(event) => handleChange(event, "exerciseRunning")}

@@ -16,10 +16,10 @@ export default function StrengthForm({
         handleSubmit(event);
       }}
     >
-      <Label htmlFor="exercise">Which exercise?</Label>
+      <Label htmlFor="exerciseStrength">Which exercise?</Label>
 
       <Input
-        id="exercise"
+        id="exerciseStrength"
         type="text"
         value={inputText.exerciseStrength}
         onChange={(event) => handleChange(event, "exerciseStrength")}
