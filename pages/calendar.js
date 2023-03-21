@@ -20,7 +20,15 @@ export default function Calendar() {
     editModeOn: false,
     selectedData: "",
   });
-  const [inputText, setInputText] = useState(["", "", "", ""]);
+  const [inputText, setInputText] = useState({
+    exerciseStrength: "",
+    kilograms: "",
+    reps: "",
+    sets: "",
+    exerciseRunning: "",
+    kiloms: "",
+    mins: "",
+  });
   const weekday = [
     "Sunday",
     "Monday",
@@ -142,20 +150,28 @@ export default function Calendar() {
   }
 
   useEffect(() => {
-    let newInputText = [];
+    let newInputText = {};
     if (sportSelected === "strength") {
-      newInputText = [
-        editMode.selectedData.exercise,
+      newInputText.exerciseStrength = editMode.selectedData.exercise;
+      newInputText.kilos = editMode.selectedData.kilos;
+      newInputText.reps = editMode.selectedData.reps;
+      newInputText.sets = editMode.selectedData.sets;
+
+      /* newInputText = [
+        exerciseStrengtheditMode.selectedData.exercise,
         editMode.selectedData.kilos,
         editMode.selectedData.reps,
         editMode.selectedData.sets,
-      ];
+      ]; */
     } else {
-      newInputText = [
+      newInputText.exerciseRunning = editMode.selectedData.exercise;
+      newInputText.kiloms = editMode.selectedData.kiloms;
+      newInputText.mins = editMode.selectedData.mins;
+      /*  newInputText = [
         editMode.selectedData.exercise,
         editMode.selectedData.kiloms,
         editMode.selectedData.mins,
-      ];
+      ]; */
     }
 
     setInputText(newInputText);
@@ -177,9 +193,9 @@ export default function Calendar() {
     }
   }, []);
 
-  function handleChange(event, number) {
-    const newInputText = [...inputText];
-    newInputText[number] = event.target.value;
+  function handleChange(event, key) {
+    const newInputText = { ...inputText };
+    newInputText[key] = event.target.value;
     setInputText(newInputText);
   }
 
