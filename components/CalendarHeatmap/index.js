@@ -47,10 +47,10 @@ export default function CalendarHeatmap({
     }
   }
 
-  function handleEditClick(event, selectedDate) {
-    const newEditMode = { editModeOn: true, selectedData: selectedDate };
+  function handleEditClick(event, selectedData) {
+    const newEditMode = { editModeOn: true, selectedData };
     setEditMode(newEditMode);
-    setSportSelected(selectedDate.sportSelected);
+    setSportSelected(selectedData.sportSelected);
     scrollTo(0, 0);
   }
 

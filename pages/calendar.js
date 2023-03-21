@@ -18,11 +18,19 @@ export default function Calendar() {
 
   const [editMode, setEditMode] = useState({
     editModeOn: false,
-    selectedData: "",
+    selectedData: {
+      exerciseStrength: "",
+      kilos: "",
+      reps: "",
+      sets: "",
+      exerciseRunning: "",
+      kiloms: "",
+      mins: "",
+    },
   });
   const [inputText, setInputText] = useState({
     exerciseStrength: "",
-    kilograms: "",
+    kilos: "",
     reps: "",
     sets: "",
     exerciseRunning: "",
@@ -120,7 +128,7 @@ export default function Calendar() {
           event.target.elements.reps.value,
           event.target.elements.sets.value,
           event.target.elements.kilos.value,
-          event.target.elements.exercise.value,
+          event.target.elements.exerciseStrength.value,
           sportSelected
         );
       } else {
@@ -128,7 +136,7 @@ export default function Calendar() {
           new Date(),
           event.target.elements.kiloms.value,
           event.target.elements.mins.value,
-          event.target.elements.exercise.value,
+          event.target.elements.exerciseRunning.value,
           sportSelected
         );
       }
@@ -143,7 +151,8 @@ export default function Calendar() {
     const newEditMode = {
       editModeOn: false,
       selectedData: {
-        exercise: "",
+        exerciseRunning: "",
+        exerciseStrength: "",
         kilos: "",
         reps: "",
         sets: "",
@@ -156,17 +165,15 @@ export default function Calendar() {
   }
 
   useEffect(() => {
-    let newInputText = {};
-    if (sportSelected === "strength") {
-      newInputText.exerciseStrength = editMode.selectedData.exercise;
-      newInputText.kilos = editMode.selectedData.kilos;
-      newInputText.reps = editMode.selectedData.reps;
-      newInputText.sets = editMode.selectedData.sets;
-    } else {
-      newInputText.exerciseRunning = editMode.selectedData.exercise;
-      newInputText.kiloms = editMode.selectedData.kiloms;
-      newInputText.mins = editMode.selectedData.mins;
-    }
+    const newInputText = {
+      exerciseStrength: editMode.selectedData.exerciseStrength ?? "",
+      kilos: editMode.selectedData.kilos ?? "",
+      reps: editMode.selectedData.reps ?? "",
+      sets: editMode.selectedData.sets ?? "",
+      exerciseRunning: editMode.selectedData.exerciseRunning ?? "",
+      kiloms: editMode.selectedData.kiloms ?? "",
+      mins: editMode.selectedData.mins ?? "",
+    };
 
     setInputText(newInputText);
   }, [editMode]);
@@ -188,15 +195,13 @@ export default function Calendar() {
   }, []);
 
   function handleChange(event, key) {
-    const newInputText = { ...inputText };
-    newInputText[key] = event.target.value;
+    const newInputText = { ...inputText, [key]: event.target.value };
     setInputText(newInputText);
   }
 
   function handleImageClick(whichOne) {
     setSportSelected(whichOne);
   }
-
   return (
     <StrengthContainer>
       <Header>
