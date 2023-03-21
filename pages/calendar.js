@@ -68,6 +68,7 @@ export default function Calendar() {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
+    apiPost(save);
   }
 
   function addNewEntryRunning(
@@ -88,6 +89,7 @@ export default function Calendar() {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
+    apiPost(save);
   }
 
   function handleSubmit(event) {
@@ -120,6 +122,8 @@ export default function Calendar() {
       });
       newData[indexToChange] = save;
       setData(newData);
+      apiPost(save);
+
       editMode.editModeOn = false;
     } else {
       if (sportSelected === "strength") {
@@ -141,6 +145,7 @@ export default function Calendar() {
         );
       }
     }
+
     clearForm();
   }
   function handleCancelClick(event) {
@@ -185,29 +190,49 @@ export default function Calendar() {
   }, [data]);
 
   useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("strength-data"));
+    /*  const savedData = JSON.parse(localStorage.getItem("strength-data"));
     if (savedData) {
       for (let i = 0; i < savedData.length; i++) {
         savedData[i].date = new Date(savedData[i].date);
       }
       setData(savedData);
-    }
-    getFetch();
-    async function getFetch() {
-      try {
-        const response = await fetch("/api/exercises");
-        if (response.ok) {
-          const dataFetch = await response.json();
-          console.log("datafetch", dataFetch);
-        } else {
-          console.log("Response not OK.");
-        }
-      } catch (error) {
-        console.log("Error fetching: ", error);
-      }
-    }
+      console.log(savedData);
+    } */
+    apiGet();
   }, []);
+  async function apiPost(save) {
+    const response = await fetch("/api/exercises", {
+      method: "POST",
+      body: JSON.stringify(save),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    if (response.ok) {
+      console.log("saved");
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
+
+  async function apiGet() {
+    try {
+      const response = await fetch("/api/exercises");
+      if (response.ok) {
+        const dataFetch = await response.json();
+        for (let i = 0; i < dataFetch.length; i++) {
+          dataFetch[i].date = new Date(dataFetch[i].date);
+        }
+        console.log("datafetch", dataFetch);
+        setData(dataFetch);
+      } else {
+        console.log("Response not OK.");
+      }
+    } catch (error) {
+      console.log("Error fetching: ", error);
+    }
+  }
   function handleChange(event, key) {
     const newInputText = { ...inputText, [key]: event.target.value };
     setInputText(newInputText);
