@@ -182,13 +182,13 @@ export default function Calendar() {
 
     setInputText(newInputText);
   }, [editMode]);
-
+  /* 
   useEffect(() => {
     if (data.length !== 0) {
       localStorage.setItem("strength-data", JSON.stringify(data));
     }
   }, [data]);
-
+ */
   useEffect(() => {
     /*  const savedData = JSON.parse(localStorage.getItem("strength-data"));
     if (savedData) {
@@ -200,6 +200,19 @@ export default function Calendar() {
     } */
     apiGet();
   }, []);
+
+  async function apiDelete(id) {
+    const response = await fetch(`/api/exercises/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      console.log("deleted");
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
+
   async function apiPost(save) {
     const response = await fetch("/api/exercises", {
       method: "POST",
@@ -241,7 +254,7 @@ export default function Calendar() {
   function handleImageClick(whichOne) {
     setSportSelected(whichOne);
   }
-  //useFetch();
+
   return (
     <StrengthContainer>
       <Header>
@@ -315,6 +328,7 @@ export default function Calendar() {
         setEditMode={setEditMode}
         addNewEntry={addNewEntryStrength}
         setSportSelected={setSportSelected}
+        apiDelete={apiDelete}
       />
     </StrengthContainer>
   );

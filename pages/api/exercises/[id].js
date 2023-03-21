@@ -3,16 +3,11 @@ import Exercise from "../../../db/models/Exercise";
 
 export default async function handler(request, response) {
   await dbConnect();
-
+  const { id } = request.query;
   if (request.method === "GET") {
-    const exercises = await Exercise.find();
+    const exercises = await Exercise.findById(id);
     return response.status(200).json(exercises);
   } else if (request.method === "POST") {
-    const jokeData = request.body;
-    const joke = new Exercise(jokeData);
-    await joke.save();
-
-    response.status(201).json({ status: "Exercise created" });
   } else if (request.method === "DELETE") {
     const ExerciseToDelete = await Exercise.findByIdAndDelete(id);
     response.status(200).json({ status: "Exercise deleted" });

@@ -23,6 +23,7 @@ export default function CalendarHeatmap({
   setEditMode,
   addNewEntry,
   setSportSelected,
+  apiDelete,
 }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
@@ -41,6 +42,8 @@ export default function CalendarHeatmap({
       return dat.date.toString() === date.toString();
     });
     if (indexToDelete != -1) {
+      apiDelete(data[indexToDelete]._id);
+
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
       setData(newData);
