@@ -169,7 +169,7 @@ export default function CalendarHeatmap({
               handleNewEntryClick(event, dateSelected);
             }}
           >
-            New
+            New for selected Date
           </StyledButton>
         ) : (
           ""

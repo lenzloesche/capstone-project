@@ -218,7 +218,7 @@ export default function Calendar() {
         <p className="big-text">
           {!editMode.editModeOn ? (
             <>
-              {"New Entry:"}
+              {"New Entry for today:"}
               <br />
               {"It's " +
                 day +
