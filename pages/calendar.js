@@ -192,6 +192,20 @@ export default function Calendar() {
       }
       setData(savedData);
     }
+    getFetch();
+    async function getFetch() {
+      try {
+        const response = await fetch("/api/exercises");
+        if (response.ok) {
+          const dataFetch = await response.json();
+          console.log("datafetch", dataFetch);
+        } else {
+          console.log("Response not OK.");
+        }
+      } catch (error) {
+        console.log("Error fetching: ", error);
+      }
+    }
   }, []);
 
   function handleChange(event, key) {
@@ -202,6 +216,7 @@ export default function Calendar() {
   function handleImageClick(whichOne) {
     setSportSelected(whichOne);
   }
+  //useFetch();
   return (
     <StrengthContainer>
       <Header>
