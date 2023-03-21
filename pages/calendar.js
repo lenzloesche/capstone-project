@@ -121,8 +121,8 @@ export default function Calendar() {
         return dat.date.toString() === editMode.selectedData.date.toString();
       });
       newData[indexToChange] = save;
+      apiUpdate(data[indexToChange]._id, save);
       setData(newData);
-      apiPost(save);
 
       editMode.editModeOn = false;
     } else {
@@ -200,6 +200,22 @@ export default function Calendar() {
     } */
     apiGet();
   }, []);
+
+  async function apiUpdate(id, save) {
+    const response = await fetch(`/api/exercises/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(save),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      console.log("updated");
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
 
   async function apiDelete(id) {
     const response = await fetch(`/api/exercises/${id}`, {
