@@ -10,12 +10,19 @@ export default async function handler(request, response) {
   } else if (request.method === "POST") {
     const exerciseData = request.body;
     const exercise = new Exercise(exerciseData);
+    //console.log("exercise._id", exercise._id);
     await exercise.save();
 
-    response.status(201).json({ status: "Exercise created" });
+    return response
+      .status(201)
+      .json({
+        statusText: "Successfully created exercise",
+        status: 201,
+        _id: exercise._id,
+      });
   } else if (request.method === "DELETE") {
     const ExerciseToDelete = await Exercise.findByIdAndDelete(id);
-    response.status(200).json({ status: "Exercise deleted" });
+    return response.status(200).json({ status: "Exercise deleted" });
   } else if (request.method === "PUT") {
   } else {
     return response.status(405).json({ message: "Method not allowed" });

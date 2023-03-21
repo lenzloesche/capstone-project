@@ -8,6 +8,12 @@ import RunningForm from "../components/RunningForm";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
 import FormContainer from "../components/FormContainer";
+const ObjectId = (
+  m = Math,
+  d = Date,
+  h = 16,
+  s = (s) => m.floor(s).toString(h)
+) => s(d.now() / 1000) + " ".repeat(h).replace(/./g, () => s(m.random() * h));
 
 let date = new Date();
 let startingData = [];
@@ -58,6 +64,7 @@ export default function Calendar() {
   ) {
     const NewDate = forDate;
     const save = {
+      _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
       reps: reps,
@@ -80,6 +87,7 @@ export default function Calendar() {
   ) {
     const NewDate = forDate;
     const save = {
+      _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
       kiloms: kiloms,
@@ -182,38 +190,28 @@ export default function Calendar() {
 
     setInputText(newInputText);
   }, [editMode]);
-  /* 
+
   useEffect(() => {
-    if (data.length !== 0) {
-      localStorage.setItem("strength-data", JSON.stringify(data));
-    }
-  }, [data]);
- */
-  useEffect(() => {
-    /*  const savedData = JSON.parse(localStorage.getItem("strength-data"));
-    if (savedData) {
-      for (let i = 0; i < savedData.length; i++) {
-        savedData[i].date = new Date(savedData[i].date);
-      }
-      setData(savedData);
-      console.log(savedData);
-    } */
     apiGet();
   }, []);
 
   async function apiUpdate(id, save) {
-    const response = await fetch(`/api/exercises/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(save),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    if (id) {
+      const response = await fetch(`/api/exercises/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(save),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    if (response.ok) {
-      console.log("updated");
+      if (response.ok) {
+        console.log("updated");
+      } else {
+        console.error(`Error: ${response.status}`);
+      }
     } else {
-      console.error(`Error: ${response.status}`);
+      console.error("Error: No _id found.");
     }
   }
 
