@@ -16,13 +16,13 @@ export default function StrengthForm({
         handleSubmit(event);
       }}
     >
-      <Label htmlFor="exercise">Which exercise?</Label>
+      <Label htmlFor="exerciseStrength">Which exercise?</Label>
 
       <Input
-        id="exercise"
+        id="exerciseStrength"
         type="text"
-        value={inputText[0]}
-        onChange={(event) => handleChange(event, 0)}
+        value={inputText.exerciseStrength}
+        onChange={(event) => handleChange(event, "exerciseStrength")}
         required
       ></Input>
 
@@ -31,8 +31,8 @@ export default function StrengthForm({
       <Input
         id="kilos"
         type="number"
-        value={inputText[1]}
-        onChange={(event) => handleChange(event, 1)}
+        value={inputText.kilos}
+        onChange={(event) => handleChange(event, "kilos")}
         required
       ></Input>
 
@@ -41,8 +41,8 @@ export default function StrengthForm({
       <Input
         id="reps"
         type="number"
-        value={inputText[2]}
-        onChange={(event) => handleChange(event, 2)}
+        value={inputText.reps}
+        onChange={(event) => handleChange(event, "reps")}
         required
       ></Input>
 
@@ -51,8 +51,8 @@ export default function StrengthForm({
       <Input
         id="sets"
         type="number"
-        value={inputText[3]}
-        onChange={(event) => handleChange(event, 3)}
+        value={inputText.sets}
+        onChange={(event) => handleChange(event, "sets")}
         required
       ></Input>
 

@@ -47,10 +47,10 @@ export default function CalendarHeatmap({
     }
   }
 
-  function handleEditClick(event, selectedDate) {
-    const newEditMode = { editModeOn: true, selectedData: selectedDate };
+  function handleEditClick(event, selectedData) {
+    const newEditMode = { editModeOn: true, selectedData };
     setEditMode(newEditMode);
-    setSportSelected(selectedDate.sportSelected);
+    setSportSelected(selectedData.sportSelected);
     scrollTo(0, 0);
   }
 
@@ -184,7 +184,7 @@ export default function CalendarHeatmap({
             <br />
             {selectedDat.sportSelected === "strength" ? (
               <>
-                Exercise: {selectedDat.exercise}
+                Exercise: {selectedDat.exerciseStrength}
                 <br />
                 Reps: {selectedDat.reps}
                 <br />
@@ -195,7 +195,7 @@ export default function CalendarHeatmap({
               </>
             ) : (
               <>
-                Exercise: {selectedDat.exercise}
+                Exercise: {selectedDat.exerciseRunning}
                 <br />
                 Kilometers: {selectedDat.kiloms}
                 <br />

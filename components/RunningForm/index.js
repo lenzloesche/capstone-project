@@ -16,13 +16,13 @@ export default function RunningForm({
         handleSubmit(event);
       }}
     >
-      <Label htmlFor="exercise">Which exercise?</Label>
+      <Label htmlFor="exerciseRunning">Which exercise?</Label>
 
       <Input
-        id="exercise"
+        id="exerciseRunning"
         type="text"
-        value={inputText[0]}
-        onChange={(event) => handleChange(event, 0)}
+        value={inputText.exerciseRunning}
+        onChange={(event) => handleChange(event, "exerciseRunning")}
         required
       ></Input>
 
@@ -31,8 +31,8 @@ export default function RunningForm({
       <Input
         id="kiloms"
         type="number"
-        value={inputText[1]}
-        onChange={(event) => handleChange(event, 1)}
+        value={inputText.kiloms}
+        onChange={(event) => handleChange(event, "kiloms")}
         required
       ></Input>
 
@@ -41,8 +41,8 @@ export default function RunningForm({
       <Input
         id="mins"
         type="number"
-        value={inputText[2]}
-        onChange={(event) => handleChange(event, 2)}
+        value={inputText.mins}
+        onChange={(event) => handleChange(event, "mins")}
         required
       ></Input>
 
