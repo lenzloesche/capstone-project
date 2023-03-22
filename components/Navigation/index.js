@@ -16,23 +16,36 @@ const StyledNavigation = styled.footer`
   bottom:0;
   left:0;
 `;
+const StyledList = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  width: 100%;
+`;
 
 export default function Navigation({ selected }) {
   return (
     <StyledNavigation>
-      <NavigationLink
-        selected={selected === "strength" ? true : false}
-        href="/strength"
-      >
-        Strength
-      </NavigationLink>
-      {" - "}
-      <NavigationLink
-        selected={selected === "calendar" ? true : false}
-        href="/calendar"
-      >
-        Calendar
-      </NavigationLink>
+      <StyledList>
+        <li>
+          <NavigationLink
+            selected={selected === "strength" ? true : false}
+            href="/strength"
+          >
+            Strength
+          </NavigationLink>
+        </li>
+        {" - "}
+        <li>
+          <NavigationLink
+            selected={selected === "calendar" ? true : false}
+            href="/calendar"
+          >
+            Calendar
+          </NavigationLink>
+        </li>
+      </StyledList>
     </StyledNavigation>
   );
 }

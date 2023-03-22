@@ -8,6 +8,7 @@ const Container1 = styled.div`
   background-image: url("jumpwoman.jpg");
   background-repeat: no-repeat;
   background-position: center top;
+  margin-bottom: 70px;
   opacity: 1;
 `;
 
