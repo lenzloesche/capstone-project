@@ -9,10 +9,12 @@ const StyledNavigation = styled.footer`
   justify-content: center;
   flex.direction: column;
   border: 1px solid black;
-  margin-bottom: 20px;
   border: 5px solid grey;
   border-radius: 10px;
   box-shadow: 0 0 10px black;
+  position fixed;
+  bottom:0;
+  left:0;
 `;
 
 export default function Navigation({ selected }) {
