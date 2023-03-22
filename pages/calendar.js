@@ -9,6 +9,14 @@ import Header from "../components/Header";
 import Heading from "../components/Heading";
 import FormContainer from "../components/FormContainer";
 
+// ObjectId from https://stackoverflow.com/a/37438675
+const ObjectId = (
+  m = Math,
+  d = Date,
+  h = 16,
+  s = (s) => m.floor(s).toString(h)
+) => s(d.now() / 1000) + " ".repeat(h).replace(/./g, () => s(m.random() * h));
+
 let date = new Date();
 let startingData = [];
 
@@ -58,6 +66,7 @@ export default function Calendar() {
   ) {
     const NewDate = forDate;
     const save = {
+      _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
       reps: reps,
@@ -68,6 +77,7 @@ export default function Calendar() {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
+    apiPost(save);
   }
 
   function addNewEntryRunning(
@@ -79,6 +89,7 @@ export default function Calendar() {
   ) {
     const NewDate = forDate;
     const save = {
+      _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
       kiloms: kiloms,
@@ -88,6 +99,7 @@ export default function Calendar() {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
+    apiPost(save);
   }
 
   function handleSubmit(event) {
@@ -119,7 +131,9 @@ export default function Calendar() {
         return dat.date.toString() === editMode.selectedData.date.toString();
       });
       newData[indexToChange] = save;
+      apiUpdate(data[indexToChange]._id, save);
       setData(newData);
+
       editMode.editModeOn = false;
     } else {
       if (sportSelected === "strength") {
@@ -141,6 +155,7 @@ export default function Calendar() {
         );
       }
     }
+
     clearForm();
   }
   function handleCancelClick(event) {
@@ -179,21 +194,74 @@ export default function Calendar() {
   }, [editMode]);
 
   useEffect(() => {
-    if (data.length !== 0) {
-      localStorage.setItem("strength-data", JSON.stringify(data));
-    }
-  }, [data]);
-
-  useEffect(() => {
-    const savedData = JSON.parse(localStorage.getItem("strength-data"));
-    if (savedData) {
-      for (let i = 0; i < savedData.length; i++) {
-        savedData[i].date = new Date(savedData[i].date);
-      }
-      setData(savedData);
-    }
+    apiGet();
   }, []);
 
+  async function apiUpdate(id, save) {
+    if (id) {
+      const response = await fetch(`/api/exercises/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(save),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        console.log("updated");
+      } else {
+        console.error(`Error: ${response.status}`);
+      }
+    } else {
+      console.error("Error: No _id found.");
+    }
+  }
+
+  async function apiDelete(id) {
+    const response = await fetch(`/api/exercises/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      console.log("deleted");
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
+
+  async function apiPost(save) {
+    const response = await fetch("/api/exercises", {
+      method: "POST",
+      body: JSON.stringify(save),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      console.log("saved");
+    } else {
+      console.error(`Error: ${response.status}`);
+    }
+  }
+
+  async function apiGet() {
+    try {
+      const response = await fetch("/api/exercises");
+      if (response.ok) {
+        const dataFetch = await response.json();
+        for (let i = 0; i < dataFetch.length; i++) {
+          dataFetch[i].date = new Date(dataFetch[i].date);
+        }
+        console.log("datafetch", dataFetch);
+        setData(dataFetch);
+      } else {
+        console.log("Response not OK.");
+      }
+    } catch (error) {
+      console.log("Error fetching: ", error);
+    }
+  }
   function handleChange(event, key) {
     const newInputText = { ...inputText, [key]: event.target.value };
     setInputText(newInputText);
@@ -202,6 +270,7 @@ export default function Calendar() {
   function handleImageClick(whichOne) {
     setSportSelected(whichOne);
   }
+
   return (
     <StrengthContainer>
       <Header>
@@ -275,6 +344,7 @@ export default function Calendar() {
         setEditMode={setEditMode}
         addNewEntry={addNewEntryStrength}
         setSportSelected={setSportSelected}
+        apiDelete={apiDelete}
       />
     </StrengthContainer>
   );
