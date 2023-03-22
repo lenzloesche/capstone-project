@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import NavigationLink from "../NavigationLink";
 
 const StyledNavigation = styled.footer`
   background-color: #a3b6e6;
@@ -14,6 +15,22 @@ const StyledNavigation = styled.footer`
   box-shadow: 0 0 10px black;
 `;
 
-export default function Navigation({ children }) {
-  return <StyledNavigation>{children}</StyledNavigation>;
+export default function Navigation({ selected }) {
+  return (
+    <StyledNavigation>
+      <NavigationLink
+        selected={selected === "strength" ? true : false}
+        href="/strength"
+      >
+        Strength
+      </NavigationLink>
+      {" - "}
+      <NavigationLink
+        selected={selected === "calendar" ? true : false}
+        href="/calendar"
+      >
+        Calendar
+      </NavigationLink>
+    </StyledNavigation>
+  );
 }

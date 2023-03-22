@@ -173,7 +173,7 @@ export default function Strength() {
           })
         )}
       </StrengthContainer>
-      <Navigation></Navigation>
+      <Navigation selected={"strength"} />
     </>
   );
 }
