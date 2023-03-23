@@ -197,10 +197,19 @@ export default function Calendar({ userName, setUserName }) {
 
     setInputText(newInputText);
   }, [editMode]);
-
+  /* 
   useEffect(() => {
-    apiGet(userName);
+    apiGet("");
   }, []);
+ */
+  useEffect(() => {
+    console.log("userName", userName);
+    if (userName === undefined) {
+      apiGet("");
+    } else {
+      apiGet(userName);
+    }
+  }, [userName]);
 
   async function apiUpdate(id, save) {
     if (id) {
@@ -291,76 +300,86 @@ export default function Calendar({ userName, setUserName }) {
         userName={userName}
         handleUserNameFormSubmit={handleUserNameFormSubmit}
       />
-      <FormContainer>
-        <ImageContainer>
-          <Image
-            className={sportSelected === "strength" ? "border" : "small-border"}
-            onClick={() => {
-              handleImageClick("strength");
-            }}
-            src="/strength.svg"
-            alt="strength image of an Arm"
-            width="100"
-            height="100"
-          ></Image>
-          <Image
-            className={sportSelected === "running" ? "border" : "small-border"}
-            onClick={() => {
-              handleImageClick("running");
-            }}
-            src="/running.svg"
-            alt="running image runner"
-            width="100"
-            height="100"
-          ></Image>
-        </ImageContainer>
-        <p className="big-text">
-          {!editMode.editModeOn ? (
-            <>
-              {"New Entry for today:"}
-              <br />
-              {"It's " +
-                day +
-                `. Did you ${
-                  sportSelected === "running" ? "run" : "workout"
-                } today?`}
-            </>
-          ) : (
-            "Editing for: " +
-            (editMode.selectedData.date.getMonth() + 1).toString() +
-            "/" +
-            editMode.selectedData.date.getDate().toString() +
-            "/" +
-            editMode.selectedData.date.getFullYear().toString()
-          )}
-        </p>
-        {sportSelected === "strength" ? (
-          <StrengthForm
-            handleSubmit={handleSubmit}
-            handleCancelClick={handleCancelClick}
-            handleChange={handleChange}
+      {userName !== undefined ? (
+        <>
+          <FormContainer>
+            <ImageContainer>
+              <Image
+                className={
+                  sportSelected === "strength" ? "border" : "small-border"
+                }
+                onClick={() => {
+                  handleImageClick("strength");
+                }}
+                src="/strength.svg"
+                alt="strength image of an Arm"
+                width="100"
+                height="100"
+              ></Image>
+              <Image
+                className={
+                  sportSelected === "running" ? "border" : "small-border"
+                }
+                onClick={() => {
+                  handleImageClick("running");
+                }}
+                src="/running.svg"
+                alt="running image runner"
+                width="100"
+                height="100"
+              ></Image>
+            </ImageContainer>
+            <p className="big-text">
+              {!editMode.editModeOn ? (
+                <>
+                  {"New Entry for today:"}
+                  <br />
+                  {"It's " +
+                    day +
+                    `. Did you ${
+                      sportSelected === "running" ? "run" : "workout"
+                    } today?`}
+                </>
+              ) : (
+                "Editing for: " +
+                (editMode.selectedData.date.getMonth() + 1).toString() +
+                "/" +
+                editMode.selectedData.date.getDate().toString() +
+                "/" +
+                editMode.selectedData.date.getFullYear().toString()
+              )}
+            </p>
+            {sportSelected === "strength" ? (
+              <StrengthForm
+                handleSubmit={handleSubmit}
+                handleCancelClick={handleCancelClick}
+                handleChange={handleChange}
+                editMode={editMode}
+                inputText={inputText}
+              />
+            ) : (
+              <RunningForm
+                handleSubmit={handleSubmit}
+                handleCancelClick={handleCancelClick}
+                handleChange={handleChange}
+                editMode={editMode}
+                inputText={inputText}
+              />
+            )}
+          </FormContainer>
+          <CalendarHeatmap
+            data={data}
+            setData={setData}
             editMode={editMode}
-            inputText={inputText}
+            setEditMode={setEditMode}
+            addNewEntry={addNewEntryStrength}
+            setSportSelected={setSportSelected}
+            apiDelete={apiDelete}
           />
-        ) : (
-          <RunningForm
-            handleSubmit={handleSubmit}
-            handleCancelClick={handleCancelClick}
-            handleChange={handleChange}
-            editMode={editMode}
-            inputText={inputText}
-          />
-        )}
-      </FormContainer>
-      <CalendarHeatmap
-        data={data}
-        setData={setData}
-        editMode={editMode}
-        setEditMode={setEditMode}
-        addNewEntry={addNewEntryStrength}
-        setSportSelected={setSportSelected}
-        apiDelete={apiDelete}
-      />
+        </>
+      ) : (
+        ""
+      )}
     </StrengthContainer>
   );
 }

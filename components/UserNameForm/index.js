@@ -8,11 +8,9 @@ import StyledButton from "../StyledButton";
 export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
   const [userInput, setUserInput] = useState("");
   const [showForm, setShowForm] = useState(false);
-  /*  function handleUserNameSubmit(event) {
-    event.preventDefault();
-    setUserName(userInput);
-    
-  } */
+  if (userName === undefined && showForm === false) {
+    setShowForm(true);
+  }
   return (
     <>
       <FormContainer>
