@@ -67,6 +67,7 @@ export default function Calendar({ userName, setUserName }) {
   ) {
     const NewDate = forDate;
     const save = {
+      userName: userName,
       _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
@@ -90,6 +91,7 @@ export default function Calendar({ userName, setUserName }) {
   ) {
     const NewDate = forDate;
     const save = {
+      userName: userName,
       _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
@@ -110,6 +112,7 @@ export default function Calendar({ userName, setUserName }) {
       let save = {};
       if (sportSelected === "strength") {
         save = {
+          userName: userName,
           date: NewDate,
           sportSelected: sportSelected,
           reps: event.target.elements.reps.value,
@@ -119,6 +122,7 @@ export default function Calendar({ userName, setUserName }) {
         };
       } else {
         save = {
+          userName: userName,
           date: NewDate,
           sportSelected: sportSelected,
           kiloms: event.target.elements.kiloms.value,
@@ -159,7 +163,7 @@ export default function Calendar({ userName, setUserName }) {
 
     clearForm();
   }
-  function handleCancelClick(event) {
+  function handleCancelClick() {
     clearForm();
   }
 
@@ -248,7 +252,7 @@ export default function Calendar({ userName, setUserName }) {
 
   async function apiGet() {
     try {
-      const response = await fetch("/api/exercises");
+      const response = await fetch(`/api/exercises/users/${userName}`);
       if (response.ok) {
         const dataFetch = await response.json();
         for (let i = 0; i < dataFetch.length; i++) {
