@@ -8,6 +8,7 @@ import RunningForm from "../components/RunningForm";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
 import FormContainer from "../components/FormContainer";
+import UserNameForm from "../components/UserNameForm";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -20,10 +21,9 @@ const ObjectId = (
 let date = new Date();
 let startingData = [];
 
-export default function Calendar() {
+export default function Calendar({ userName, setUserName }) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
-
   const [editMode, setEditMode] = useState({
     editModeOn: false,
     selectedData: {
@@ -45,6 +45,7 @@ export default function Calendar() {
     kiloms: "",
     mins: "",
   });
+
   const weekday = [
     "Sunday",
     "Monday",
@@ -276,6 +277,7 @@ export default function Calendar() {
       <Header>
         <Heading>Fitness App</Heading>
       </Header>
+      <UserNameForm userName={userName} setUserName={setUserName} />
       <FormContainer>
         <ImageContainer>
           <Image
