@@ -197,15 +197,10 @@ export default function Calendar({ userName, setUserName }) {
 
     setInputText(newInputText);
   }, [editMode]);
-  /* 
-  useEffect(() => {
-    apiGet("");
-  }, []);
- */
+
   useEffect(() => {
     console.log("userName", userName);
     if (userName === undefined) {
-      apiGet("");
     } else {
       apiGet(userName);
     }
@@ -288,7 +283,6 @@ export default function Calendar({ userName, setUserName }) {
   function handleUserNameFormSubmit(event, userInput) {
     event.preventDefault();
     setUserName(userInput);
-    apiGet(userInput);
   }
 
   return (

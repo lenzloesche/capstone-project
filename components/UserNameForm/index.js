@@ -2,15 +2,22 @@ import FormContainer from "../FormContainer";
 import Form from "../Form";
 import Input from "../Input";
 import Label from "../Label";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StyledButton from "../StyledButton";
 
 export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
   const [userInput, setUserInput] = useState("");
   const [showForm, setShowForm] = useState(false);
-  if (userName === undefined && showForm === false) {
-    setShowForm(true);
-  }
+
+  useEffect(() => {
+    console.log("userName in usernameform", userName);
+    if (userName === undefined) {
+      setShowForm(true);
+    } else {
+      setShowForm(false);
+    }
+  }, [userName]);
+
   return (
     <>
       <FormContainer>
@@ -21,12 +28,12 @@ export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
         {showForm ? (
           <Form
             onSubmit={(event) => {
-              setShowForm(false);
               handleUserNameFormSubmit(event, userInput);
             }}
           >
             <Label htmlFor={userName}>
-              Type in User Name:
+              Type in User Name And Press Return:
+              <br />
               <Input
                 type="text"
                 id={userName}
