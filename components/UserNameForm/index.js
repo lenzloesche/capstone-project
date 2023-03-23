@@ -10,7 +10,6 @@ export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    console.log("userName in usernameform", userName);
     if (userName === undefined) {
       setShowForm(true);
     } else {

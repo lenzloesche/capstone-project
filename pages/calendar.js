@@ -204,7 +204,6 @@ export default function Calendar({ userName, setUserName }) {
   }, [editMode]);
 
   useEffect(() => {
-    console.log("userName", userName);
     if (userName === undefined) {
     } else {
       apiGet(userName, setData);
