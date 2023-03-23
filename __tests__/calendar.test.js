@@ -19,15 +19,15 @@ const fakeData = [
 const userName = "TestName";
 
 const apiGet = require("../apiServices/apiGet");
-jest.mock("../api/apiGet", () => (currentUser, setData) => {
+jest.mock("../apiServices/apiGet", () => (currentUser, setData) => {
   setData(fakeData);
 });
 
 const apiPost = require("../apiServices/apiPost");
-jest.mock("../api/apiPost", () => () => {});
+jest.mock("../apiServices/apiPost", () => () => {});
 
 const apiDelete = require("../apiServices/apiDelete");
-jest.mock("../api/apiDelete", () => () => {});
+jest.mock("../apiServices/apiDelete", () => () => {});
 
 describe("Calendar", () => {
   it("Test if there are Input fields with label: Kilograms, reps, sets", async () => {
