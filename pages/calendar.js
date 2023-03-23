@@ -10,10 +10,10 @@ import Heading from "../components/Heading";
 import FormContainer from "../components/FormContainer";
 import UserNameForm from "../components/UserNameForm";
 import Navigation from "../components/Navigation";
-import apiGet from "../apiSevices/apiGet";
-import apiDelete from "../apiSevices/apiDelete";
-import apiPost from "../apiSevices/apiPost";
-import apiUpdate from "../apiSevices/apiUpdate";
+import apiGet from "../apiServices/apiGet";
+import apiDelete from "../apiServices/apiDelete";
+import apiPost from "../apiServices/apiPost";
+import apiUpdate from "../apiServices/apiUpdate";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
