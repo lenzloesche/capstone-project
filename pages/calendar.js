@@ -10,7 +10,10 @@ import Heading from "../components/Heading";
 import FormContainer from "../components/FormContainer";
 import UserNameForm from "../components/UserNameForm";
 import Navigation from "../components/Navigation";
-import apiGet from "../components/apiGet";
+import apiGet from "../api/apiGet";
+import apiDelete from "../api/apiDelete";
+import apiPost from "../api/apiPost";
+import apiUpdate from "../api/apiUpdate";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -24,7 +27,6 @@ let date = new Date();
 let startingData = [];
 
 export default function Calendar({ userName, setUserName }) {
-  console.log("render");
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
   const [editMode, setEditMode] = useState({
@@ -208,54 +210,6 @@ export default function Calendar({ userName, setUserName }) {
       apiGet(userName, setData);
     }
   }, [userName]);
-
-  async function apiUpdate(id, save) {
-    if (id) {
-      const response = await fetch(`/api/exercises/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(save),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        console.log("updated");
-      } else {
-        console.error(`Error: ${response.status}`);
-      }
-    } else {
-      console.error("Error: No _id found.");
-    }
-  }
-
-  async function apiDelete(id) {
-    const response = await fetch(`/api/exercises/${id}`, {
-      method: "DELETE",
-    });
-
-    if (response.ok) {
-      console.log("deleted");
-    } else {
-      console.error(`Error: ${response.status}`);
-    }
-  }
-
-  async function apiPost(save) {
-    const response = await fetch("/api/exercises", {
-      method: "POST",
-      body: JSON.stringify(save),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      console.log("saved");
-    } else {
-      console.error(`Error: ${response.status}`);
-    }
-  }
 
   function handleChange(event, key) {
     const newInputText = { ...inputText, [key]: event.target.value };

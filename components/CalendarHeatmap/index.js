@@ -28,8 +28,6 @@ export default function CalendarHeatmap({
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
-  console.log("date", data);
-
   const lastXDays = data?.filter((date) => date.date >= startDate);
 
   function handleClick(event, dat) {
@@ -37,8 +35,6 @@ export default function CalendarHeatmap({
   }
   let selectedData = null;
   if (data) {
-    console.log("date", data);
-
     selectedData = data
       ?.filter(
         (dat) => dat.date?.toDateString() === dateSelected?.toDateString()
