@@ -1,7 +1,32 @@
 import Calendar from "../pages/calendar";
 import { render, screen, fireEvent } from "@testing-library/react";
 
-test("random test", () => {
+/* const fakeData = [
+  {
+    date: "2023-03-23T07:50:35.108Z",
+    exerciseStrength: "test exercise",
+    kilos: 1,
+    reps: 2,
+    sets: 3,
+    sportSelected: "strength",
+    userName: "TestName",
+    __v: 0,
+    _id: "641c07879d14c21178b39769",
+  },
+];
+const userName = "TestName";
+
+jest.mock("../pages/calendar", () => ({
+  __esModule: true,
+  default: jest.fn(),
+  apiGet: jest.fn((currentUser, setData) => {
+    console.log("mockFunctionGetsCalled");
+    setData(fakeData);
+  }),
+}));
+ */
+test("random test", async () => {
+  //render(<Calendar userName={userName} />);
   expect(0).toBe(0);
 });
 

@@ -203,7 +203,7 @@ export default function Calendar({ userName, setUserName }) {
     console.log("userName", userName);
     if (userName === undefined) {
     } else {
-      apiGet(userName);
+      apiGet(userName, setData);
     }
   }, [userName]);
 
