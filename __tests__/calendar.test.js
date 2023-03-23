@@ -1,9 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Calendar from "../pages/calendar";
-/* 
+//import apiGet from "../components/apiGet";
+
 const fakeData = [
   {
-    date: "2023-03-23T07:50:35.108Z",
+    date: "2023-03-22T11:11:35.944Z",
     exerciseStrength: "test exercise",
     kilos: 1,
     reps: 2,
@@ -16,19 +17,68 @@ const fakeData = [
 ];
 const userName = "TestName";
 
-jest.mock("../pages/calendar", () => ({
-  __esModule: true,
-  default: jest.fn(),
+//import * as apiGet from "../components/apiGet";
+
+const apiGet = require("../components/apiGet");
+
+jest.mock("../components/apiGet", () => (currentUser, setData) => {
+  console.log("it works");
+
+  setData(fakeData);
+});
+
+describe("isAtLeast18", () => {
+  it("fails if value is not recognised as integer", () => {
+    render(<Calendar userName={userName} />);
+
+    // Should pass, but fails because of the isInteger() mock
+    //expect(isAtLeast18(123)).toBe(false);
+    // Should fail either way
+    //expect(isAtLeast18("abc")).toBe(false);
+  });
+});
+
+/* 
+jest.mock("../components/apiGet", () => ({
+  // ...apiGet,
+  apiGet: jest.fn(() => {
+    console.log("it WOrks!");
+  }),
+}));
+
+test("random test", async () => {
+  render(<Calendar userName={userName} />);
+  expect(0).toBe(0);
+}); */
+
+/* jest.mock("../pages/calendar", () => {
+  const originalModule = jest.requireActual("../pages/calendar");
+  return {
+    __esModule: true,
+    ...originalModule,
+    apiGet: jest.fn((currentUser, setData) => {
+      console.log("mockFunctionGetsCalled");
+      setData(fakeData);
+    }),
+  };
+}); */
+/* const apiGetMock =jest.mock("../components/apiGet", () => ({
   apiGet: jest.fn((currentUser, setData) => {
     console.log("mockFunctionGetsCalled");
     setData(fakeData);
   }),
-}));
- */
-test("random test", async () => {
-  //render(<Calendar userName={userName} />);
-  expect(0).toBe(0);
+})); */
+
+/* 
+let apiGet = require("../components/apiGet");
+it("mocks entire module", () => {
+  apiGet = jest.fn((currentUser, setData) => {
+    console.log("mockFunctionGetsCalled");
+    setData(fakeData);
+  });
+  render(<Calendar userName={userName} />);
 });
+ */
 
 /* 
 test("Test if there are Input fields with label: Kilograms, reps, sets", async () => {

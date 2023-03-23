@@ -10,6 +10,7 @@ import Heading from "../components/Heading";
 import FormContainer from "../components/FormContainer";
 import UserNameForm from "../components/UserNameForm";
 import Navigation from "../components/Navigation";
+import apiGet from "../components/apiGet";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -21,6 +22,24 @@ const ObjectId = (
 
 let date = new Date();
 let startingData = [];
+
+/* export async function apiGet(currentUser, setData) {
+  try {
+    const response = await fetch(`/api/exercises/users/${currentUser}`);
+    if (response.ok) {
+      const dataFetch = await response.json();
+      for (let i = 0; i < dataFetch.length; i++) {
+        dataFetch[i].date = new Date(dataFetch[i].date);
+      }
+      console.log("datafetch", dataFetch);
+      setData(dataFetch);
+    } else {
+      console.log("Response not OK.");
+    }
+  } catch (error) {
+    console.log("Error fetching: ", error);
+  }
+} */
 
 export default function Calendar({ userName, setUserName }) {
   console.log("render");
@@ -256,23 +275,6 @@ export default function Calendar({ userName, setUserName }) {
     }
   }
 
-  async function apiGet(currentUser) {
-    try {
-      const response = await fetch(`/api/exercises/users/${currentUser}`);
-      if (response.ok) {
-        const dataFetch = await response.json();
-        for (let i = 0; i < dataFetch.length; i++) {
-          dataFetch[i].date = new Date(dataFetch[i].date);
-        }
-        console.log("datafetch", dataFetch);
-        setData(dataFetch);
-      } else {
-        console.log("Response not OK.");
-      }
-    } catch (error) {
-      console.log("Error fetching: ", error);
-    }
-  }
   function handleChange(event, key) {
     const newInputText = { ...inputText, [key]: event.target.value };
     setInputText(newInputText);
