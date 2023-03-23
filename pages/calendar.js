@@ -8,7 +8,12 @@ import RunningForm from "../components/RunningForm";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
 import FormContainer from "../components/FormContainer";
+import UserNameForm from "../components/UserNameForm";
 import Navigation from "../components/Navigation";
+import apiGet from "../apiServices/apiGet";
+import apiDelete from "../apiServices/apiDelete";
+import apiPost from "../apiServices/apiPost";
+import apiUpdate from "../apiServices/apiUpdate";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -21,10 +26,9 @@ const ObjectId = (
 let date = new Date();
 let startingData = [];
 
-export default function Calendar() {
+export default function Calendar({ userName, setUserName }) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
-
   const [editMode, setEditMode] = useState({
     editModeOn: false,
     selectedData: {
@@ -46,6 +50,7 @@ export default function Calendar() {
     kiloms: "",
     mins: "",
   });
+
   const weekday = [
     "Sunday",
     "Monday",
@@ -67,6 +72,7 @@ export default function Calendar() {
   ) {
     const NewDate = forDate;
     const save = {
+      userName: userName,
       _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
@@ -90,6 +96,7 @@ export default function Calendar() {
   ) {
     const NewDate = forDate;
     const save = {
+      userName: userName,
       _id: ObjectId(),
       date: NewDate,
       sportSelected: sportSelected,
@@ -110,6 +117,7 @@ export default function Calendar() {
       let save = {};
       if (sportSelected === "strength") {
         save = {
+          userName: userName,
           date: NewDate,
           sportSelected: sportSelected,
           reps: event.target.elements.reps.value,
@@ -119,6 +127,7 @@ export default function Calendar() {
         };
       } else {
         save = {
+          userName: userName,
           date: NewDate,
           sportSelected: sportSelected,
           kiloms: event.target.elements.kiloms.value,
@@ -159,7 +168,7 @@ export default function Calendar() {
 
     clearForm();
   }
-  function handleCancelClick(event) {
+  function handleCancelClick() {
     clearForm();
   }
 
@@ -195,74 +204,12 @@ export default function Calendar() {
   }, [editMode]);
 
   useEffect(() => {
-    apiGet();
-  }, []);
-
-  async function apiUpdate(id, save) {
-    if (id) {
-      const response = await fetch(`/api/exercises/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(save),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        console.log("updated");
-      } else {
-        console.error(`Error: ${response.status}`);
-      }
+    if (userName === undefined) {
     } else {
-      console.error("Error: No _id found.");
+      apiGet(userName, setData);
     }
-  }
+  }, [userName]);
 
-  async function apiDelete(id) {
-    const response = await fetch(`/api/exercises/${id}`, {
-      method: "DELETE",
-    });
-
-    if (response.ok) {
-      console.log("deleted");
-    } else {
-      console.error(`Error: ${response.status}`);
-    }
-  }
-
-  async function apiPost(save) {
-    const response = await fetch("/api/exercises", {
-      method: "POST",
-      body: JSON.stringify(save),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      console.log("saved");
-    } else {
-      console.error(`Error: ${response.status}`);
-    }
-  }
-
-  async function apiGet() {
-    try {
-      const response = await fetch("/api/exercises");
-      if (response.ok) {
-        const dataFetch = await response.json();
-        for (let i = 0; i < dataFetch.length; i++) {
-          dataFetch[i].date = new Date(dataFetch[i].date);
-        }
-        console.log("datafetch", dataFetch);
-        setData(dataFetch);
-      } else {
-        console.log("Response not OK.");
-      }
-    } catch (error) {
-      console.log("Error fetching: ", error);
-    }
-  }
   function handleChange(event, key) {
     const newInputText = { ...inputText, [key]: event.target.value };
     setInputText(newInputText);
@@ -272,86 +219,101 @@ export default function Calendar() {
     setSportSelected(whichOne);
   }
 
+  function handleUserNameFormSubmit(event, userInput) {
+    event.preventDefault();
+    setUserName(userInput);
+  }
+
   return (
     <>
       <StrengthContainer>
         <Header>
           <Heading>Fitness App</Heading>
         </Header>
-        <FormContainer>
-          <ImageContainer>
-            <Image
-              className={
-                sportSelected === "strength" ? "border" : "small-border"
-              }
-              onClick={() => {
-                handleImageClick("strength");
-              }}
-              src="/strength.svg"
-              alt="strength image of an Arm"
-              width="100"
-              height="100"
-            ></Image>
-            <Image
-              className={
-                sportSelected === "running" ? "border" : "small-border"
-              }
-              onClick={() => {
-                handleImageClick("running");
-              }}
-              src="/running.svg"
-              alt="running image runner"
-              width="100"
-              height="100"
-            ></Image>
-          </ImageContainer>
-          <p className="big-text">
-            {!editMode.editModeOn ? (
-              <>
-                {"New Entry for today:"}
-                <br />
-                {"It's " +
-                  day +
-                  `. Did you ${
-                    sportSelected === "running" ? "run" : "workout"
-                  } today?`}
-              </>
-            ) : (
-              "Editing for: " +
-              (editMode.selectedData.date.getMonth() + 1).toString() +
-              "/" +
-              editMode.selectedData.date.getDate().toString() +
-              "/" +
-              editMode.selectedData.date.getFullYear().toString()
-            )}
-          </p>
-          {sportSelected === "strength" ? (
-            <StrengthForm
-              handleSubmit={handleSubmit}
-              handleCancelClick={handleCancelClick}
-              handleChange={handleChange}
-              editMode={editMode}
-              inputText={inputText}
-            />
-          ) : (
-            <RunningForm
-              handleSubmit={handleSubmit}
-              handleCancelClick={handleCancelClick}
-              handleChange={handleChange}
-              editMode={editMode}
-              inputText={inputText}
-            />
-          )}
-        </FormContainer>
-        <CalendarHeatmap
-          data={data}
-          setData={setData}
-          editMode={editMode}
-          setEditMode={setEditMode}
-          addNewEntry={addNewEntryStrength}
-          setSportSelected={setSportSelected}
-          apiDelete={apiDelete}
+        <UserNameForm
+          userName={userName}
+          handleUserNameFormSubmit={handleUserNameFormSubmit}
         />
+        {userName !== undefined ? (
+          <>
+            <FormContainer>
+              <ImageContainer>
+                <Image
+                  className={
+                    sportSelected === "strength" ? "border" : "small-border"
+                  }
+                  onClick={() => {
+                    handleImageClick("strength");
+                  }}
+                  src="/strength.svg"
+                  alt="strength image of an Arm"
+                  width="100"
+                  height="100"
+                ></Image>
+                <Image
+                  className={
+                    sportSelected === "running" ? "border" : "small-border"
+                  }
+                  onClick={() => {
+                    handleImageClick("running");
+                  }}
+                  src="/running.svg"
+                  alt="running image runner"
+                  width="100"
+                  height="100"
+                ></Image>
+              </ImageContainer>
+              <p className="big-text">
+                {!editMode.editModeOn ? (
+                  <>
+                    {"New Entry for today:"}
+                    <br />
+                    {"It's " +
+                      day +
+                      `. Did you ${
+                        sportSelected === "running" ? "run" : "workout"
+                      } today?`}
+                  </>
+                ) : (
+                  "Editing for: " +
+                  (editMode.selectedData.date.getMonth() + 1).toString() +
+                  "/" +
+                  editMode.selectedData.date.getDate().toString() +
+                  "/" +
+                  editMode.selectedData.date.getFullYear().toString()
+                )}
+              </p>
+              {sportSelected === "strength" ? (
+                <StrengthForm
+                  handleSubmit={handleSubmit}
+                  handleCancelClick={handleCancelClick}
+                  handleChange={handleChange}
+                  editMode={editMode}
+                  inputText={inputText}
+                />
+              ) : (
+                <RunningForm
+                  handleSubmit={handleSubmit}
+                  handleCancelClick={handleCancelClick}
+                  handleChange={handleChange}
+                  editMode={editMode}
+                  inputText={inputText}
+                />
+              )}
+            </FormContainer>
+            <CalendarHeatmap
+              data={data}
+              setData={setData}
+              editMode={editMode}
+              setEditMode={setEditMode}
+              addNewEntry={addNewEntryStrength}
+              setSportSelected={setSportSelected}
+              apiDelete={apiDelete}
+            />
+          </>
+        ) : (
+          ""
+        )}
       </StrengthContainer>
       <Navigation selected={"calendar"} />
     </>

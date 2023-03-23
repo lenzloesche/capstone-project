@@ -33,10 +33,14 @@ export default function CalendarHeatmap({
   function handleClick(event, dat) {
     setDateSelected(dat);
   }
-  let selectedData = data
-    ?.filter((dat) => dat.date?.toDateString() === dateSelected?.toDateString())
-    .slice();
-
+  let selectedData = null;
+  if (data) {
+    selectedData = data
+      ?.filter(
+        (dat) => dat.date?.toDateString() === dateSelected?.toDateString()
+      )
+      .slice();
+  }
   function handleDeleteClick(event, date) {
     const indexToDelete = data.findIndex((dat) => {
       return dat.date.toString() === date.toString();
