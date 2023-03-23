@@ -199,7 +199,7 @@ export default function Calendar({ userName, setUserName }) {
   }, [editMode]);
 
   useEffect(() => {
-    apiGet();
+    apiGet(userName);
   }, []);
 
   async function apiUpdate(id, save) {
@@ -250,9 +250,9 @@ export default function Calendar({ userName, setUserName }) {
     }
   }
 
-  async function apiGet() {
+  async function apiGet(currentUser) {
     try {
-      const response = await fetch(`/api/exercises/users/${userName}`);
+      const response = await fetch(`/api/exercises/users/${currentUser}`);
       if (response.ok) {
         const dataFetch = await response.json();
         for (let i = 0; i < dataFetch.length; i++) {
@@ -276,12 +276,21 @@ export default function Calendar({ userName, setUserName }) {
     setSportSelected(whichOne);
   }
 
+  function handleUserNameFormSubmit(event, userInput) {
+    event.preventDefault();
+    setUserName(userInput);
+    apiGet(userInput);
+  }
+
   return (
     <StrengthContainer>
       <Header>
         <Heading>Fitness App</Heading>
       </Header>
-      <UserNameForm userName={userName} setUserName={setUserName} />
+      <UserNameForm
+        userName={userName}
+        handleUserNameFormSubmit={handleUserNameFormSubmit}
+      />
       <FormContainer>
         <ImageContainer>
           <Image

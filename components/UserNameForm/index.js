@@ -5,14 +5,14 @@ import Label from "../Label";
 import { useState } from "react";
 import StyledButton from "../StyledButton";
 
-export default function UserNameForm({ userName, setUserName }) {
+export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
   const [userInput, setUserInput] = useState("");
   const [showForm, setShowForm] = useState(false);
-  function handleUserNameSubmit(event) {
+  /*  function handleUserNameSubmit(event) {
     event.preventDefault();
     setUserName(userInput);
-    setShowForm(!showForm);
-  }
+    
+  } */
   return (
     <>
       <FormContainer>
@@ -23,7 +23,8 @@ export default function UserNameForm({ userName, setUserName }) {
         {showForm ? (
           <Form
             onSubmit={(event) => {
-              handleUserNameSubmit(event);
+              setShowForm(false);
+              handleUserNameFormSubmit(event, userInput);
             }}
           >
             <Label htmlFor={userName}>
