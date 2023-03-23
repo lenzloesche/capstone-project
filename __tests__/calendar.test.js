@@ -4,7 +4,7 @@ import Calendar from "../pages/calendar";
 
 const fakeData = [
   {
-    date: "2023-03-22T11:11:35.944Z",
+    date: new Date("2023-03-22T11:11:35.944Z"),
     exerciseStrength: "test exercise",
     kilos: 1,
     reps: 2,
@@ -15,6 +15,7 @@ const fakeData = [
     _id: "641c07879d14c21178b39769",
   },
 ];
+
 const userName = "TestName";
 
 //import * as apiGet from "../components/apiGet";
