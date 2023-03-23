@@ -18,15 +18,15 @@ const fakeData = [
 
 const userName = "TestName";
 
-const apiGet = require("../api/apiGet");
+const apiGet = require("../apiSevices/apiGet");
 jest.mock("../api/apiGet", () => (currentUser, setData) => {
   setData(fakeData);
 });
 
-const apiPost = require("../api/apiPost");
+const apiPost = require("../apiSevices/apiPost");
 jest.mock("../api/apiPost", () => () => {});
 
-const apiDelete = require("../api/apiDelete");
+const apiDelete = require("../apiSevices/apiDelete");
 jest.mock("../api/apiDelete", () => () => {});
 
 describe("Calendar", () => {
