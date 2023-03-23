@@ -23,6 +23,7 @@ let date = new Date();
 let startingData = [];
 
 export default function Calendar({ userName, setUserName }) {
+  console.log("render");
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
   const [editMode, setEditMode] = useState({

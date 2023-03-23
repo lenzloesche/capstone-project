@@ -1,7 +1,7 @@
-import Calendar from "../pages/calendar";
 import { render, screen, fireEvent } from "@testing-library/react";
-
-/* const fakeData = [
+import Calendar from "../pages/calendar";
+/* 
+const fakeData = [
   {
     date: "2023-03-23T07:50:35.108Z",
     exerciseStrength: "test exercise",
