@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import Header from "../components/Header";
-import { uid } from "uid";
+import {uid} from "uid";
 import FormContainer from "../components/FormContainer";
 import Input from "../components/Input";
 import StyledButton from "../components/StyledButton";
@@ -67,7 +67,6 @@ export default function Strength() {
   return (
     <>
       <StrengthContainer>
-        {" "}
         <Header>
           <Heading>Fitness App</Heading>
         </Header>
@@ -102,14 +101,14 @@ export default function Strength() {
               <option value="stretching">stretching</option>
               <option value="strongman">strongman</option>
             </StyledSelect>
-            <br />
+
             <StyledSelect id="difficulty" name="difficulty">
               <option value="all_difficulties">all difficulties</option>
               <option value="beginner">beginner</option>
               <option value="intermediate">intermediate</option>
               <option value="expert">expert</option>
             </StyledSelect>
-            <br />
+
             <StyledSelect id="muscle" name="muscle">
               <option value="all_muscles">all muscles</option>
               <option value="abdominals">abdominals</option>
@@ -162,7 +161,6 @@ export default function Strength() {
         )}
       </StrengthContainer>
       <Navigation selected={"strength"}>
-        {" "}
         <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
           Info: {fetchingStatus}
         </StyledParagraph>

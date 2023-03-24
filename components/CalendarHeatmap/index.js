@@ -1,11 +1,12 @@
-import { uid } from "uid";
-import { useState } from "react";
+import {uid} from "uid";
+import {useState} from "react";
 import ContainerDiv from "../ContainerDiv";
 import StyledButton from "../StyledButton";
 import FormContainer from "../FormContainer";
 import CalendarText from "../CalendarText";
 import Div from "../CalendarComponents/Div";
 import apiDelete from "../../apiServices/apiDelete";
+import StyledParagraphNormal from "../StyledParagraphNormal";
 
 const date = new Date();
 const heatmap = [];
@@ -64,7 +65,7 @@ export default function CalendarHeatmap({
   }
 
   function handleEditClick(selectedData) {
-    const newEditMode = { editModeOn: true, selectedData };
+    const newEditMode = {editModeOn: true, selectedData};
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
     scrollTo(0, 0);
@@ -77,7 +78,7 @@ export default function CalendarHeatmap({
 
     const newEditMode = {
       editModeOn: true,
-      selectedData: { date: randomDate },
+      selectedData: {date: randomDate},
     };
     setEditMode(newEditMode);
     scrollTo(0, 0);
@@ -157,7 +158,6 @@ export default function CalendarHeatmap({
   }
   return (
     <>
-      {" "}
       <CalendarText>Calendar</CalendarText>
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
@@ -194,36 +194,42 @@ export default function CalendarHeatmap({
       {selectedData.map((selectedDat, index) => {
         return (
           <FormContainer key={uid()}>
-            {" "}
-            <br />
-            Type: {selectedDat.sportSelected}
-            <br />
+            <StyledParagraphNormal>
+              Type: {selectedDat.sportSelected}
+            </StyledParagraphNormal>
+
             {selectedDat.sportSelected === "strength" ? (
               <>
-                Exercise: {selectedDat.exerciseStrength}
-                <br />
-                Reps: {selectedDat.reps}
-                <br />
-                Sets: {selectedDat.sets}
-                <br />
-                Kilograms: {selectedDat.kilos}
-                <br />
+                <StyledParagraphNormal>
+                  Exercise: {selectedDat.exerciseStrength}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Reps: {selectedDat.reps}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Sets: {selectedDat.sets}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Kilograms: {selectedDat.kilos}
+                </StyledParagraphNormal>
               </>
             ) : (
               <>
-                Exercise: {selectedDat.exerciseRunning}
-                <br />
-                Kilometers: {selectedDat.kiloms}
-                <br />
-                Minutes: {selectedDat.mins}
-                <br />
+                <StyledParagraphNormal>
+                  Exercise: {selectedDat.exerciseRunning}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Kilometers: {selectedDat.kiloms}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Minutes: {selectedDat.mins}
+                </StyledParagraphNormal>
               </>
             )}
             <StyledButton onClick={() => handleDeleteClick(selectedDat.date)}>
               Delete
             </StyledButton>
             <StyledButton onClick={() => handleEditClick(selectedDat)}>
-              {" "}
               Edit
             </StyledButton>
           </FormContainer>

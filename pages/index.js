@@ -6,7 +6,6 @@ export default function Home() {
     <main>
       <Heading>🔱Fitness App🔱</Heading>
       <Link href="/calendar">Calendar</Link>
-      <br />
       <Link href="/strength">Strength</Link>
     </main>
   );

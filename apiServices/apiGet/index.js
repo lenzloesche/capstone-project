@@ -7,15 +7,14 @@ export default async function apiGet(currentUser, setData, setFetchingStatus) {
       for (let i = 0; i < dataFetch.length; i++) {
         dataFetch[i].date = new Date(dataFetch[i].date);
       }
-      console.log("datafetch", dataFetch);
       setData(dataFetch);
       setFetchingStatus("Done fetching");
     } else {
-      console.log("Response not OK.");
+      console.error("Response not OK.");
       setFetchingStatus("Error");
     }
   } catch (error) {
-    console.log("Error fetching: ", error);
+    console.error("Error fetching: ", error);
     setFetchingStatus("Error");
   }
 }

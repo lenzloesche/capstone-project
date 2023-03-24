@@ -36,14 +36,13 @@ export default function UserNameForm({
           >
             <Label htmlFor={userName}>
               Type in User Name And Press Return:
-              <br />
-              <Input
-                type="text"
-                id={userName}
-                value={userInput}
-                onChange={(event) => setUserInput(event.target.value)}
-              ></Input>
             </Label>
+            <Input
+              type="text"
+              id={userName}
+              value={userInput}
+              onChange={(event) => setUserInput(event.target.value)}
+            ></Input>
           </Form>
         ) : (
           ""

@@ -10,7 +10,6 @@ export default async function apiPost(save, setFetchingStatus) {
 
   if (response.ok) {
     setFetchingStatus("Saved");
-    console.log("saved");
   } else {
     setFetchingStatus("Error");
     console.error(`Error: ${response.status}`);

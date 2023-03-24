@@ -1,5 +1,5 @@
 import CalendarHeatmap from "../components/CalendarHeatmap";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import StrengthForm from "../components/StrengthForm";
 import StrengthContainer from "../components/StrengthContainer";
 import Image from "next/image";
@@ -28,7 +28,7 @@ const ObjectId = (
 let date = new Date();
 let startingData = [];
 
-export default function Calendar({ userName, setUserName }) {
+export default function Calendar({userName, setUserName}) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
   const [editMode, setEditMode] = useState({
@@ -222,7 +222,7 @@ export default function Calendar({ userName, setUserName }) {
   }, [userName]);
 
   function handleChange(event, key) {
-    const newInputText = { ...inputText, [key]: event.target.value };
+    const newInputText = {...inputText, [key]: event.target.value};
     setInputText(newInputText);
   }
 
@@ -275,29 +275,31 @@ export default function Calendar({ userName, setUserName }) {
               </ImageContainer>
               <StyledParagraphNormal className="big-text">
                 Selected: {sportSelected === "running" ? "Running" : "Workout"}
-                <br />
-                <br />
-                {!editMode.editModeOn ? (
-                  <>
+              </StyledParagraphNormal>
+              {!editMode.editModeOn ? (
+                <>
+                  <StyledParagraphNormal className="big-text">
                     {"New Entry for today:"}
-                    <br />
+                  </StyledParagraphNormal>
+                  <StyledParagraphNormal className="big-text">
                     {"It's " +
                       day +
                       `. Did you ${
                         sportSelected === "running" ? "run" : "work out"
                       } today?`}
-                  </>
-                ) : (
-                  "Editing for: " +
-                  (editMode.selectedData.date.getMonth() + 1).toString() +
-                  "/" +
-                  editMode.selectedData.date.getDate().toString() +
-                  "/" +
-                  editMode.selectedData.date.getFullYear().toString()
-                )}
-                <br />
-                <br />
-              </StyledParagraphNormal>
+                  </StyledParagraphNormal>
+                </>
+              ) : (
+                <StyledParagraphNormal className="big-text">
+                  {"Editing for: " +
+                    (editMode.selectedData.date.getMonth() + 1).toString() +
+                    "/" +
+                    editMode.selectedData.date.getDate().toString() +
+                    "/" +
+                    editMode.selectedData.date.getFullYear().toString()}
+                </StyledParagraphNormal>
+              )}
+
               {sportSelected === "strength" ? (
                 <StrengthForm
                   handleSubmit={handleSubmit}
@@ -332,7 +334,6 @@ export default function Calendar({ userName, setUserName }) {
         )}
       </StrengthContainer>
       <Navigation selected={"calendar"}>
-        {" "}
         <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
           Info: {fetchingStatus}
         </StyledParagraph>

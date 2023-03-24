@@ -21,11 +21,10 @@ const StyledList = styled.ul`
   width: 100%;
 `;
 
-export default function Navigation({ selected, children }) {
+export default function Navigation({selected, children}) {
   return (
     <>
       <StyledNavigation>
-        {" "}
         {children}
         <StyledList>
           <li>

@@ -8,10 +8,8 @@ export default async function apiUpdate(id, save, setFetchingStatus) {
         "Content-Type": "application/json",
       },
     });
-
     if (response.ok) {
       setFetchingStatus("Updated");
-      console.log("updated");
     } else {
       setFetchingStatus("Error");
       console.error(`Error: ${response.status}`);

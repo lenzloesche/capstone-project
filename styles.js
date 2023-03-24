@@ -27,7 +27,7 @@ export default createGlobalStyle`
   }
   .big-text{
     font-weight: bold;
-    padding:10px;
+
     margin:0;
     width:200px;
   }
