@@ -1,4 +1,5 @@
-export default async function apiUpdate(id, save) {
+export default async function apiUpdate(id, save, setFetchingStatus) {
+  setFetchingStatus("Currently Updating");
   if (id) {
     const response = await fetch(`/api/exercises/${id}`, {
       method: "PUT",
@@ -7,13 +8,14 @@ export default async function apiUpdate(id, save) {
         "Content-Type": "application/json",
       },
     });
-
     if (response.ok) {
-      console.log("updated");
+      setFetchingStatus("Updated");
     } else {
+      setFetchingStatus("Error");
       console.error(`Error: ${response.status}`);
     }
   } else {
+    setFetchingStatus("Error");
     console.error("Error: No _id found.");
   }
 }

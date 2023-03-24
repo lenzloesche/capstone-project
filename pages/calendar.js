@@ -1,5 +1,5 @@
 import CalendarHeatmap from "../components/CalendarHeatmap";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import StrengthForm from "../components/StrengthForm";
 import StrengthContainer from "../components/StrengthContainer";
 import Image from "next/image";
@@ -14,6 +14,8 @@ import apiGet from "../apiServices/apiGet";
 import apiDelete from "../apiServices/apiDelete";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
+import StyledParagraph from "../components/StyledParagraph";
+import StyledParagraphNormal from "../components/StyledParagraphNormal";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -26,7 +28,7 @@ const ObjectId = (
 let date = new Date();
 let startingData = [];
 
-export default function Calendar({ userName, setUserName }) {
+export default function Calendar({userName, setUserName}) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
   const [editMode, setEditMode] = useState({
@@ -50,6 +52,7 @@ export default function Calendar({ userName, setUserName }) {
     kiloms: "",
     mins: "",
   });
+  const [fetchingStatus, setFetchingStatus] = useState("none");
 
   const weekday = [
     "Sunday",
@@ -64,6 +67,7 @@ export default function Calendar({ userName, setUserName }) {
 
   function addNewEntryStrength(
     forDate,
+    newObjectId,
     reps,
     sets,
     kilos,
@@ -73,7 +77,7 @@ export default function Calendar({ userName, setUserName }) {
     const NewDate = forDate;
     const save = {
       userName: userName,
-      _id: ObjectId(),
+      _id: newObjectId,
       date: NewDate,
       sportSelected: sportSelected,
       reps: reps,
@@ -84,11 +88,12 @@ export default function Calendar({ userName, setUserName }) {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
-    apiPost(save);
+    apiPost(save, setFetchingStatus);
   }
 
   function addNewEntryRunning(
     forDate,
+    newObjectId,
     kiloms,
     mins,
     exerciseRunning,
@@ -97,7 +102,7 @@ export default function Calendar({ userName, setUserName }) {
     const NewDate = forDate;
     const save = {
       userName: userName,
-      _id: ObjectId(),
+      _id: newObjectId,
       date: NewDate,
       sportSelected: sportSelected,
       kiloms: kiloms,
@@ -107,7 +112,7 @@ export default function Calendar({ userName, setUserName }) {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
-    apiPost(save);
+    apiPost(save, setFetchingStatus);
   }
 
   function handleSubmit(event) {
@@ -115,6 +120,7 @@ export default function Calendar({ userName, setUserName }) {
     if (editMode.editModeOn) {
       const NewDate = editMode.selectedData.date;
       let save = {};
+
       if (sportSelected === "strength") {
         save = {
           userName: userName,
@@ -128,6 +134,7 @@ export default function Calendar({ userName, setUserName }) {
       } else {
         save = {
           userName: userName,
+
           date: NewDate,
           sportSelected: sportSelected,
           kiloms: event.target.elements.kiloms.value,
@@ -141,14 +148,17 @@ export default function Calendar({ userName, setUserName }) {
         return dat.date.toString() === editMode.selectedData.date.toString();
       });
       newData[indexToChange] = save;
-      apiUpdate(data[indexToChange]._id, save);
+      newData[indexToChange]._id = data[indexToChange]._id;
+      apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
       setData(newData);
 
       editMode.editModeOn = false;
     } else {
+      const newObjectId = ObjectId();
       if (sportSelected === "strength") {
         addNewEntryStrength(
           new Date(),
+          newObjectId,
           event.target.elements.reps.value,
           event.target.elements.sets.value,
           event.target.elements.kilos.value,
@@ -158,6 +168,7 @@ export default function Calendar({ userName, setUserName }) {
       } else {
         addNewEntryRunning(
           new Date(),
+          newObjectId,
           event.target.elements.kiloms.value,
           event.target.elements.mins.value,
           event.target.elements.exerciseRunning.value,
@@ -206,12 +217,12 @@ export default function Calendar({ userName, setUserName }) {
   useEffect(() => {
     if (userName === undefined) {
     } else {
-      apiGet(userName, setData);
+      apiGet(userName, setData, setFetchingStatus);
     }
   }, [userName]);
 
   function handleChange(event, key) {
-    const newInputText = { ...inputText, [key]: event.target.value };
+    const newInputText = {...inputText, [key]: event.target.value};
     setInputText(newInputText);
   }
 
@@ -223,7 +234,6 @@ export default function Calendar({ userName, setUserName }) {
     event.preventDefault();
     setUserName(userInput);
   }
-
   return (
     <>
       <StrengthContainer>
@@ -233,7 +243,7 @@ export default function Calendar({ userName, setUserName }) {
         <UserNameForm
           userName={userName}
           handleUserNameFormSubmit={handleUserNameFormSubmit}
-        />
+        ></UserNameForm>
         {userName !== undefined ? (
           <>
             <FormContainer>
@@ -263,26 +273,33 @@ export default function Calendar({ userName, setUserName }) {
                   height="100"
                 ></Image>
               </ImageContainer>
-              <p className="big-text">
-                {!editMode.editModeOn ? (
-                  <>
+              <StyledParagraphNormal className="big-text">
+                Selected: {sportSelected === "running" ? "Running" : "Workout"}
+              </StyledParagraphNormal>
+              {!editMode.editModeOn ? (
+                <>
+                  <StyledParagraphNormal className="big-text">
                     {"New Entry for today:"}
-                    <br />
+                  </StyledParagraphNormal>
+                  <StyledParagraphNormal className="big-text">
                     {"It's " +
                       day +
                       `. Did you ${
-                        sportSelected === "running" ? "run" : "workout"
+                        sportSelected === "running" ? "run" : "work out"
                       } today?`}
-                  </>
-                ) : (
-                  "Editing for: " +
-                  (editMode.selectedData.date.getMonth() + 1).toString() +
-                  "/" +
-                  editMode.selectedData.date.getDate().toString() +
-                  "/" +
-                  editMode.selectedData.date.getFullYear().toString()
-                )}
-              </p>
+                  </StyledParagraphNormal>
+                </>
+              ) : (
+                <StyledParagraphNormal className="big-text">
+                  {"Editing for: " +
+                    (editMode.selectedData.date.getMonth() + 1).toString() +
+                    "/" +
+                    editMode.selectedData.date.getDate().toString() +
+                    "/" +
+                    editMode.selectedData.date.getFullYear().toString()}
+                </StyledParagraphNormal>
+              )}
+
               {sportSelected === "strength" ? (
                 <StrengthForm
                   handleSubmit={handleSubmit}
@@ -307,15 +324,20 @@ export default function Calendar({ userName, setUserName }) {
               editMode={editMode}
               setEditMode={setEditMode}
               addNewEntry={addNewEntryStrength}
+              ObjectId={ObjectId}
               setSportSelected={setSportSelected}
-              apiDelete={apiDelete}
+              setFetchingStatus={setFetchingStatus}
             />
           </>
         ) : (
           ""
         )}
       </StrengthContainer>
-      <Navigation selected={"calendar"} />
+      <Navigation selected={"calendar"}>
+        <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
+          Info: {fetchingStatus}
+        </StyledParagraph>
+      </Navigation>
     </>
   );
 }

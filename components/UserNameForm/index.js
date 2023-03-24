@@ -5,7 +5,11 @@ import Label from "../Label";
 import { useState, useEffect } from "react";
 import StyledButton from "../StyledButton";
 
-export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
+export default function UserNameForm({
+  userName,
+  handleUserNameFormSubmit,
+  children,
+}) {
   const [userInput, setUserInput] = useState("");
   const [showForm, setShowForm] = useState(false);
 
@@ -32,18 +36,18 @@ export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
           >
             <Label htmlFor={userName}>
               Type in User Name And Press Return:
-              <br />
-              <Input
-                type="text"
-                id={userName}
-                value={userInput}
-                onChange={(event) => setUserInput(event.target.value)}
-              ></Input>
             </Label>
+            <Input
+              type="text"
+              id={userName}
+              value={userInput}
+              onChange={(event) => setUserInput(event.target.value)}
+            ></Input>
           </Form>
         ) : (
           ""
         )}
+        {children}
       </FormContainer>
     </>
   );

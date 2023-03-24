@@ -1,10 +1,12 @@
-import { uid } from "uid";
-import { useState } from "react";
+import {uid} from "uid";
+import {useState} from "react";
 import ContainerDiv from "../ContainerDiv";
 import StyledButton from "../StyledButton";
 import FormContainer from "../FormContainer";
 import CalendarText from "../CalendarText";
 import Div from "../CalendarComponents/Div";
+import apiDelete from "../../apiServices/apiDelete";
+import StyledParagraphNormal from "../StyledParagraphNormal";
 
 const date = new Date();
 const heatmap = [];
@@ -23,7 +25,8 @@ export default function CalendarHeatmap({
   setEditMode,
   addNewEntry,
   setSportSelected,
-  apiDelete,
+  setFetchingStatus,
+  ObjectId,
 }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
@@ -41,21 +44,28 @@ export default function CalendarHeatmap({
       )
       .slice();
   }
-  function handleDeleteClick(event, date) {
+  function handleDeleteClick(date) {
     const indexToDelete = data.findIndex((dat) => {
       return dat.date.toString() === date.toString();
     });
     if (indexToDelete != -1) {
-      apiDelete(data[indexToDelete]._id);
-
+      console.log(
+        "indexToDelete",
+        indexToDelete,
+        "data[indexToDelete]._id",
+        data[indexToDelete]._id,
+        "data[indexToDelete]",
+        data[indexToDelete]
+      );
+      apiDelete(data[indexToDelete]._id, setFetchingStatus);
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
       setData(newData);
     }
   }
 
-  function handleEditClick(event, selectedData) {
-    const newEditMode = { editModeOn: true, selectedData };
+  function handleEditClick(selectedData) {
+    const newEditMode = {editModeOn: true, selectedData};
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
     scrollTo(0, 0);
@@ -64,11 +74,11 @@ export default function CalendarHeatmap({
   function handleNewEntryClick(event, selectedDat) {
     const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
     const randomDate = new Date(selectedDat - randomDater);
-    addNewEntry(randomDate, "", "", "", "", "strength");
+    addNewEntry(randomDate, ObjectId(), "", "", "", "", "strength");
 
     const newEditMode = {
       editModeOn: true,
-      selectedData: { date: randomDate },
+      selectedData: {date: randomDate},
     };
     setEditMode(newEditMode);
     scrollTo(0, 0);
@@ -148,7 +158,6 @@ export default function CalendarHeatmap({
   }
   return (
     <>
-      {" "}
       <CalendarText>Calendar</CalendarText>
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
@@ -168,7 +177,7 @@ export default function CalendarHeatmap({
               dateSelected.getDate().toString() +
               "/" +
               dateSelected.getFullYear().toString()
-            : "Select a Date"}
+            : "Select a Date above"}
         </p>
         {dateSelected ? (
           <StyledButton
@@ -185,40 +194,42 @@ export default function CalendarHeatmap({
       {selectedData.map((selectedDat, index) => {
         return (
           <FormContainer key={uid()}>
-            {" "}
-            <br />
-            Type: {selectedDat.sportSelected}
-            <br />
+            <StyledParagraphNormal>
+              Type: {selectedDat.sportSelected}
+            </StyledParagraphNormal>
+
             {selectedDat.sportSelected === "strength" ? (
               <>
-                Exercise: {selectedDat.exerciseStrength}
-                <br />
-                Reps: {selectedDat.reps}
-                <br />
-                Sets: {selectedDat.sets}
-                <br />
-                Kilograms: {selectedDat.kilos}
-                <br />
+                <StyledParagraphNormal>
+                  Exercise: {selectedDat.exerciseStrength}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Reps: {selectedDat.reps}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Sets: {selectedDat.sets}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Kilograms: {selectedDat.kilos}
+                </StyledParagraphNormal>
               </>
             ) : (
               <>
-                Exercise: {selectedDat.exerciseRunning}
-                <br />
-                Kilometers: {selectedDat.kiloms}
-                <br />
-                Minutes: {selectedDat.mins}
-                <br />
+                <StyledParagraphNormal>
+                  Exercise: {selectedDat.exerciseRunning}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Kilometers: {selectedDat.kiloms}
+                </StyledParagraphNormal>
+                <StyledParagraphNormal>
+                  Minutes: {selectedDat.mins}
+                </StyledParagraphNormal>
               </>
             )}
-            <StyledButton
-              onClick={(event) => handleDeleteClick(event, selectedDat.date)}
-            >
+            <StyledButton onClick={() => handleDeleteClick(selectedDat.date)}>
               Delete
             </StyledButton>
-            <StyledButton
-              onClick={(event) => handleEditClick(event, selectedDat)}
-            >
-              {" "}
+            <StyledButton onClick={() => handleEditClick(selectedDat)}>
               Edit
             </StyledButton>
           </FormContainer>

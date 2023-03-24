@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import Header from "../components/Header";
-import { uid } from "uid";
+import {uid} from "uid";
 import FormContainer from "../components/FormContainer";
 import Input from "../components/Input";
 import StyledButton from "../components/StyledButton";
@@ -9,9 +9,9 @@ import StrengthContainer from "../components/StrengthContainer";
 import Image from "next/image";
 import StyledSelect from "../components/StyledSelect";
 import Navigation from "../components/Navigation";
+import StyledParagraph from "../components/StyledParagraph";
+import fetchStrength from "../apiServices/fetchStrength";
 
-const apiKey = "/N+lgsT1Ci9aZ5EnpUlNFA==jE3hMgeWrU1Jd0q0";
-const url = "https://api.api-ninjas.com/v1/exercises";
 const showDetailsStart = [
   false,
   false,
@@ -29,24 +29,7 @@ export default function Strength() {
   const [data, SetData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [showDetails, setShowDetails] = useState(showDetailsStart);
-  async function fetchData(input) {
-    try {
-      const response = await fetch(url + input, {
-        headers: {
-          "x-api-key": apiKey,
-        },
-      });
-      if (response.ok) {
-        const dataFetch = await response.json();
-        SetData(dataFetch);
-        resetDetails();
-      } else {
-        console.log("Response not OK.");
-      }
-    } catch (error) {
-      console.log("Error fetching: ", error);
-    }
-  }
+  const [fetchingStatus, setFetchingStatus] = useState("none");
 
   function handleDetailsClick(index) {
     const newShowDetails = [...showDetails];
@@ -73,19 +56,23 @@ export default function Strength() {
     if (muscle != "all_muscles") {
       apiString += "&muscle=" + muscle;
     }
-    fetchData("?name=" + searchInput + apiString);
+    fetchStrength(
+      "?name=" + searchInput + apiString,
+      setFetchingStatus,
+      SetData,
+      resetDetails
+    );
   }
 
   return (
     <>
       <StrengthContainer>
-        {" "}
         <Header>
           <Heading>Fitness App</Heading>
         </Header>
         <FormContainer>
           <Image
-            className="small-border"
+            className="border"
             src="/strength.svg"
             alt="strength image of an Arm"
             width="100"
@@ -114,14 +101,14 @@ export default function Strength() {
               <option value="stretching">stretching</option>
               <option value="strongman">strongman</option>
             </StyledSelect>
-            <br />
+
             <StyledSelect id="difficulty" name="difficulty">
               <option value="all_difficulties">all difficulties</option>
               <option value="beginner">beginner</option>
               <option value="intermediate">intermediate</option>
               <option value="expert">expert</option>
             </StyledSelect>
-            <br />
+
             <StyledSelect id="muscle" name="muscle">
               <option value="all_muscles">all muscles</option>
               <option value="abdominals">abdominals</option>
@@ -173,7 +160,11 @@ export default function Strength() {
           })
         )}
       </StrengthContainer>
-      <Navigation selected={"strength"} />
+      <Navigation selected={"strength"}>
+        <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
+          Info: {fetchingStatus}
+        </StyledParagraph>
+      </Navigation>
     </>
   );
 }

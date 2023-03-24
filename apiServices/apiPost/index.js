@@ -1,4 +1,5 @@
-export default async function apiPost(save) {
+export default async function apiPost(save, setFetchingStatus) {
+  setFetchingStatus("Currently Posting");
   const response = await fetch("/api/exercises", {
     method: "POST",
     body: JSON.stringify(save),
@@ -8,8 +9,9 @@ export default async function apiPost(save) {
   });
 
   if (response.ok) {
-    console.log("saved");
+    setFetchingStatus("Saved");
   } else {
+    setFetchingStatus("Error");
     console.error(`Error: ${response.status}`);
   }
 }
