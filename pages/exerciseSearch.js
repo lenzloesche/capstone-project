@@ -23,7 +23,7 @@ const showDetailsStart = [
   false,
 ];
 
-export default function Strength({userName}) {
+export default function ExerciseSearch({userName}) {
   const [data, SetData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
