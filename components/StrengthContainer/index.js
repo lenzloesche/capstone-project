@@ -13,6 +13,6 @@ const Container1 = styled.div`
   min-height: calc(100vh - 80px);
 `;
 
-export default function StrengthContainer({ children }) {
+export default function StrengthContainer({children}) {
   return <Container1>{children}</Container1>;
 }

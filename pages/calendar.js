@@ -1,21 +1,13 @@
 import CalendarHeatmap from "../components/CalendarHeatmap";
 import {useEffect, useState} from "react";
-import StrengthForm from "../components/StrengthForm";
 import StrengthContainer from "../components/StrengthContainer";
-import Image from "next/image";
-import ImageContainer from "../components/ImageContainer";
-import RunningForm from "../components/RunningForm";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
-import FormContainer from "../components/FormContainer";
-import UserNameForm from "../components/UserNameForm";
 import Navigation from "../components/Navigation";
 import apiGet from "../apiServices/apiGet";
-import apiDelete from "../apiServices/apiDelete";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
-import StyledParagraphNormal from "../components/StyledParagraphNormal";
 import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
 
 // ObjectId from https://stackoverflow.com/a/37438675
@@ -119,67 +111,74 @@ export default function Calendar({userName}) {
   function handleSubmit(event) {
     event.preventDefault();
     if (editMode.editModeOn) {
-      const NewDate = editMode.selectedData.date;
-      let save = {};
-
-      if (sportSelected === "strength") {
-        save = {
-          userName: userName,
-          date: NewDate,
-          sportSelected: sportSelected,
-          reps: event.target.elements.reps.value,
-          sets: event.target.elements.sets.value,
-          kilos: event.target.elements.kilos.value,
-          exerciseStrength: event.target.elements.exerciseStrength.value,
-        };
-      } else {
-        save = {
-          userName: userName,
-
-          date: NewDate,
-          sportSelected: sportSelected,
-          kiloms: event.target.elements.kiloms.value,
-          mins: event.target.elements.mins.value,
-          exerciseRunning: event.target.elements.exerciseRunning.value,
-        };
-      }
-
-      const newData = data.slice();
-      const indexToChange = newData.findIndex((dat) => {
-        return dat.date.toString() === editMode.selectedData.date.toString();
-      });
-      newData[indexToChange] = save;
-      newData[indexToChange]._id = data[indexToChange]._id;
-      apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
-      setData(newData);
-
-      editMode.editModeOn = false;
+      saveEdit(event);
     } else {
-      const newObjectId = ObjectId();
-      if (sportSelected === "strength") {
-        addNewEntryStrength(
-          new Date(),
-          newObjectId,
-          event.target.elements.reps.value,
-          event.target.elements.sets.value,
-          event.target.elements.kilos.value,
-          event.target.elements.exerciseStrength.value,
-          sportSelected
-        );
-      } else {
-        addNewEntryRunning(
-          new Date(),
-          newObjectId,
-          event.target.elements.kiloms.value,
-          event.target.elements.mins.value,
-          event.target.elements.exerciseRunning.value,
-          sportSelected
-        );
-      }
+      saveNew(event);
     }
-
     clearForm();
   }
+
+  function saveEdit(event) {
+    const NewDate = editMode.selectedData.date;
+    let save = {};
+
+    if (sportSelected === "strength") {
+      save = {
+        userName: userName,
+        date: NewDate,
+        sportSelected: sportSelected,
+        reps: event.target.elements.reps.value,
+        sets: event.target.elements.sets.value,
+        kilos: event.target.elements.kilos.value,
+        exerciseStrength: event.target.elements.exerciseStrength.value,
+      };
+    } else {
+      save = {
+        userName: userName,
+        date: NewDate,
+        sportSelected: sportSelected,
+        kiloms: event.target.elements.kiloms.value,
+        mins: event.target.elements.mins.value,
+        exerciseRunning: event.target.elements.exerciseRunning.value,
+      };
+    }
+
+    const newData = data.slice();
+    const indexToChange = newData.findIndex((dat) => {
+      return dat.date.toString() === editMode.selectedData.date.toString();
+    });
+    newData[indexToChange] = save;
+    newData[indexToChange]._id = data[indexToChange]._id;
+    apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
+    setData(newData);
+
+    editMode.editModeOn = false;
+  }
+
+  function saveNew(event) {
+    const newObjectId = ObjectId();
+    if (sportSelected === "strength") {
+      addNewEntryStrength(
+        new Date(),
+        newObjectId,
+        event.target.elements.reps.value,
+        event.target.elements.sets.value,
+        event.target.elements.kilos.value,
+        event.target.elements.exerciseStrength.value,
+        sportSelected
+      );
+    } else {
+      addNewEntryRunning(
+        new Date(),
+        newObjectId,
+        event.target.elements.kiloms.value,
+        event.target.elements.mins.value,
+        event.target.elements.exerciseRunning.value,
+        sportSelected
+      );
+    }
+  }
+
   function handleCancelClick() {
     clearForm();
   }
@@ -211,7 +210,6 @@ export default function Calendar({userName}) {
       kiloms: editMode.selectedData.kiloms ?? "",
       mins: editMode.selectedData.mins ?? "",
     };
-
     setInputText(newInputText);
   }, [editMode]);
 
