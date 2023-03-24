@@ -17,18 +17,18 @@ for (let day = 0; day < lengthOfHeatmap; day++) {
   heatmap.unshift(new Date(date - dayInMilliseconds));
 }
 
-let dateSelectedStart = undefined;
-
 export default function CalendarHeatmap({
   data,
   setData,
+  editMode,
   setEditMode,
   addNewEntry,
   setSportSelected,
   setFetchingStatus,
   ObjectId,
+  dateSelected,
+  setDateSelected,
 }) {
-  const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
@@ -53,6 +53,8 @@ export default function CalendarHeatmap({
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
       setData(newData);
+      const newEditMode = {...editMode, editModeOn: false};
+      setEditMode(newEditMode);
     }
   }
 

@@ -21,10 +21,13 @@ const ObjectId = (
 
 let date = new Date();
 let startingData = [];
+let dateSelectedStart = undefined;
 
 export default function Calendar({userName}) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
+  const [dateSelected, setDateSelected] = useState(dateSelectedStart);
+
   const [editMode, setEditMode] = useState({
     editModeOn: false,
     selectedData: {
@@ -202,16 +205,18 @@ export default function Calendar({userName}) {
   }
 
   useEffect(() => {
-    const newInputText = {
-      exerciseStrength: editMode.selectedData.exerciseStrength ?? "",
-      kilos: editMode.selectedData.kilos ?? "",
-      reps: editMode.selectedData.reps ?? "",
-      sets: editMode.selectedData.sets ?? "",
-      exerciseRunning: editMode.selectedData.exerciseRunning ?? "",
-      kiloms: editMode.selectedData.kiloms ?? "",
-      mins: editMode.selectedData.mins ?? "",
-    };
-    setInputText(newInputText);
+    if (editMode) {
+      const newInputText = {
+        exerciseStrength: editMode.selectedData.exerciseStrength ?? "",
+        kilos: editMode.selectedData.kilos ?? "",
+        reps: editMode.selectedData.reps ?? "",
+        sets: editMode.selectedData.sets ?? "",
+        exerciseRunning: editMode.selectedData.exerciseRunning ?? "",
+        kiloms: editMode.selectedData.kiloms ?? "",
+        mins: editMode.selectedData.mins ?? "",
+      };
+      setInputText(newInputText);
+    }
   }, [editMode]);
 
   useEffect(() => {
@@ -258,6 +263,20 @@ export default function Calendar({userName}) {
         </Header>
         {userName !== undefined ? (
           <>
+            {editMode.editModeOn ? (
+              <FormStrengthAndRunning
+                handleImageClick={handleImageClick}
+                sportSelected={sportSelected}
+                editMode={editMode}
+                handleSubmit={handleSubmit}
+                handleCancelClick={handleCancelClick}
+                handleChange={handleChange}
+                inputText={inputText}
+                day={day}
+              />
+            ) : (
+              ""
+            )}
             <CalendarHeatmap
               data={data}
               setData={setData}
@@ -267,16 +286,8 @@ export default function Calendar({userName}) {
               ObjectId={ObjectId}
               setSportSelected={setSportSelected}
               setFetchingStatus={setFetchingStatus}
-            />{" "}
-            <FormStrengthAndRunning
-              handleImageClick={handleImageClick}
-              sportSelected={sportSelected}
-              editMode={editMode}
-              handleSubmit={handleSubmit}
-              handleCancelClick={handleCancelClick}
-              handleChange={handleChange}
-              inputText={inputText}
-              day={day}
+              dateSelected={dateSelected}
+              setDateSelected={setDateSelected}
             />
           </>
         ) : (
