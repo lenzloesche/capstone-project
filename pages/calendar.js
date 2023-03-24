@@ -16,6 +16,7 @@ import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
 import StyledParagraphNormal from "../components/StyledParagraphNormal";
+import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -246,78 +247,17 @@ export default function Calendar({userName, setUserName}) {
         ></UserNameForm>
         {userName !== undefined ? (
           <>
-            <FormContainer>
-              <ImageContainer>
-                <Image
-                  className={
-                    sportSelected === "strength" ? "border" : "small-border"
-                  }
-                  onClick={() => {
-                    handleImageClick("strength");
-                  }}
-                  src="/strength.svg"
-                  alt="strength image of an Arm"
-                  width="100"
-                  height="100"
-                ></Image>
-                <Image
-                  className={
-                    sportSelected === "running" ? "border" : "small-border"
-                  }
-                  onClick={() => {
-                    handleImageClick("running");
-                  }}
-                  src="/running.svg"
-                  alt="running image runner"
-                  width="100"
-                  height="100"
-                ></Image>
-              </ImageContainer>
-              <StyledParagraphNormal className="big-text">
-                Selected: {sportSelected === "running" ? "Running" : "Workout"}
-              </StyledParagraphNormal>
-              {!editMode.editModeOn ? (
-                <>
-                  <StyledParagraphNormal className="big-text">
-                    {"New Entry for today:"}
-                  </StyledParagraphNormal>
-                  <StyledParagraphNormal className="big-text">
-                    {"It's " +
-                      day +
-                      `. Did you ${
-                        sportSelected === "running" ? "run" : "work out"
-                      } today?`}
-                  </StyledParagraphNormal>
-                </>
-              ) : (
-                <StyledParagraphNormal className="big-text">
-                  {"Editing for: " +
-                    (editMode.selectedData.date.getMonth() + 1).toString() +
-                    "/" +
-                    editMode.selectedData.date.getDate().toString() +
-                    "/" +
-                    editMode.selectedData.date.getFullYear().toString()}
-                </StyledParagraphNormal>
-              )}
+            <FormStrengthAndRunning
+              handleImageClick={handleImageClick}
+              sportSelected={sportSelected}
+              editMode={editMode}
+              handleSubmit={handleSubmit}
+              handleCancelClick={handleCancelClick}
+              handleChange={handleChange}
+              inputText={inputText}
+              day={day}
+            />
 
-              {sportSelected === "strength" ? (
-                <StrengthForm
-                  handleSubmit={handleSubmit}
-                  handleCancelClick={handleCancelClick}
-                  handleChange={handleChange}
-                  editMode={editMode}
-                  inputText={inputText}
-                />
-              ) : (
-                <RunningForm
-                  handleSubmit={handleSubmit}
-                  handleCancelClick={handleCancelClick}
-                  handleChange={handleChange}
-                  editMode={editMode}
-                  inputText={inputText}
-                />
-              )}
-            </FormContainer>
             <CalendarHeatmap
               data={data}
               setData={setData}
