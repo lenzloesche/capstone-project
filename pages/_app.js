@@ -1,12 +1,12 @@
 import GlobalStyle from "../styles";
 import Head from "next/head";
-import {useState} from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 export default function App({Component, pageProps}) {
   const [userName, setUserName] = useLocalStorageState("fitnessAppUserName", {
-    defalutValue: "",
+    defaultValue: "",
   });
+  console.log(userName);
   function handleUserNameFormSubmit(event, userInput) {
     event.preventDefault();
     setUserName(userInput);
