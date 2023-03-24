@@ -67,16 +67,18 @@ export default function Calendar({ userName, setUserName }) {
 
   function addNewEntryStrength(
     forDate,
+    newObjectId,
     reps,
     sets,
     kilos,
     exerciseStrength,
     sportSelected
   ) {
+    console.log("newObjectId", newObjectId);
     const NewDate = forDate;
     const save = {
       userName: userName,
-      _id: ObjectId(),
+      _id: newObjectId,
       date: NewDate,
       sportSelected: sportSelected,
       reps: reps,
@@ -92,6 +94,7 @@ export default function Calendar({ userName, setUserName }) {
 
   function addNewEntryRunning(
     forDate,
+    newObjectId,
     kiloms,
     mins,
     exerciseRunning,
@@ -100,7 +103,7 @@ export default function Calendar({ userName, setUserName }) {
     const NewDate = forDate;
     const save = {
       userName: userName,
-      _id: ObjectId(),
+      _id: newObjectId,
       date: NewDate,
       sportSelected: sportSelected,
       kiloms: kiloms,
@@ -118,6 +121,7 @@ export default function Calendar({ userName, setUserName }) {
     if (editMode.editModeOn) {
       const NewDate = editMode.selectedData.date;
       let save = {};
+
       if (sportSelected === "strength") {
         save = {
           userName: userName,
@@ -149,9 +153,12 @@ export default function Calendar({ userName, setUserName }) {
 
       editMode.editModeOn = false;
     } else {
+      const newObjectId = ObjectId();
+      console.log("newObjectId hier", newObjectId);
       if (sportSelected === "strength") {
         addNewEntryStrength(
           new Date(),
+          newObjectId,
           event.target.elements.reps.value,
           event.target.elements.sets.value,
           event.target.elements.kilos.value,
@@ -161,6 +168,7 @@ export default function Calendar({ userName, setUserName }) {
       } else {
         addNewEntryRunning(
           new Date(),
+          newObjectId,
           event.target.elements.kiloms.value,
           event.target.elements.mins.value,
           event.target.elements.exerciseRunning.value,
@@ -314,8 +322,8 @@ export default function Calendar({ userName, setUserName }) {
               editMode={editMode}
               setEditMode={setEditMode}
               addNewEntry={addNewEntryStrength}
+              ObjectId={ObjectId}
               setSportSelected={setSportSelected}
-              apiDelete={apiDelete}
               setFetchingStatus={setFetchingStatus}
             />
           </>

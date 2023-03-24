@@ -5,6 +5,7 @@ import StyledButton from "../StyledButton";
 import FormContainer from "../FormContainer";
 import CalendarText from "../CalendarText";
 import Div from "../CalendarComponents/Div";
+import apiDelete from "../../apiServices/apiDelete";
 
 const date = new Date();
 const heatmap = [];
@@ -23,8 +24,8 @@ export default function CalendarHeatmap({
   setEditMode,
   addNewEntry,
   setSportSelected,
-  apiDelete,
   setFetchingStatus,
+  ObjectId,
 }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
@@ -42,20 +43,19 @@ export default function CalendarHeatmap({
       )
       .slice();
   }
-  function handleDeleteClick(event, date) {
+  function handleDeleteClick(date) {
     const indexToDelete = data.findIndex((dat) => {
       return dat.date.toString() === date.toString();
     });
     if (indexToDelete != -1) {
       apiDelete(data[indexToDelete]._id, setFetchingStatus);
-
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
       setData(newData);
     }
   }
 
-  function handleEditClick(event, selectedData) {
+  function handleEditClick(selectedData) {
     const newEditMode = { editModeOn: true, selectedData };
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
@@ -65,7 +65,7 @@ export default function CalendarHeatmap({
   function handleNewEntryClick(event, selectedDat) {
     const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
     const randomDate = new Date(selectedDat - randomDater);
-    addNewEntry(randomDate, "", "", "", "", "strength");
+    addNewEntry(randomDate, ObjectId(), "", "", "", "", "strength");
 
     const newEditMode = {
       editModeOn: true,
@@ -211,14 +211,10 @@ export default function CalendarHeatmap({
                 <br />
               </>
             )}
-            <StyledButton
-              onClick={(event) => handleDeleteClick(event, selectedDat.date)}
-            >
+            <StyledButton onClick={() => handleDeleteClick(selectedDat.date)}>
               Delete
             </StyledButton>
-            <StyledButton
-              onClick={(event) => handleEditClick(event, selectedDat)}
-            >
+            <StyledButton onClick={() => handleEditClick(selectedDat)}>
               {" "}
               Edit
             </StyledButton>
