@@ -10,6 +10,7 @@ const Container1 = styled.div`
   background-position: center top;
   margin-bottom: 80px;
   opacity: 1;
+  min-height: calc(100vh - 80px);
 `;
 
 export default function StrengthContainer({ children }) {

@@ -1,5 +1,4 @@
 export default async function apiUpdate(id, save, setFetchingStatus) {
-  console.log("api update id", id);
   setFetchingStatus("Currently Updating");
   if (id) {
     const response = await fetch(`/api/exercises/${id}`, {

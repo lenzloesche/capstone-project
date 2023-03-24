@@ -74,7 +74,6 @@ export default function Calendar({ userName, setUserName }) {
     exerciseStrength,
     sportSelected
   ) {
-    console.log("newObjectId", newObjectId);
     const NewDate = forDate;
     const save = {
       userName: userName,
@@ -156,7 +155,6 @@ export default function Calendar({ userName, setUserName }) {
       editMode.editModeOn = false;
     } else {
       const newObjectId = ObjectId();
-      console.log("newObjectId hier", newObjectId);
       if (sportSelected === "strength") {
         addNewEntryStrength(
           new Date(),
