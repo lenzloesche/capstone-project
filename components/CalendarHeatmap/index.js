@@ -3,10 +3,10 @@ import {useState} from "react";
 import ContainerDiv from "../ContainerDiv";
 import StyledButton from "../StyledButton";
 import FormContainer from "../FormContainer";
-import CalendarText from "../CalendarText";
-import Div from "../CalendarComponents/Div";
+import CalendarText from "../CalendarComponents/CalendarText";
 import apiDelete from "../../apiServices/apiDelete";
 import StyledParagraphNormal from "../StyledParagraphNormal";
+import CalendarColoredDiv from "../CalendarComponents/CalendarColoredDiv";
 
 const date = new Date();
 const heatmap = [];
@@ -33,7 +33,7 @@ export default function CalendarHeatmap({
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
 
-  function handleClick(event, dat) {
+  function handleClick(dat) {
     setDateSelected(dat);
   }
   let selectedData = null;
@@ -71,7 +71,7 @@ export default function CalendarHeatmap({
     scrollTo(0, 0);
   }
 
-  function handleNewEntryClick(event, selectedDat) {
+  function handleNewEntryClick(selectedDat) {
     const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
     const randomDate = new Date(selectedDat - randomDater);
     addNewEntry(randomDate, ObjectId(), "", "", "", "", "strength");
@@ -83,7 +83,7 @@ export default function CalendarHeatmap({
     setEditMode(newEditMode);
     scrollTo(0, 0);
   }
-
+  /* 
   function PaintDiv(dat, heatmapPosition) {
     const allEntries = lastXDays.filter(
       (lastDay) =>
@@ -155,15 +155,16 @@ export default function CalendarHeatmap({
     return (
       <Div color="#a3b6e6">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
     );
-  }
+  } */
+
   return (
     <>
       <CalendarText>Calendar</CalendarText>
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
           return (
-            <div key={dat} onClick={(event) => handleClick(event, dat)}>
-              {PaintDiv(dat, index)}
+            <div key={dat} onClick={() => handleClick(dat)}>
+              {CalendarColoredDiv(dat, index, lastXDays, dateSelected, heatmap)}
             </div>
           );
         })}
@@ -181,8 +182,8 @@ export default function CalendarHeatmap({
         </p>
         {dateSelected ? (
           <StyledButton
-            onClick={(event) => {
-              handleNewEntryClick(event, dateSelected);
+            onClick={() => {
+              handleNewEntryClick(dateSelected);
             }}
           >
             New for selected Date
