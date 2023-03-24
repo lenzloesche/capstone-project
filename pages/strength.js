@@ -2,15 +2,13 @@ import {useState, useEffect} from "react";
 import Header from "../components/Header";
 import {uid} from "uid";
 import FormContainer from "../components/FormContainer";
-import Input from "../components/Input";
 import StyledButton from "../components/StyledButton";
 import Heading from "../components/Heading";
 import StrengthContainer from "../components/StrengthContainer";
-import Image from "next/image";
-import StyledSelect from "../components/StyledSelect";
 import Navigation from "../components/Navigation";
 import StyledParagraph from "../components/StyledParagraph";
 import fetchStrength from "../apiServices/fetchStrength";
+import StrengthSearchForm from "../components/StrengthSearchForm";
 
 const showDetailsStart = [
   false,
@@ -28,6 +26,7 @@ const showDetailsStart = [
 export default function Strength({userName}) {
   const [data, SetData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+
   const [showDetails, setShowDetails] = useState(showDetailsStart);
   const [fetchingStatus, setFetchingStatus] = useState("none");
 
@@ -70,11 +69,16 @@ export default function Strength({userName}) {
         <Header>
           <Heading>Fitness App</Heading>
         </Header>
-        <FormContainer>
+        <StrengthSearchForm
+          handleSubmit={handleSubmit}
+          setSearchInput={setSearchInput}
+          searchInput={searchInput}
+        />
+        {/* <FormContainer>
           <Image
             className="border"
             src="/strength.svg"
-            alt="strength image of an Arm"
+            alt="strength image of an arm"
             width="100"
             height="100"
           ></Image>
@@ -129,7 +133,7 @@ export default function Strength({userName}) {
               <option value="triceps">triceps</option>
             </StyledSelect>
           </form>
-        </FormContainer>
+        </FormContainer> */}
         {data?.length === 0 ? (
           <p>No Results</p>
         ) : (
