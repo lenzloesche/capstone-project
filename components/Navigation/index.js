@@ -10,8 +10,8 @@ const StyledNavigation = styled.footer`
   border-top: 1px solid black;
    position fixed;
   bottom: 0;
-  left: 0;
-  width:100%;
+  left:-30px;
+  width:calc(100% + 30px);
 `;
 const StyledList = styled.ul`
   display: flex;
