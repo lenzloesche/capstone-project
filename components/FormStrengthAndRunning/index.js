@@ -4,6 +4,7 @@ import ImageContainer from "../ImageContainer";
 import StyledParagraphNormal from "../StyledParagraphNormal";
 import StrengthForm from "../StrengthForm";
 import RunningForm from "../RunningForm";
+import StyledImage from "../StyledImage";
 
 export default function FormStrengthAndRunning({
   handleImageClick,
@@ -19,7 +20,7 @@ export default function FormStrengthAndRunning({
     <>
       <FormContainer>
         <ImageContainer>
-          <Image
+          <StyledImage
             className={sportSelected === "strength" ? "border" : "small-border"}
             onClick={() => {
               handleImageClick("strength");
@@ -28,8 +29,9 @@ export default function FormStrengthAndRunning({
             alt="strength image of an Arm"
             width="100"
             height="100"
-          ></Image>
-          <Image
+            isSelected={sportSelected === "strength" ? true : false}
+          ></StyledImage>
+          <StyledImage
             className={sportSelected === "running" ? "border" : "small-border"}
             onClick={() => {
               handleImageClick("running");
@@ -38,7 +40,8 @@ export default function FormStrengthAndRunning({
             alt="running image runner"
             width="100"
             height="100"
-          ></Image>
+            isSelected={sportSelected === "running" ? true : false}
+          ></StyledImage>
         </ImageContainer>
         <StyledParagraphNormal className="big-text">
           Selected: {sportSelected === "running" ? "Running" : "Workout"}

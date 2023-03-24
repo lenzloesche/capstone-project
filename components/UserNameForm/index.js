@@ -44,6 +44,7 @@ export default function UserNameForm({
               required
               onChange={(event) => setUserInput(event.target.value)}
             ></Input>
+            <StyledButton>Save</StyledButton>
           </Form>
         ) : (
           ""

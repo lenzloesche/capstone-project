@@ -6,8 +6,11 @@ const StyledImageContainer = styled.div`
   align-items: center;
   opacity: 1;
   margin: 10px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
-export default function ImageContainer({ children }) {
+export default function ImageContainer({children}) {
   return <StyledImageContainer>{children}</StyledImageContainer>;
 }
