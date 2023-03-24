@@ -24,6 +24,7 @@ export default function CalendarHeatmap({
   addNewEntry,
   setSportSelected,
   apiDelete,
+  setFetchingStatus,
 }) {
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
@@ -46,7 +47,7 @@ export default function CalendarHeatmap({
       return dat.date.toString() === date.toString();
     });
     if (indexToDelete != -1) {
-      apiDelete(data[indexToDelete]._id);
+      apiDelete(data[indexToDelete]._id, setFetchingStatus);
 
       const newData = data.slice();
       newData.splice(indexToDelete, 1);

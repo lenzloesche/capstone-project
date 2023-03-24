@@ -5,7 +5,11 @@ import Label from "../Label";
 import { useState, useEffect } from "react";
 import StyledButton from "../StyledButton";
 
-export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
+export default function UserNameForm({
+  userName,
+  handleUserNameFormSubmit,
+  children,
+}) {
   const [userInput, setUserInput] = useState("");
   const [showForm, setShowForm] = useState(false);
 
@@ -44,6 +48,7 @@ export default function UserNameForm({ userName, handleUserNameFormSubmit }) {
         ) : (
           ""
         )}
+        {children}
       </FormContainer>
     </>
   );

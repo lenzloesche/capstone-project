@@ -1,4 +1,10 @@
-export default async function apiGet(currentUser, setData) {
+export default async function apiGet(
+  currentUser,
+  setData,
+  fetchingStatus,
+  setFetchingStatus
+) {
+  setFetchingStatus("Currently fetching");
   try {
     const response = await fetch(`/api/exercises/users/${currentUser}`);
     if (response.ok) {
@@ -8,10 +14,13 @@ export default async function apiGet(currentUser, setData) {
       }
       console.log("datafetch", dataFetch);
       setData(dataFetch);
+      setFetchingStatus("Done fetching");
     } else {
       console.log("Response not OK.");
+      setFetchingStatus("Error");
     }
   } catch (error) {
     console.log("Error fetching: ", error);
+    setFetchingStatus("Error");
   }
 }

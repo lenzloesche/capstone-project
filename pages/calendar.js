@@ -14,6 +14,7 @@ import apiGet from "../apiServices/apiGet";
 import apiDelete from "../apiServices/apiDelete";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
+import StyledParagraph from "../components/StyledParagraph";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -50,6 +51,7 @@ export default function Calendar({ userName, setUserName }) {
     kiloms: "",
     mins: "",
   });
+  const [fetchingStatus, setFetchingStatus] = useState("none");
 
   const weekday = [
     "Sunday",
@@ -84,7 +86,7 @@ export default function Calendar({ userName, setUserName }) {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
-    apiPost(save);
+    apiPost(save, setFetchingStatus);
   }
 
   function addNewEntryRunning(
@@ -107,7 +109,7 @@ export default function Calendar({ userName, setUserName }) {
     const newData = data.slice();
     newData.push(save);
     setData(newData);
-    apiPost(save);
+    apiPost(save, setFetchingStatus);
   }
 
   function handleSubmit(event) {
@@ -141,7 +143,7 @@ export default function Calendar({ userName, setUserName }) {
         return dat.date.toString() === editMode.selectedData.date.toString();
       });
       newData[indexToChange] = save;
-      apiUpdate(data[indexToChange]._id, save);
+      apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
       setData(newData);
 
       editMode.editModeOn = false;
@@ -206,7 +208,7 @@ export default function Calendar({ userName, setUserName }) {
   useEffect(() => {
     if (userName === undefined) {
     } else {
-      apiGet(userName, setData);
+      apiGet(userName, setData, fetchingStatus, setFetchingStatus);
     }
   }, [userName]);
 
@@ -223,7 +225,6 @@ export default function Calendar({ userName, setUserName }) {
     event.preventDefault();
     setUserName(userInput);
   }
-
   return (
     <>
       <StrengthContainer>
@@ -233,7 +234,7 @@ export default function Calendar({ userName, setUserName }) {
         <UserNameForm
           userName={userName}
           handleUserNameFormSubmit={handleUserNameFormSubmit}
-        />
+        ></UserNameForm>
         {userName !== undefined ? (
           <>
             <FormContainer>
@@ -309,13 +310,19 @@ export default function Calendar({ userName, setUserName }) {
               addNewEntry={addNewEntryStrength}
               setSportSelected={setSportSelected}
               apiDelete={apiDelete}
+              setFetchingStatus={setFetchingStatus}
             />
           </>
         ) : (
           ""
         )}
       </StrengthContainer>
-      <Navigation selected={"calendar"} />
+      <Navigation selected={"calendar"}>
+        {" "}
+        <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
+          Info: {fetchingStatus}
+        </StyledParagraph>
+      </Navigation>
     </>
   );
 }

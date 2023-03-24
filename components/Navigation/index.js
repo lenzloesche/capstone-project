@@ -7,7 +7,7 @@ const StyledNavigation = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex.direction: column;
+  flex-direction: column;
   border: 1px solid black;
   border: 5px solid grey;
   border-radius: 10px;
@@ -24,28 +24,32 @@ const StyledList = styled.ul`
   width: 100%;
 `;
 
-export default function Navigation({ selected }) {
+export default function Navigation({ selected, children }) {
   return (
-    <StyledNavigation>
-      <StyledList>
-        <li>
-          <NavigationLink
-            selected={selected === "strength" ? true : false}
-            href="/strength"
-          >
-            Strength
-          </NavigationLink>
-        </li>
-        {" - "}
-        <li>
-          <NavigationLink
-            selected={selected === "calendar" ? true : false}
-            href="/calendar"
-          >
-            Calendar
-          </NavigationLink>
-        </li>
-      </StyledList>
-    </StyledNavigation>
+    <>
+      <StyledNavigation>
+        {" "}
+        {children}
+        <StyledList>
+          <li>
+            <NavigationLink
+              selected={selected === "strength" ? true : false}
+              href="/strength"
+            >
+              Strength
+            </NavigationLink>
+          </li>
+          {" - "}
+          <li>
+            <NavigationLink
+              selected={selected === "calendar" ? true : false}
+              href="/calendar"
+            >
+              Calendar
+            </NavigationLink>
+          </li>
+        </StyledList>
+      </StyledNavigation>
+    </>
   );
 }
