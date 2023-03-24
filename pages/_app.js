@@ -6,7 +6,6 @@ export default function App({Component, pageProps}) {
   const [userName, setUserName] = useLocalStorageState("fitnessAppUserName", {
     defaultValue: "",
   });
-  console.log(userName);
   function handleUserNameFormSubmit(event, userInput) {
     event.preventDefault();
     setUserName(userInput);
