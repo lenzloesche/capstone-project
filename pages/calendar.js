@@ -29,7 +29,7 @@ const ObjectId = (
 let date = new Date();
 let startingData = [];
 
-export default function Calendar({userName, setUserName}) {
+export default function Calendar({userName}) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
   const [editMode, setEditMode] = useState({
@@ -231,20 +231,12 @@ export default function Calendar({userName, setUserName}) {
     setSportSelected(whichOne);
   }
 
-  function handleUserNameFormSubmit(event, userInput) {
-    event.preventDefault();
-    setUserName(userInput);
-  }
   return (
     <>
       <StrengthContainer>
         <Header>
           <Heading>Fitness App</Heading>
         </Header>
-        <UserNameForm
-          userName={userName}
-          handleUserNameFormSubmit={handleUserNameFormSubmit}
-        ></UserNameForm>
         {userName !== undefined ? (
           <>
             <FormStrengthAndRunning
@@ -273,7 +265,7 @@ export default function Calendar({userName, setUserName}) {
           ""
         )}
       </StrengthContainer>
-      <Navigation selected={"calendar"}>
+      <Navigation selected={"calendar"} userName={userName}>
         <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
           Info: {fetchingStatus}
         </StyledParagraph>

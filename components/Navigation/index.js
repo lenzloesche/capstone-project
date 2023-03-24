@@ -21,12 +21,21 @@ const StyledList = styled.ul`
   width: 100%;
 `;
 
-export default function Navigation({selected, children}) {
+export default function Navigation({selected, children, userName}) {
   return (
     <>
       <StyledNavigation>
         {children}
         <StyledList>
+          <li>
+            <NavigationLink
+              selected={selected === "index" ? true : false}
+              href="/"
+            >
+              {"User: " + userName}
+            </NavigationLink>
+          </li>
+          {" - "}
           <li>
             <NavigationLink
               selected={selected === "strength" ? true : false}

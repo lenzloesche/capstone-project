@@ -25,7 +25,7 @@ const showDetailsStart = [
   false,
 ];
 
-export default function Strength() {
+export default function Strength({userName}) {
   const [data, SetData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [showDetails, setShowDetails] = useState(showDetailsStart);
@@ -160,7 +160,7 @@ export default function Strength() {
           })
         )}
       </StrengthContainer>
-      <Navigation selected={"strength"}>
+      <Navigation selected={"strength"} userName={userName}>
         <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
           Info: {fetchingStatus}
         </StyledParagraph>
