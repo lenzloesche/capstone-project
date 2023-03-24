@@ -15,6 +15,7 @@ import apiDelete from "../apiServices/apiDelete";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
+import StyledParagraphNormal from "../components/StyledParagraphNormal";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -264,7 +265,10 @@ export default function Calendar({ userName, setUserName }) {
                   height="100"
                 ></Image>
               </ImageContainer>
-              <p className="big-text">
+              <StyledParagraphNormal className="big-text">
+                Selected: {sportSelected === "running" ? "Running" : "Workout"}
+                <br />
+                <br />
                 {!editMode.editModeOn ? (
                   <>
                     {"New Entry for today:"}
@@ -272,7 +276,7 @@ export default function Calendar({ userName, setUserName }) {
                     {"It's " +
                       day +
                       `. Did you ${
-                        sportSelected === "running" ? "run" : "workout"
+                        sportSelected === "running" ? "run" : "work out"
                       } today?`}
                   </>
                 ) : (
@@ -283,7 +287,9 @@ export default function Calendar({ userName, setUserName }) {
                   "/" +
                   editMode.selectedData.date.getFullYear().toString()
                 )}
-              </p>
+                <br />
+                <br />
+              </StyledParagraphNormal>
               {sportSelected === "strength" ? (
                 <StrengthForm
                   handleSubmit={handleSubmit}

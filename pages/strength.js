@@ -12,8 +12,6 @@ import Navigation from "../components/Navigation";
 import StyledParagraph from "../components/StyledParagraph";
 import fetchStrength from "../apiServices/fetchStrength";
 
-/* const apiKey = "/N+lgsT1Ci9aZ5EnpUlNFA==jE3hMgeWrU1Jd0q0";
-const url = "https://api.api-ninjas.com/v1/exercises"; */
 const showDetailsStart = [
   false,
   false,
@@ -32,29 +30,6 @@ export default function Strength() {
   const [searchInput, setSearchInput] = useState("");
   const [showDetails, setShowDetails] = useState(showDetailsStart);
   const [fetchingStatus, setFetchingStatus] = useState("none");
-  /* 
-  async function fetchData(input, setFetchingStatus,SetData) {
-    setFetchingStatus("Fetching Data");
-    try {
-      const response = await fetch(url + input, {
-        headers: {
-          "x-api-key": apiKey,
-        },
-      });
-      if (response.ok) {
-        const dataFetch = await response.json();
-        SetData(dataFetch);
-        setFetchingStatus("Fetching Done");
-        resetDetails();
-      } else {
-        setFetchingStatus("Error");
-        console.log("Response not OK.");
-      }
-    } catch (error) {
-      setFetchingStatus("Error");
-      console.log("Error fetching: ", error);
-    }
-  } */
 
   function handleDetailsClick(index) {
     const newShowDetails = [...showDetails];
@@ -98,7 +73,7 @@ export default function Strength() {
         </Header>
         <FormContainer>
           <Image
-            className="small-border"
+            className="border"
             src="/strength.svg"
             alt="strength image of an Arm"
             width="100"
