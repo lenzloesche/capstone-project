@@ -135,6 +135,7 @@ export default function Calendar({ userName, setUserName }) {
       } else {
         save = {
           userName: userName,
+
           date: NewDate,
           sportSelected: sportSelected,
           kiloms: event.target.elements.kiloms.value,
@@ -148,6 +149,7 @@ export default function Calendar({ userName, setUserName }) {
         return dat.date.toString() === editMode.selectedData.date.toString();
       });
       newData[indexToChange] = save;
+      newData[indexToChange]._id = data[indexToChange]._id;
       apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
       setData(newData);
 
