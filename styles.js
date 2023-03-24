@@ -12,13 +12,14 @@ export default createGlobalStyle`
     font-size:18px;
   }
   .border{
-    border:6px solid grey;
-    background-color:#d96a3f;
+    border:1px solid grey;   
+     background-color:  hsla(223, 57%, 77%, 1);
     border-radius:10px;
   }
-  .small-border{
-    border:2px solid grey;
-    background-color:#A3B6E6;
+  .small-border{     
+    border:1px solid grey;   
+
+    background-color:#d96a3f;
     border-radius:10px;
   }
   .light-border{

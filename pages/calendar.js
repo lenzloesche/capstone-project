@@ -208,7 +208,7 @@ export default function Calendar({ userName, setUserName }) {
   useEffect(() => {
     if (userName === undefined) {
     } else {
-      apiGet(userName, setData, fetchingStatus, setFetchingStatus);
+      apiGet(userName, setData, setFetchingStatus);
     }
   }, [userName]);
 
