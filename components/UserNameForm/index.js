@@ -41,6 +41,7 @@ export default function UserNameForm({
               type="text"
               id="userName"
               value={userInput}
+              required
               onChange={(event) => setUserInput(event.target.value)}
             ></Input>
           </Form>
