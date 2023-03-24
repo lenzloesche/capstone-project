@@ -14,7 +14,7 @@ export default function UserNameForm({
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    if (userName === undefined) {
+    if (userName === undefined || userName === "DontRender") {
       setShowForm(true);
     } else {
       setShowForm(false);

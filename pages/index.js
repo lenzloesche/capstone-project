@@ -2,6 +2,7 @@ import Heading from "../components/Heading";
 import UserNameForm from "../components/UserNameForm";
 import Header from "../components/Header";
 import Navigation from "../components/Navigation";
+import StrengthContainer from "../components/StrengthContainer";
 export default function Home({userName, handleUserNameFormSubmit}) {
   return (
     <>
@@ -9,12 +10,18 @@ export default function Home({userName, handleUserNameFormSubmit}) {
         <Header>
           <Heading>Fitness App</Heading>
         </Header>
-        <UserNameForm
-          userName={userName}
-          handleUserNameFormSubmit={handleUserNameFormSubmit}
-        ></UserNameForm>
+        <StrengthContainer>
+          <UserNameForm
+            userName={userName}
+            handleUserNameFormSubmit={handleUserNameFormSubmit}
+          ></UserNameForm>
+        </StrengthContainer>
       </main>
-      <Navigation selected={"index"} userName={userName}></Navigation>
+      {userName === "DontRender" ? (
+        ""
+      ) : (
+        <Navigation selected={"index"} userName={userName}></Navigation>
+      )}
     </>
   );
 }

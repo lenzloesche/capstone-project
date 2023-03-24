@@ -9,6 +9,7 @@ import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
 import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
+import NavigationLink from "../components/NavigationLink";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -232,6 +233,21 @@ export default function Calendar({userName}) {
 
   function handleImageClick(whichOne) {
     setSportSelected(whichOne);
+  }
+
+  if (userName === "DontRender") {
+    return (
+      <>
+        <StrengthContainer>
+          <Header>
+            <Heading>Fitness App</Heading>
+          </Header>
+          <NavigationLink selected={false} href="/">
+            {"Change User "}
+          </NavigationLink>
+        </StrengthContainer>
+      </>
+    );
   }
 
   return (

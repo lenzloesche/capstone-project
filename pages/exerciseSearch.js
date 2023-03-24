@@ -9,6 +9,7 @@ import Navigation from "../components/Navigation";
 import StyledParagraph from "../components/StyledParagraph";
 import fetchStrength from "../apiServices/fetchStrength";
 import StrengthSearchForm from "../components/StrengthSearchForm";
+import NavigationLink from "../components/NavigationLink";
 
 const showDetailsStart = [
   false,
@@ -62,7 +63,20 @@ export default function ExerciseSearch({userName}) {
       resetDetails
     );
   }
-
+  if (userName === "DontRender") {
+    return (
+      <>
+        <StrengthContainer>
+          <Header>
+            <Heading>Fitness App</Heading>
+          </Header>
+          <NavigationLink selected={false} href="/">
+            {"Change User "}
+          </NavigationLink>
+        </StrengthContainer>
+      </>
+    );
+  }
   return (
     <>
       <StrengthContainer>
