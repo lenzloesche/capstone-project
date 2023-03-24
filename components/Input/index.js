@@ -14,6 +14,7 @@ export default function Input({id, type, value, onChange, required}) {
     <StyledInput
       id={id}
       type={type}
+      min={type === "number" ? "0" : ""}
       value={value}
       onChange={onChange}
       required={required}
