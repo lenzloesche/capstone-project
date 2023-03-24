@@ -7,10 +7,10 @@ export default function Home({userName, handleUserNameFormSubmit}) {
   return (
     <>
       <main>
-        <Header>
-          <Heading>Fitness App</Heading>
-        </Header>
         <StrengthContainer>
+          <Header>
+            <Heading>Fitness App</Heading>
+          </Header>
           <UserNameForm
             userName={userName}
             handleUserNameFormSubmit={handleUserNameFormSubmit}

@@ -258,17 +258,6 @@ export default function Calendar({userName}) {
         </Header>
         {userName !== undefined ? (
           <>
-            <FormStrengthAndRunning
-              handleImageClick={handleImageClick}
-              sportSelected={sportSelected}
-              editMode={editMode}
-              handleSubmit={handleSubmit}
-              handleCancelClick={handleCancelClick}
-              handleChange={handleChange}
-              inputText={inputText}
-              day={day}
-            />
-
             <CalendarHeatmap
               data={data}
               setData={setData}
@@ -278,6 +267,16 @@ export default function Calendar({userName}) {
               ObjectId={ObjectId}
               setSportSelected={setSportSelected}
               setFetchingStatus={setFetchingStatus}
+            />{" "}
+            <FormStrengthAndRunning
+              handleImageClick={handleImageClick}
+              sportSelected={sportSelected}
+              editMode={editMode}
+              handleSubmit={handleSubmit}
+              handleCancelClick={handleCancelClick}
+              handleChange={handleChange}
+              inputText={inputText}
+              day={day}
             />
           </>
         ) : (

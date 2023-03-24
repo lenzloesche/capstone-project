@@ -49,14 +49,6 @@ export default function CalendarHeatmap({
       return dat.date.toString() === date.toString();
     });
     if (indexToDelete != -1) {
-      console.log(
-        "indexToDelete",
-        indexToDelete,
-        "data[indexToDelete]._id",
-        data[indexToDelete]._id,
-        "data[indexToDelete]",
-        data[indexToDelete]
-      );
       apiDelete(data[indexToDelete]._id, setFetchingStatus);
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
