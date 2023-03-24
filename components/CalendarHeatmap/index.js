@@ -169,7 +169,7 @@ export default function CalendarHeatmap({
               dateSelected.getDate().toString() +
               "/" +
               dateSelected.getFullYear().toString()
-            : "Select a Date"}
+            : "Select a Date above"}
         </p>
         {dateSelected ? (
           <StyledButton

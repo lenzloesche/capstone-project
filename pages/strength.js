@@ -9,9 +9,11 @@ import StrengthContainer from "../components/StrengthContainer";
 import Image from "next/image";
 import StyledSelect from "../components/StyledSelect";
 import Navigation from "../components/Navigation";
+import StyledParagraph from "../components/StyledParagraph";
+import fetchStrength from "../apiServices/fetchStrength";
 
-const apiKey = "/N+lgsT1Ci9aZ5EnpUlNFA==jE3hMgeWrU1Jd0q0";
-const url = "https://api.api-ninjas.com/v1/exercises";
+/* const apiKey = "/N+lgsT1Ci9aZ5EnpUlNFA==jE3hMgeWrU1Jd0q0";
+const url = "https://api.api-ninjas.com/v1/exercises"; */
 const showDetailsStart = [
   false,
   false,
@@ -29,7 +31,10 @@ export default function Strength() {
   const [data, SetData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [showDetails, setShowDetails] = useState(showDetailsStart);
-  async function fetchData(input) {
+  const [fetchingStatus, setFetchingStatus] = useState("none");
+  /* 
+  async function fetchData(input, setFetchingStatus,SetData) {
+    setFetchingStatus("Fetching Data");
     try {
       const response = await fetch(url + input, {
         headers: {
@@ -39,14 +44,17 @@ export default function Strength() {
       if (response.ok) {
         const dataFetch = await response.json();
         SetData(dataFetch);
+        setFetchingStatus("Fetching Done");
         resetDetails();
       } else {
+        setFetchingStatus("Error");
         console.log("Response not OK.");
       }
     } catch (error) {
+      setFetchingStatus("Error");
       console.log("Error fetching: ", error);
     }
-  }
+  } */
 
   function handleDetailsClick(index) {
     const newShowDetails = [...showDetails];
@@ -73,7 +81,12 @@ export default function Strength() {
     if (muscle != "all_muscles") {
       apiString += "&muscle=" + muscle;
     }
-    fetchData("?name=" + searchInput + apiString);
+    fetchStrength(
+      "?name=" + searchInput + apiString,
+      setFetchingStatus,
+      SetData,
+      resetDetails
+    );
   }
 
   return (
@@ -173,7 +186,12 @@ export default function Strength() {
           })
         )}
       </StrengthContainer>
-      <Navigation selected={"strength"} />
+      <Navigation selected={"strength"}>
+        {" "}
+        <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
+          Info: {fetchingStatus}
+        </StyledParagraph>
+      </Navigation>
     </>
   );
 }
