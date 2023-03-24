@@ -4,7 +4,6 @@ const ContainerDiv = styled.div`
   justify-content: center;
   grid-template-rows: repeat(7, 1fr);
   grid-auto-flow: column;
-  border: 5px solid grey;
   border-radius: 10px;
   margin: 16px;
   width: fit-content;

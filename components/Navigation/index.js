@@ -8,13 +8,10 @@ const StyledNavigation = styled.footer`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border: 1px solid black;
-  border: 5px solid grey;
-  border-radius: 10px;
-  box-shadow: 0 0 10px black;
-  position fixed;
-  bottom:0;
-  left:0;
+  border-top: 1px solid black;
+   position fixed;
+  bottom: 0;
+  left: 0;
 `;
 const StyledList = styled.ul`
   display: flex;
