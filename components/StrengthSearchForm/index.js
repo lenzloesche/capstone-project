@@ -2,6 +2,7 @@ import FormContainer from "../FormContainer";
 import Image from "next/image";
 import Input from "../Input";
 import StyledSelect from "../StyledSelect";
+import StyledButton from "../StyledButton";
 export default function StrengthSearchForm({
   handleSubmit,
   setSearchInput,
@@ -26,6 +27,7 @@ export default function StrengthSearchForm({
           value={searchInput}
           onChange={(event) => setSearchInput(event.target.value)}
         ></Input>
+        <StyledButton>Search</StyledButton>
         <p>Filter:</p>
         <StyledSelect id="type" name="type">
           <option value="all_types">all types</option>
