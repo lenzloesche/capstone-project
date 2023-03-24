@@ -214,7 +214,12 @@ export default function Calendar({userName}) {
   }, [editMode]);
 
   useEffect(() => {
-    if (data.length > 0 || userName === undefined || userName === "") {
+    if (
+      data.length > 0 ||
+      userName === undefined ||
+      userName === "" ||
+      userName === "DontRender"
+    ) {
     } else {
       apiGet(userName, setData, setFetchingStatus);
     }
