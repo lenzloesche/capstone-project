@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const {Schema} = mongoose;
 
 const favoriteExerciseSchema = new Schema({
+  user: {type: String, required: true},
   name: {type: String, required: true},
   difficulty: {type: String},
   muscle: {type: String},

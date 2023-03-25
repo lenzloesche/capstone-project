@@ -10,6 +10,8 @@ import StyledParagraph from "../components/StyledParagraph";
 import fetchStrength from "../apiServices/fetchStrength";
 import StrengthSearchForm from "../components/StrengthSearchForm";
 import NavigationLink from "../components/NavigationLink";
+import useLocalStorageState from "use-local-storage-state";
+import Image from "next/image";
 
 const showDetailsStart = [
   false,
@@ -31,8 +33,9 @@ export default function ExerciseSearch({userName}) {
   const [dataWithFavorites, setDataWithFavorites] = useState([]);
 
   const [searchInput, setSearchInput] = useState("");
-  const [favoriteExercises, setFavoriteExercises] = useState(
-    favoriteExerciseStart
+  const [favoriteExercises, setFavoriteExercises] = useLocalStorageState(
+    "favoriteExercises",
+    {defaultValue: favoriteExerciseStart}
   );
   const [showDetails, setShowDetails] = useState(showDetailsStart);
   const [fetchingStatus, setFetchingStatus] = useState("none");
@@ -139,7 +142,6 @@ export default function ExerciseSearch({userName}) {
         />
         {showFavorites ? (
           <>
-            <p>Favorites</p>{" "}
             {favoriteExercises.map((favoriteExercise) => {
               return (
                 <FormContainer key={uid()}>
@@ -150,6 +152,16 @@ export default function ExerciseSearch({userName}) {
                   >
                     UnFavorite
                   </StyledButton>
+                  <Image
+                    onClick={() => {
+                      handleFavoriteClick(favoriteExercise);
+                    }}
+                    className="border"
+                    src="/bookmarkstar.svg"
+                    alt="star image"
+                    width="40"
+                    height="40"
+                  ></Image>
                   <p>Name: {favoriteExercise?.name}</p>
                 </FormContainer>
               );
@@ -169,6 +181,30 @@ export default function ExerciseSearch({userName}) {
                 >
                   {dat.isFavorite ? "UnFavorite" : "Favorite"}
                 </StyledButton>
+                {dat.isFavorite ? (
+                  <Image
+                    onClick={() => {
+                      handleFavoriteClick(dat);
+                    }}
+                    className="border"
+                    src="/bookmarkstar.svg"
+                    alt="star image"
+                    width="40"
+                    height="40"
+                  ></Image>
+                ) : (
+                  <Image
+                    onClick={() => {
+                      handleFavoriteClick(dat);
+                    }}
+                    className="border"
+                    src="/bookmark.svg"
+                    alt="star image"
+                    width="40"
+                    height="40"
+                  ></Image>
+                )}
+
                 <StyledButton
                   onClick={() => {
                     handleDetailsClick(index);

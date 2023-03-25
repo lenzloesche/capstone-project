@@ -3,6 +3,9 @@ import Image from "next/image";
 import Input from "../Input";
 import StyledSelect from "../StyledSelect";
 import StyledButton from "../StyledButton";
+import ImageContainer from "../ImageContainer";
+import Heading from "../Heading";
+
 export default function StrengthSearchForm({
   handleSubmit,
   setSearchInput,
@@ -14,18 +17,26 @@ export default function StrengthSearchForm({
   return (
     <FormContainer>
       {" "}
-      <StyledButton onClick={handleShowSearchClick}>Search</StyledButton>
-      <StyledButton onClick={handleShowFavoritesClick}>Favorites</StyledButton>
+      <ImageContainer>
+        <Image
+          onClick={handleShowSearchClick}
+          className="border"
+          src="/search.svg"
+          alt="search image of a magnifying glass"
+          width="100"
+          height="100"
+        ></Image>
+        <Image
+          onClick={handleShowFavoritesClick}
+          className="border"
+          src="/bookmark.svg"
+          alt="star image"
+          width="100"
+          height="100"
+        ></Image>
+      </ImageContainer>
       {!showFavorites ? (
         <>
-          {" "}
-          <Image
-            className="border"
-            src="/strength.svg"
-            alt="strength image of an arm"
-            width="100"
-            height="100"
-          ></Image>
           <h2>Exercise Search</h2>
           <form
             onSubmit={(event) => {
@@ -79,7 +90,7 @@ export default function StrengthSearchForm({
           </form>
         </>
       ) : (
-        ""
+        <h2>Favorites</h2>
       )}
     </FormContainer>
   );
