@@ -24,12 +24,17 @@ const showDetailsStart = [
   false,
 ];
 
+const favoriteExerciseStart = [];
+
 export default function ExerciseSearch({userName}) {
   const [data, SetData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-
+  const [favoriteExercises, setFavoriteExercises] = useState(
+    favoriteExerciseStart
+  );
   const [showDetails, setShowDetails] = useState(showDetailsStart);
   const [fetchingStatus, setFetchingStatus] = useState("none");
+  const [showFavorites, setShowFavorites] = useState(false);
 
   function handleDetailsClick(index) {
     const newShowDetails = [...showDetails];
@@ -63,6 +68,35 @@ export default function ExerciseSearch({userName}) {
       resetDetails
     );
   }
+
+  function handleFavoriteClick(dat) {
+    if (favoriteExercises.length === 0) {
+      setFavoriteExercises([dat]);
+    } else {
+      const alreadyExistsAtIndex = favoriteExercises.findIndex(
+        (favoriteExercise) => {
+          return favoriteExercise.name === dat.name;
+        }
+      );
+      if (alreadyExistsAtIndex != -1) {
+        console.log(alreadyExistsAtIndex);
+        const newfavoriteExercises = favoriteExercises.slice();
+        newfavoriteExercises.splice(alreadyExistsAtIndex, 1);
+        setFavoriteExercises(newfavoriteExercises);
+      } else {
+        setFavoriteExercises([dat, ...favoriteExercises]);
+      }
+    }
+    console.log(favoriteExercises);
+  }
+
+  function handleShowFavoritesClick() {
+    setShowFavorites(true);
+  }
+  function handleShowSearchClick() {
+    setShowFavorites(false);
+  }
+
   if (userName === "DontRender") {
     return (
       <>
@@ -77,6 +111,7 @@ export default function ExerciseSearch({userName}) {
       </>
     );
   }
+  console.log(data);
   return (
     <>
       <StrengthContainer>
@@ -87,14 +122,41 @@ export default function ExerciseSearch({userName}) {
           handleSubmit={handleSubmit}
           setSearchInput={setSearchInput}
           searchInput={searchInput}
+          handleShowFavoritesClick={handleShowFavoritesClick}
+          handleShowSearchClick={handleShowSearchClick}
         />
-        {data?.length === 0 ? (
+        {showFavorites ? (
+          <>
+            <p>Favorites</p>{" "}
+            {favoriteExercises.map((favoriteExercise) => {
+              return (
+                <FormContainer key={uid()}>
+                  <StyledButton
+                    onClick={() => {
+                      handleFavoriteClick(favoriteExercise);
+                    }}
+                  >
+                    Favorite
+                  </StyledButton>
+                  <p>Name: {favoriteExercise?.name}</p>
+                </FormContainer>
+              );
+            })}{" "}
+          </>
+        ) : data?.length === 0 ? (
           <p>No Results</p>
         ) : (
           data?.map((dat, index) => {
             return (
               <FormContainer key={uid()}>
                 <p>Name: {dat?.name}</p>
+                <StyledButton
+                  onClick={() => {
+                    handleFavoriteClick(dat);
+                  }}
+                >
+                  UnFavorite
+                </StyledButton>
                 <StyledButton
                   onClick={() => {
                     handleDetailsClick(index);

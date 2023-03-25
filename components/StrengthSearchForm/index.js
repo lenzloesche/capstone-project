@@ -7,6 +7,8 @@ export default function StrengthSearchForm({
   handleSubmit,
   setSearchInput,
   searchInput,
+  handleShowFavoritesClick,
+  handleShowSearchClick,
 }) {
   return (
     <FormContainer>
@@ -23,6 +25,11 @@ export default function StrengthSearchForm({
           handleSubmit(event);
         }}
       >
+        {" "}
+        <StyledButton onClick={handleShowSearchClick}>Search</StyledButton>
+        <StyledButton onClick={handleShowFavoritesClick}>
+          Favorites
+        </StyledButton>
         <Input
           value={searchInput}
           onChange={(event) => setSearchInput(event.target.value)}
@@ -39,14 +46,12 @@ export default function StrengthSearchForm({
           <option value="stretching">stretching</option>
           <option value="strongman">strongman</option>
         </StyledSelect>
-
         <StyledSelect id="difficulty" name="difficulty">
           <option value="all_difficulties">all difficulties</option>
           <option value="beginner">beginner</option>
           <option value="intermediate">intermediate</option>
           <option value="expert">expert</option>
         </StyledSelect>
-
         <StyledSelect id="muscle" name="muscle">
           <option value="all_muscles">all muscles</option>
           <option value="abdominals">abdominals</option>
