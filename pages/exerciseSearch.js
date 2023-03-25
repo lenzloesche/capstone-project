@@ -13,6 +13,7 @@ import NavigationLink from "../components/NavigationLink";
 import useLocalStorageState from "use-local-storage-state";
 import Image from "next/image";
 import StyledParagraphPadding from "../components/StyledParagraphPadding";
+import ExerciseDisplayed from "../components/ExerciseDisplayed";
 
 const showDetailsStart = [
   false,
@@ -76,6 +77,7 @@ export default function ExerciseSearch({userName}) {
   }
 
   function handleFavoriteClick(dat) {
+    dat.isFavorite = true;
     if (favoriteExercises.length === 0) {
       setFavoriteExercises([dat]);
     } else {
@@ -143,9 +145,18 @@ export default function ExerciseSearch({userName}) {
         />
         {showFavorites ? (
           <>
-            {favoriteExercises.map((favoriteExercise) => {
+            {favoriteExercises.map((favoriteExercise, index) => {
               return (
-                <FormContainer key={uid()}>
+                <ExerciseDisplayed
+                  key={uid()}
+                  dat={favoriteExercise}
+                  handleFavoriteClick={handleFavoriteClick}
+                  handleDetailsClick={handleDetailsClick}
+                  showDetails={showDetails}
+                  index={index}
+                />
+
+                /*  <FormContainer key={uid()}>
                   <Image
                     onClick={() => {
                       handleFavoriteClick(favoriteExercise);
@@ -157,7 +168,7 @@ export default function ExerciseSearch({userName}) {
                     height="40"
                   ></Image>
                   <p>Name: {favoriteExercise?.name}</p>
-                </FormContainer>
+                </FormContainer> */
               );
             })}{" "}
           </>
@@ -166,6 +177,21 @@ export default function ExerciseSearch({userName}) {
         ) : (
           dataWithFavorites?.map((dat, index) => {
             return (
+              <ExerciseDisplayed
+                key={uid()}
+                dat={dat}
+                handleFavoriteClick={handleFavoriteClick}
+                handleDetailsClick={handleDetailsClick}
+                showDetails={showDetails}
+                index={index}
+              />
+            );
+            {
+              /* 
+              
+              {dat, handleFavoriteClick,handleDetailsClick,showDetails}
+              
+              
               <FormContainer key={uid()}>
                 {dat.isFavorite ? (
                   <Image
@@ -221,8 +247,8 @@ export default function ExerciseSearch({userName}) {
                 ) : (
                   ""
                 )}
-              </FormContainer>
-            );
+              </FormContainer> */
+            }
           })
         )}
       </StrengthContainer>
