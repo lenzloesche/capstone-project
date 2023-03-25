@@ -9,11 +9,12 @@ const StyledInput = styled.input`
   padding 5px;
 `;
 
-export default function Input({ id, type, value, onChange, required }) {
+export default function Input({id, type, value, onChange, required}) {
   return (
     <StyledInput
       id={id}
       type={type}
+      min={type === "number" ? "0" : ""}
       value={value}
       onChange={onChange}
       required={required}

@@ -3,10 +3,10 @@ import {useState} from "react";
 import ContainerDiv from "../ContainerDiv";
 import StyledButton from "../StyledButton";
 import FormContainer from "../FormContainer";
-import CalendarText from "../CalendarText";
-import Div from "../CalendarComponents/Div";
+import CalendarText from "../CalendarComponents/CalendarText";
 import apiDelete from "../../apiServices/apiDelete";
 import StyledParagraphNormal from "../StyledParagraphNormal";
+import CalendarColoredDiv from "../CalendarComponents/CalendarColoredDiv";
 
 const date = new Date();
 const heatmap = [];
@@ -17,23 +17,23 @@ for (let day = 0; day < lengthOfHeatmap; day++) {
   heatmap.unshift(new Date(date - dayInMilliseconds));
 }
 
-let dateSelectedStart = undefined;
-
 export default function CalendarHeatmap({
   data,
   setData,
+  editMode,
   setEditMode,
   addNewEntry,
   setSportSelected,
   setFetchingStatus,
   ObjectId,
+  dateSelected,
+  setDateSelected,
 }) {
-  const [dateSelected, setDateSelected] = useState(dateSelectedStart);
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
 
-  function handleClick(event, dat) {
+  function handleClick(dat) {
     setDateSelected(dat);
   }
   let selectedData = null;
@@ -49,18 +49,12 @@ export default function CalendarHeatmap({
       return dat.date.toString() === date.toString();
     });
     if (indexToDelete != -1) {
-      console.log(
-        "indexToDelete",
-        indexToDelete,
-        "data[indexToDelete]._id",
-        data[indexToDelete]._id,
-        "data[indexToDelete]",
-        data[indexToDelete]
-      );
       apiDelete(data[indexToDelete]._id, setFetchingStatus);
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
       setData(newData);
+      const newEditMode = {...editMode, editModeOn: false};
+      setEditMode(newEditMode);
     }
   }
 
@@ -71,7 +65,7 @@ export default function CalendarHeatmap({
     scrollTo(0, 0);
   }
 
-  function handleNewEntryClick(event, selectedDat) {
+  function handleNewEntryClick(selectedDat) {
     const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
     const randomDate = new Date(selectedDat - randomDater);
     addNewEntry(randomDate, ObjectId(), "", "", "", "", "strength");
@@ -84,86 +78,14 @@ export default function CalendarHeatmap({
     scrollTo(0, 0);
   }
 
-  function PaintDiv(dat, heatmapPosition) {
-    const allEntries = lastXDays.filter(
-      (lastDay) =>
-        heatmap[heatmapPosition].toDateString() === lastDay.date.toDateString()
-    );
-    if (allEntries.length === 0) {
-      if (dateSelected === dat) {
-        return (
-          <Div color="#a3b6e6" isSelected>
-            {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </Div>
-        );
-      }
-      return (
-        <Div color="#a3b6e6">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-      );
-    }
-
-    const filterRunning = allEntries.find((entry) => {
-      return entry.sportSelected === "running";
-    });
-    const filterStrength = allEntries.find((entry) => {
-      return entry.sportSelected === "strength";
-    });
-
-    if (filterRunning && filterStrength) {
-      if (dateSelected === dat) {
-        return (
-          <Div color="#d93f45" isSelected>
-            {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </Div>
-        );
-      }
-      return (
-        <Div color="#d93f45">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-      );
-    }
-    if (filterRunning) {
-      if (dateSelected === dat) {
-        return (
-          <Div color="#f89348" isSelected>
-            {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </Div>
-        );
-      }
-      return (
-        <Div color="#f89348">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-      );
-    }
-    if (filterStrength) {
-      if (dateSelected === dat) {
-        return (
-          <Div color="#d96a3f" isSelected>
-            {dat.getMonth() + 1 + "/" + dat.getDate()}
-          </Div>
-        );
-      }
-      return (
-        <Div color="#d96a3f">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-      );
-    }
-    if (dateSelected === dat) {
-      return (
-        <Div color="#a3b6e6" isSelected>
-          {dat.getMonth() + 1 + "/" + dat.getDate()}
-        </Div>
-      );
-    }
-    return (
-      <Div color="#a3b6e6">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-    );
-  }
   return (
     <>
       <CalendarText>Calendar</CalendarText>
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
           return (
-            <div key={dat} onClick={(event) => handleClick(event, dat)}>
-              {PaintDiv(dat, index)}
+            <div key={dat} onClick={() => handleClick(dat)}>
+              {CalendarColoredDiv(dat, index, lastXDays, dateSelected, heatmap)}
             </div>
           );
         })}
@@ -181,8 +103,8 @@ export default function CalendarHeatmap({
         </p>
         {dateSelected ? (
           <StyledButton
-            onClick={(event) => {
-              handleNewEntryClick(event, dateSelected);
+            onClick={() => {
+              handleNewEntryClick(dateSelected);
             }}
           >
             New for selected Date

@@ -3,7 +3,6 @@ import NavigationLink from "../NavigationLink";
 
 const StyledNavigation = styled.footer`
   background-color: #a3b6e6;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,17 +10,17 @@ const StyledNavigation = styled.footer`
   border-top: 1px solid black;
    position fixed;
   bottom: 0;
-  left: 0;
+  left:-30px;
+  width:calc(100% + 30px);
 `;
 const StyledList = styled.ul`
   display: flex;
   align-items: center;
   justify-content: center;
   list-style-type: none;
-  width: 100%;
 `;
 
-export default function Navigation({selected, children}) {
+export default function Navigation({selected, children, userName}) {
   return (
     <>
       <StyledNavigation>
@@ -29,10 +28,19 @@ export default function Navigation({selected, children}) {
         <StyledList>
           <li>
             <NavigationLink
-              selected={selected === "strength" ? true : false}
-              href="/strength"
+              selected={selected === "index" ? true : false}
+              href="/"
             >
-              Strength
+              {"User: " + userName}
+            </NavigationLink>
+          </li>
+          {" - "}
+          <li>
+            <NavigationLink
+              selected={selected === "exerciseSearch" ? true : false}
+              href="/exerciseSearch"
+            >
+              Exercises
             </NavigationLink>
           </li>
           {" - "}

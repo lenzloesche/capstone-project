@@ -9,9 +9,14 @@ const StyledButton1 = styled.button`
   box-shadow: 5px 5px 5px grey;
   font-size: 18px;
   margin: 10px;
+  :hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+  }
 `;
 
-export default function StyledButton({ children, onClick, type }) {
+export default function StyledButton({children, onClick, type}) {
   return (
     <StyledButton1 onClick={onClick} type={type}>
       {children}

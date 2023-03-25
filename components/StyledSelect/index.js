@@ -8,5 +8,8 @@ const StyledSelect = styled.select`
   padding: 8px;
   width: 100%;
   position: relative;
+  :hover {
+    cursor: pointer;
+  }
 `;
 export default StyledSelect;

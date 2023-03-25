@@ -1,21 +1,15 @@
 import CalendarHeatmap from "../components/CalendarHeatmap";
 import {useEffect, useState} from "react";
-import StrengthForm from "../components/StrengthForm";
 import StrengthContainer from "../components/StrengthContainer";
-import Image from "next/image";
-import ImageContainer from "../components/ImageContainer";
-import RunningForm from "../components/RunningForm";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
-import FormContainer from "../components/FormContainer";
-import UserNameForm from "../components/UserNameForm";
 import Navigation from "../components/Navigation";
 import apiGet from "../apiServices/apiGet";
-import apiDelete from "../apiServices/apiDelete";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
-import StyledParagraphNormal from "../components/StyledParagraphNormal";
+import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
+import NavigationLink from "../components/NavigationLink";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -27,10 +21,13 @@ const ObjectId = (
 
 let date = new Date();
 let startingData = [];
+let dateSelectedStart = undefined;
 
-export default function Calendar({userName, setUserName}) {
+export default function Calendar({userName}) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
+  const [dateSelected, setDateSelected] = useState(dateSelectedStart);
+
   const [editMode, setEditMode] = useState({
     editModeOn: false,
     selectedData: {
@@ -118,67 +115,74 @@ export default function Calendar({userName, setUserName}) {
   function handleSubmit(event) {
     event.preventDefault();
     if (editMode.editModeOn) {
-      const NewDate = editMode.selectedData.date;
-      let save = {};
-
-      if (sportSelected === "strength") {
-        save = {
-          userName: userName,
-          date: NewDate,
-          sportSelected: sportSelected,
-          reps: event.target.elements.reps.value,
-          sets: event.target.elements.sets.value,
-          kilos: event.target.elements.kilos.value,
-          exerciseStrength: event.target.elements.exerciseStrength.value,
-        };
-      } else {
-        save = {
-          userName: userName,
-
-          date: NewDate,
-          sportSelected: sportSelected,
-          kiloms: event.target.elements.kiloms.value,
-          mins: event.target.elements.mins.value,
-          exerciseRunning: event.target.elements.exerciseRunning.value,
-        };
-      }
-
-      const newData = data.slice();
-      const indexToChange = newData.findIndex((dat) => {
-        return dat.date.toString() === editMode.selectedData.date.toString();
-      });
-      newData[indexToChange] = save;
-      newData[indexToChange]._id = data[indexToChange]._id;
-      apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
-      setData(newData);
-
-      editMode.editModeOn = false;
+      saveEdit(event);
     } else {
-      const newObjectId = ObjectId();
-      if (sportSelected === "strength") {
-        addNewEntryStrength(
-          new Date(),
-          newObjectId,
-          event.target.elements.reps.value,
-          event.target.elements.sets.value,
-          event.target.elements.kilos.value,
-          event.target.elements.exerciseStrength.value,
-          sportSelected
-        );
-      } else {
-        addNewEntryRunning(
-          new Date(),
-          newObjectId,
-          event.target.elements.kiloms.value,
-          event.target.elements.mins.value,
-          event.target.elements.exerciseRunning.value,
-          sportSelected
-        );
-      }
+      saveNew(event);
     }
-
     clearForm();
   }
+
+  function saveEdit(event) {
+    const NewDate = editMode.selectedData.date;
+    let save = {};
+
+    if (sportSelected === "strength") {
+      save = {
+        userName: userName,
+        date: NewDate,
+        sportSelected: sportSelected,
+        reps: event.target.elements.reps.value,
+        sets: event.target.elements.sets.value,
+        kilos: event.target.elements.kilos.value,
+        exerciseStrength: event.target.elements.exerciseStrength.value,
+      };
+    } else {
+      save = {
+        userName: userName,
+        date: NewDate,
+        sportSelected: sportSelected,
+        kiloms: event.target.elements.kiloms.value,
+        mins: event.target.elements.mins.value,
+        exerciseRunning: event.target.elements.exerciseRunning.value,
+      };
+    }
+
+    const newData = data.slice();
+    const indexToChange = newData.findIndex((dat) => {
+      return dat.date.toString() === editMode.selectedData.date.toString();
+    });
+    newData[indexToChange] = save;
+    newData[indexToChange]._id = data[indexToChange]._id;
+    apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
+    setData(newData);
+
+    editMode.editModeOn = false;
+  }
+
+  function saveNew(event) {
+    const newObjectId = ObjectId();
+    if (sportSelected === "strength") {
+      addNewEntryStrength(
+        new Date(),
+        newObjectId,
+        event.target.elements.reps.value,
+        event.target.elements.sets.value,
+        event.target.elements.kilos.value,
+        event.target.elements.exerciseStrength.value,
+        sportSelected
+      );
+    } else {
+      addNewEntryRunning(
+        new Date(),
+        newObjectId,
+        event.target.elements.kiloms.value,
+        event.target.elements.mins.value,
+        event.target.elements.exerciseRunning.value,
+        sportSelected
+      );
+    }
+  }
+
   function handleCancelClick() {
     clearForm();
   }
@@ -201,21 +205,27 @@ export default function Calendar({userName, setUserName}) {
   }
 
   useEffect(() => {
-    const newInputText = {
-      exerciseStrength: editMode.selectedData.exerciseStrength ?? "",
-      kilos: editMode.selectedData.kilos ?? "",
-      reps: editMode.selectedData.reps ?? "",
-      sets: editMode.selectedData.sets ?? "",
-      exerciseRunning: editMode.selectedData.exerciseRunning ?? "",
-      kiloms: editMode.selectedData.kiloms ?? "",
-      mins: editMode.selectedData.mins ?? "",
-    };
-
-    setInputText(newInputText);
+    if (editMode) {
+      const newInputText = {
+        exerciseStrength: editMode.selectedData.exerciseStrength ?? "",
+        kilos: editMode.selectedData.kilos ?? "",
+        reps: editMode.selectedData.reps ?? "",
+        sets: editMode.selectedData.sets ?? "",
+        exerciseRunning: editMode.selectedData.exerciseRunning ?? "",
+        kiloms: editMode.selectedData.kiloms ?? "",
+        mins: editMode.selectedData.mins ?? "",
+      };
+      setInputText(newInputText);
+    }
   }, [editMode]);
 
   useEffect(() => {
-    if (userName === undefined) {
+    if (
+      data.length > 0 ||
+      userName === undefined ||
+      userName === "" ||
+      userName === "DontRender"
+    ) {
     } else {
       apiGet(userName, setData, setFetchingStatus);
     }
@@ -230,94 +240,43 @@ export default function Calendar({userName, setUserName}) {
     setSportSelected(whichOne);
   }
 
-  function handleUserNameFormSubmit(event, userInput) {
-    event.preventDefault();
-    setUserName(userInput);
+  if (userName === "DontRender") {
+    return (
+      <>
+        <StrengthContainer>
+          <Header>
+            <Heading>Fitness App</Heading>
+          </Header>
+          <NavigationLink selected={false} href="/">
+            {"Change User "}
+          </NavigationLink>
+        </StrengthContainer>
+      </>
+    );
   }
+
   return (
     <>
       <StrengthContainer>
         <Header>
           <Heading>Fitness App</Heading>
         </Header>
-        <UserNameForm
-          userName={userName}
-          handleUserNameFormSubmit={handleUserNameFormSubmit}
-        ></UserNameForm>
         {userName !== undefined ? (
           <>
-            <FormContainer>
-              <ImageContainer>
-                <Image
-                  className={
-                    sportSelected === "strength" ? "border" : "small-border"
-                  }
-                  onClick={() => {
-                    handleImageClick("strength");
-                  }}
-                  src="/strength.svg"
-                  alt="strength image of an Arm"
-                  width="100"
-                  height="100"
-                ></Image>
-                <Image
-                  className={
-                    sportSelected === "running" ? "border" : "small-border"
-                  }
-                  onClick={() => {
-                    handleImageClick("running");
-                  }}
-                  src="/running.svg"
-                  alt="running image runner"
-                  width="100"
-                  height="100"
-                ></Image>
-              </ImageContainer>
-              <StyledParagraphNormal className="big-text">
-                Selected: {sportSelected === "running" ? "Running" : "Workout"}
-              </StyledParagraphNormal>
-              {!editMode.editModeOn ? (
-                <>
-                  <StyledParagraphNormal className="big-text">
-                    {"New Entry for today:"}
-                  </StyledParagraphNormal>
-                  <StyledParagraphNormal className="big-text">
-                    {"It's " +
-                      day +
-                      `. Did you ${
-                        sportSelected === "running" ? "run" : "work out"
-                      } today?`}
-                  </StyledParagraphNormal>
-                </>
-              ) : (
-                <StyledParagraphNormal className="big-text">
-                  {"Editing for: " +
-                    (editMode.selectedData.date.getMonth() + 1).toString() +
-                    "/" +
-                    editMode.selectedData.date.getDate().toString() +
-                    "/" +
-                    editMode.selectedData.date.getFullYear().toString()}
-                </StyledParagraphNormal>
-              )}
-
-              {sportSelected === "strength" ? (
-                <StrengthForm
-                  handleSubmit={handleSubmit}
-                  handleCancelClick={handleCancelClick}
-                  handleChange={handleChange}
-                  editMode={editMode}
-                  inputText={inputText}
-                />
-              ) : (
-                <RunningForm
-                  handleSubmit={handleSubmit}
-                  handleCancelClick={handleCancelClick}
-                  handleChange={handleChange}
-                  editMode={editMode}
-                  inputText={inputText}
-                />
-              )}
-            </FormContainer>
+            {editMode.editModeOn ? (
+              <FormStrengthAndRunning
+                handleImageClick={handleImageClick}
+                sportSelected={sportSelected}
+                editMode={editMode}
+                handleSubmit={handleSubmit}
+                handleCancelClick={handleCancelClick}
+                handleChange={handleChange}
+                inputText={inputText}
+                day={day}
+              />
+            ) : (
+              ""
+            )}
             <CalendarHeatmap
               data={data}
               setData={setData}
@@ -327,13 +286,15 @@ export default function Calendar({userName, setUserName}) {
               ObjectId={ObjectId}
               setSportSelected={setSportSelected}
               setFetchingStatus={setFetchingStatus}
+              dateSelected={dateSelected}
+              setDateSelected={setDateSelected}
             />
           </>
         ) : (
           ""
         )}
       </StrengthContainer>
-      <Navigation selected={"calendar"}>
+      <Navigation selected={"calendar"} userName={userName}>
         <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
           Info: {fetchingStatus}
         </StyledParagraph>

@@ -1,7 +1,7 @@
-export default async function apiGet(currentUser, setData, setFetchingStatus) {
+export default async function apiGet(userName, setData, setFetchingStatus) {
   setFetchingStatus("Currently fetching");
   try {
-    const response = await fetch(`/api/exercises/users/${currentUser}`);
+    const response = await fetch(`/api/exercises/users/${userName}`);
     if (response.ok) {
       const dataFetch = await response.json();
       for (let i = 0; i < dataFetch.length; i++) {

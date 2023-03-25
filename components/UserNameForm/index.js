@@ -2,7 +2,7 @@ import FormContainer from "../FormContainer";
 import Form from "../Form";
 import Input from "../Input";
 import Label from "../Label";
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import StyledButton from "../StyledButton";
 
 export default function UserNameForm({
@@ -14,7 +14,7 @@ export default function UserNameForm({
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    if (userName === undefined) {
+    if (userName === undefined || userName === "DontRender") {
       setShowForm(true);
     } else {
       setShowForm(false);
@@ -34,15 +34,17 @@ export default function UserNameForm({
               handleUserNameFormSubmit(event, userInput);
             }}
           >
-            <Label htmlFor={userName}>
+            <Label htmlFor="userName">
               Type in User Name And Press Return:
             </Label>
             <Input
               type="text"
-              id={userName}
+              id="userName"
               value={userInput}
+              required
               onChange={(event) => setUserInput(event.target.value)}
             ></Input>
+            <StyledButton>Save</StyledButton>
           </Form>
         ) : (
           ""

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import {render, screen, fireEvent} from "@testing-library/react";
 import Calendar from "../pages/calendar";
 const todaysDate = new Date();
 
@@ -32,6 +32,14 @@ jest.mock("../apiServices/apiDelete", () => () => {});
 describe("Calendar", () => {
   it("Test if there are Input fields with label: Kilograms, reps, sets", async () => {
     render(<Calendar userName={userName} />);
+
+    const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
+    const divToClick = screen.getByText(dateMonth);
+    fireEvent.click(divToClick);
+
+    const buttonToClick = screen.getByText("New for selected Date");
+    fireEvent.click(buttonToClick);
+
     const exercise = await screen.findAllByText(/exercise/i);
     expect(exercise.length).toBeGreaterThan(0);
     const kilos = await screen.findAllByText(/kilograms/i);
@@ -47,7 +55,15 @@ describe("Calendar", () => {
   });
   it("if you click on the image, then you have different input fields.", async () => {
     render(<Calendar userName={userName} />);
-    const runnerImage = await screen.getByRole("img", { name: /runner/i });
+
+    const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
+    const divToClick = screen.getByText(dateMonth);
+    fireEvent.click(divToClick);
+
+    const buttonToClick = screen.getByText("New for selected Date");
+    fireEvent.click(buttonToClick);
+
+    const runnerImage = await screen.getByRole("img", {name: /runner/i});
     const inputsNumberBefore = await screen.findAllByRole("spinbutton");
     fireEvent.click(runnerImage);
     const inputsNumberAfter = await screen.findAllByRole("spinbutton");
