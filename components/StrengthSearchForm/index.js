@@ -20,7 +20,7 @@ export default function StrengthSearchForm({
       <ImageContainer>
         <Image
           onClick={handleShowSearchClick}
-          className="border"
+          className={showFavorites ? "small-border" : "border"}
           src="/search.svg"
           alt="search image of a magnifying glass"
           width="100"
@@ -28,8 +28,8 @@ export default function StrengthSearchForm({
         ></Image>
         <Image
           onClick={handleShowFavoritesClick}
-          className="border"
-          src="/bookmark.svg"
+          className={showFavorites ? "border" : "small-border"}
+          src="/bookmarkstar.svg"
           alt="star image"
           width="100"
           height="100"

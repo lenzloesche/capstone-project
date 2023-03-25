@@ -12,6 +12,7 @@ import StrengthSearchForm from "../components/StrengthSearchForm";
 import NavigationLink from "../components/NavigationLink";
 import useLocalStorageState from "use-local-storage-state";
 import Image from "next/image";
+import StyledParagraphPadding from "../components/StyledParagraphPadding";
 
 const showDetailsStart = [
   false,
@@ -145,18 +146,11 @@ export default function ExerciseSearch({userName}) {
             {favoriteExercises.map((favoriteExercise) => {
               return (
                 <FormContainer key={uid()}>
-                  <StyledButton
-                    onClick={() => {
-                      handleFavoriteClick(favoriteExercise);
-                    }}
-                  >
-                    UnFavorite
-                  </StyledButton>
                   <Image
                     onClick={() => {
                       handleFavoriteClick(favoriteExercise);
                     }}
-                    className="border"
+                    className="small-border bookmark"
                     src="/bookmarkstar.svg"
                     alt="star image"
                     width="40"
@@ -173,20 +167,12 @@ export default function ExerciseSearch({userName}) {
           dataWithFavorites?.map((dat, index) => {
             return (
               <FormContainer key={uid()}>
-                <p>Name: {dat?.name}</p>
-                <StyledButton
-                  onClick={() => {
-                    handleFavoriteClick(dat);
-                  }}
-                >
-                  {dat.isFavorite ? "UnFavorite" : "Favorite"}
-                </StyledButton>
                 {dat.isFavorite ? (
                   <Image
                     onClick={() => {
                       handleFavoriteClick(dat);
                     }}
-                    className="border"
+                    className="small-border bookmark"
                     src="/bookmarkstar.svg"
                     alt="star image"
                     width="40"
@@ -197,14 +183,16 @@ export default function ExerciseSearch({userName}) {
                     onClick={() => {
                       handleFavoriteClick(dat);
                     }}
-                    className="border"
+                    className="small-border bookmark"
                     src="/bookmark.svg"
                     alt="star image"
                     width="40"
                     height="40"
                   ></Image>
                 )}
-
+                <StyledParagraphPadding>
+                  Name: {dat?.name}
+                </StyledParagraphPadding>
                 <StyledButton
                   onClick={() => {
                     handleDetailsClick(index);
@@ -214,11 +202,21 @@ export default function ExerciseSearch({userName}) {
                 </StyledButton>
                 {showDetails[index] ? (
                   <>
-                    <p>Difficulty: {dat?.difficulty}</p>
-                    <p>Muslce: {dat?.muscle}</p>
-                    <p>Type: {dat?.type}</p>
-                    <p>Equipment: {dat?.equipment}</p>
-                    <p>Instructions: {dat?.instructions}</p>
+                    <StyledParagraphPadding>
+                      Difficulty: {dat?.difficulty}
+                    </StyledParagraphPadding>
+                    <StyledParagraphPadding>
+                      Muslce: {dat?.muscle}
+                    </StyledParagraphPadding>
+                    <StyledParagraphPadding>
+                      Type: {dat?.type}
+                    </StyledParagraphPadding>
+                    <StyledParagraphPadding>
+                      Equipment: {dat?.equipment}
+                    </StyledParagraphPadding>
+                    <StyledParagraphPadding>
+                      Instructions: {dat?.instructions}
+                    </StyledParagraphPadding>
                   </>
                 ) : (
                   ""
