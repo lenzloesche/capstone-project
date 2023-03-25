@@ -27,7 +27,9 @@ const showDetailsStart = [
 const favoriteExerciseStart = [];
 
 export default function ExerciseSearch({userName}) {
-  const [data, SetData] = useState([]);
+  const [data, setData] = useState([]);
+  const [dataWithFavorites, setDataWithFavorites] = useState([]);
+
   const [searchInput, setSearchInput] = useState("");
   const [favoriteExercises, setFavoriteExercises] = useState(
     favoriteExerciseStart
@@ -64,7 +66,7 @@ export default function ExerciseSearch({userName}) {
     fetchStrength(
       "?name=" + searchInput + apiString,
       setFetchingStatus,
-      SetData,
+      setData,
       resetDetails
     );
   }
@@ -79,7 +81,6 @@ export default function ExerciseSearch({userName}) {
         }
       );
       if (alreadyExistsAtIndex != -1) {
-        console.log(alreadyExistsAtIndex);
         const newfavoriteExercises = favoriteExercises.slice();
         newfavoriteExercises.splice(alreadyExistsAtIndex, 1);
         setFavoriteExercises(newfavoriteExercises);
@@ -87,7 +88,6 @@ export default function ExerciseSearch({userName}) {
         setFavoriteExercises([dat, ...favoriteExercises]);
       }
     }
-    console.log(favoriteExercises);
   }
 
   function handleShowFavoritesClick() {
@@ -96,6 +96,18 @@ export default function ExerciseSearch({userName}) {
   function handleShowSearchClick() {
     setShowFavorites(false);
   }
+
+  useEffect(() => {
+    let newData = data.slice();
+    newData = newData.map((dat) => {
+      let isFavorite = favoriteExercises.find((favoriteExercise) => {
+        return dat.name === favoriteExercise.name;
+      });
+      isFavorite ? (isFavorite = true) : (isFavorite = false);
+      return {...dat, isFavorite: isFavorite};
+    });
+    setDataWithFavorites(newData);
+  }, [data, favoriteExercises]);
 
   if (userName === "DontRender") {
     return (
@@ -111,7 +123,6 @@ export default function ExerciseSearch({userName}) {
       </>
     );
   }
-  console.log(data);
   return (
     <>
       <StrengthContainer>
@@ -124,6 +135,7 @@ export default function ExerciseSearch({userName}) {
           searchInput={searchInput}
           handleShowFavoritesClick={handleShowFavoritesClick}
           handleShowSearchClick={handleShowSearchClick}
+          showFavorites={showFavorites}
         />
         {showFavorites ? (
           <>
@@ -136,7 +148,7 @@ export default function ExerciseSearch({userName}) {
                       handleFavoriteClick(favoriteExercise);
                     }}
                   >
-                    Favorite
+                    UnFavorite
                   </StyledButton>
                   <p>Name: {favoriteExercise?.name}</p>
                 </FormContainer>
@@ -146,7 +158,7 @@ export default function ExerciseSearch({userName}) {
         ) : data?.length === 0 ? (
           <p>No Results</p>
         ) : (
-          data?.map((dat, index) => {
+          dataWithFavorites?.map((dat, index) => {
             return (
               <FormContainer key={uid()}>
                 <p>Name: {dat?.name}</p>
@@ -155,7 +167,7 @@ export default function ExerciseSearch({userName}) {
                     handleFavoriteClick(dat);
                   }}
                 >
-                  UnFavorite
+                  {dat.isFavorite ? "UnFavorite" : "Favorite"}
                 </StyledButton>
                 <StyledButton
                   onClick={() => {
