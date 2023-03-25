@@ -4,7 +4,7 @@ import Input from "../Input";
 import StyledSelect from "../StyledSelect";
 import StyledButton from "../StyledButton";
 import ImageContainer from "../ImageContainer";
-import Heading from "../Heading";
+import Form from "../Form";
 
 export default function StrengthSearchForm({
   handleSubmit,
@@ -38,7 +38,7 @@ export default function StrengthSearchForm({
       {!showFavorites ? (
         <>
           <h2>Exercise Search</h2>
-          <form
+          <Form
             onSubmit={(event) => {
               handleSubmit(event);
             }}
@@ -87,7 +87,7 @@ export default function StrengthSearchForm({
               <option value="traps">traps</option>
               <option value="triceps">triceps</option>
             </StyledSelect>
-          </form>
+          </Form>
         </>
       ) : (
         <h2>Favorites</h2>
