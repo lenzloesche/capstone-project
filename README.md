@@ -1,3 +1,10 @@
+##Capstone Project
+
+This project is called "Fitness App" and it is my capstone project from the "neue fische" boot camp.
+You can currently search for exercises and you can save exercises in a calendar.
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
