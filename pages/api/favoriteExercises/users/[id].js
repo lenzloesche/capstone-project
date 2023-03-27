@@ -6,14 +6,12 @@ export default async function handler(request, response) {
   const {id} = request.query;
   if (request.method === "GET") {
     const favoriteExercises = await FavoriteExercise.find({userName: id});
-    console.log("favoriteExercises server", favoriteExercises, "id", id);
     return response.status(200).json(favoriteExercises);
   } else if (request.method === "POST") {
     const favoriteExercisesData = request.body;
     let favoriteExercises = await FavoriteExercise.find({userName: id});
 
     if (favoriteExercises.length === 0) {
-      console.log("favoriteExercises is empty", favoriteExercises);
       favoriteExercises = new FavoriteExercise({
         userName: id,
         favorites: [],
@@ -21,7 +19,6 @@ export default async function handler(request, response) {
       favoriteExercises.favorites.push(favoriteExercisesData);
       await favoriteExercises.save();
     } else {
-      console.log("favoriteExercises", favoriteExercises);
       favoriteExercises[0].favorites.push(favoriteExercisesData);
       await favoriteExercises[0].save();
     }
@@ -42,15 +39,6 @@ export default async function handler(request, response) {
     });
     exerciseToDelete.favorites.splice(findOne, 1);
     await exerciseToDelete.save();
-
-    console.log(
-      "DELETE:",
-      findOne,
-      "favoriteExercisesData",
-      favoriteExercisesData,
-      "id",
-      id
-    );
     return response
       .status(200)
       .json({message: "Succesfully deleted favorite exercise"});

@@ -1,5 +1,9 @@
-export default async function apiDelete(userName, exerciseName) {
-  // setFetchingStatus("Currently Fetching");
+export default async function apiDelete(
+  userName,
+  exerciseName,
+  setFetchingStatus
+) {
+  setFetchingStatus("Currently Fetching");
   const response = await fetch(`/api/favoriteExercises/users/${userName}`, {
     method: "DELETE",
     body: JSON.stringify(exerciseName),
@@ -8,9 +12,9 @@ export default async function apiDelete(userName, exerciseName) {
     },
   });
   if (response.ok) {
-    //   setFetchingStatus("Deleted");
+    setFetchingStatus("Deleted");
   } else {
-    //  setFetchingStatus("Error");
+    setFetchingStatus("Error");
     console.error(`Error: ${response.status}`);
   }
 }

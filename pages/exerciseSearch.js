@@ -77,7 +77,7 @@ export default function ExerciseSearch({userName}) {
     dat.isFavorite = true;
     dat.user = userName;
     if (favoriteExercises.length === 0) {
-      apiPostFavorite(dat);
+      apiPostFavorite(dat, setFetchingStatus);
 
       setFavoriteExercises([dat]);
     } else {
@@ -90,9 +90,9 @@ export default function ExerciseSearch({userName}) {
         const newfavoriteExercises = favoriteExercises.slice();
         newfavoriteExercises.splice(alreadyExistsAtIndex, 1);
         setFavoriteExercises(newfavoriteExercises);
-        apiDeleteFavorite(userName, dat.name);
+        apiDeleteFavorite(userName, dat.name, setFetchingStatus);
       } else {
-        apiPostFavorite(dat);
+        apiPostFavorite(dat, setFetchingStatus);
         setFavoriteExercises([dat, ...favoriteExercises]);
       }
     }
@@ -116,12 +116,10 @@ export default function ExerciseSearch({userName}) {
     });
     setDataWithFavorites(newData);
   }, [data, favoriteExercises]);
-  console.log("favoriteExercises", favoriteExercises);
 
   useEffect(() => {
-    console.log("userName new useeffect", userName);
     if (userName != "DontRender") {
-      apiGetFavorite(userName, setFavoriteExercises);
+      apiGetFavorite(userName, setFavoriteExercises, setFetchingStatus);
     }
   }, [userName]);
 
@@ -158,6 +156,7 @@ export default function ExerciseSearch({userName}) {
             {favoriteExercises.map((favoriteExercise, index) => {
               return (
                 <ExerciseDisplayed
+                  showFavorites={showFavorites}
                   key={uid()}
                   dat={favoriteExercise}
                   handleFavoriteClick={handleFavoriteClick}
@@ -174,6 +173,7 @@ export default function ExerciseSearch({userName}) {
           dataWithFavorites?.map((dat, index) => {
             return (
               <ExerciseDisplayed
+                showFavorites={showFavorites}
                 key={uid()}
                 dat={dat}
                 handleFavoriteClick={handleFavoriteClick}

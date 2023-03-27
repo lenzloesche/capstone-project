@@ -4,6 +4,7 @@ import StyledParagraphPadding from "../StyledParagraphPadding";
 import StyledButton from "../StyledButton";
 
 export default function ExerciseDisplayed({
+  showFavorites,
   dat,
   handleFavoriteClick,
   handleDetailsClick,
@@ -12,7 +13,7 @@ export default function ExerciseDisplayed({
 }) {
   return (
     <FormContainer>
-      {dat.isFavorite ? (
+      {dat.isFavorite || showFavorites ? (
         <Image
           onClick={() => {
             handleFavoriteClick(dat);

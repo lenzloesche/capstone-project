@@ -1,5 +1,5 @@
 export default async function apiPost(save, setFetchingStatus) {
-  //setFetchingStatus("Currently Posting");
+  setFetchingStatus("Currently Posting");
   const response = await fetch(`/api/favoriteExercises/users/${save.user}`, {
     method: "POST",
     body: JSON.stringify(save),
@@ -9,9 +9,9 @@ export default async function apiPost(save, setFetchingStatus) {
   });
 
   if (response.ok) {
-    //   setFetchingStatus("Saved");
+    setFetchingStatus("Saved");
   } else {
-    //   setFetchingStatus("Error");
+    setFetchingStatus("Error");
     console.error(`Error: ${response.status}`);
   }
 }
