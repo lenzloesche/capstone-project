@@ -240,6 +240,8 @@ export default function Calendar({userName}) {
     setSportSelected(whichOne);
   }
 
+  console.log("data", data);
+
   if (userName === "DontRender") {
     return (
       <>

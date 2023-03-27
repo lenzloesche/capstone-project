@@ -2,14 +2,18 @@ import mongoose from "mongoose";
 
 const {Schema} = mongoose;
 
-const favoriteExerciseSchema = new Schema({
-  user: {type: String, required: true},
+const favoriteSchema = new Schema({
   name: {type: String, required: true},
   difficulty: {type: String},
   muscle: {type: String},
   type: {type: String},
   equipment: {type: String},
   instructions: {type: String},
+});
+
+const favoriteExerciseSchema = new Schema({
+  userName: {type: String, required: true},
+  favorites: {type: Schema.Types.Mixed, default: []},
 });
 
 const FavoriteExercise =

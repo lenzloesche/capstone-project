@@ -10,6 +10,8 @@ import StrengthSearchForm from "../components/StrengthSearchForm";
 import NavigationLink from "../components/NavigationLink";
 import useLocalStorageState from "use-local-storage-state";
 import ExerciseDisplayed from "../components/ExerciseDisplayed";
+import apiPostFavorite from "../apiServices/apiPostFavorite";
+import apiGetFavorite from "../apiServices/apiGetFavorite";
 
 const showDetailsStart = [
   false,
@@ -77,6 +79,7 @@ export default function ExerciseSearch({userName}) {
     dat.user = userName;
     if (favoriteExercises.length === 0) {
       setFavoriteExercises([dat]);
+      apiPostFavorite(dat);
     } else {
       const alreadyExistsAtIndex = favoriteExercises.findIndex(
         (favoriteExercise) => {
@@ -89,6 +92,7 @@ export default function ExerciseSearch({userName}) {
         setFavoriteExercises(newfavoriteExercises);
       } else {
         setFavoriteExercises([dat, ...favoriteExercises]);
+        apiPostFavorite(dat);
       }
     }
   }
@@ -111,6 +115,9 @@ export default function ExerciseSearch({userName}) {
     });
     setDataWithFavorites(newData);
   }, [data, favoriteExercises]);
+  console.log("favoriteExercises", favoriteExercises);
+
+  useEffect(() => {}, []);
 
   if (userName === "DontRender") {
     return (
