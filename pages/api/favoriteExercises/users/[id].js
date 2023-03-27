@@ -6,6 +6,7 @@ export default async function handler(request, response) {
   const {id} = request.query;
   if (request.method === "GET") {
     const favoriteExercises = await FavoriteExercise.find({userName: id});
+    console.log("favoriteExercises server", favoriteExercises, "id", id);
     return response.status(200).json(favoriteExercises);
   } else if (request.method === "POST") {
     const favoriteExercisesData = request.body;

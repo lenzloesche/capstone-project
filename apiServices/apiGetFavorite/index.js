@@ -12,10 +12,11 @@ export default async function apiGet(
 
       if (dataFetch.length === 0) {
         console.log("dataFetch empty", dataFetch);
+        setFavoriteExercises([]);
       } else {
         console.log("dataFetch", dataFetch[0].favorites);
+        setFavoriteExercises(dataFetch[0].favorites);
       }
-      //   setFavoriteExercises(dataFetch);
       //   setFetchingStatus("Done fetching");
     } else {
       console.error("Response not OK.");

@@ -119,8 +119,8 @@ export default function ExerciseSearch({userName}) {
   console.log("favoriteExercises", favoriteExercises);
 
   useEffect(() => {
-    apiGetFavorite(userName);
-  }, []);
+    apiGetFavorite(userName, setFavoriteExercises);
+  }, [userName]);
 
   if (userName === "DontRender") {
     return (
