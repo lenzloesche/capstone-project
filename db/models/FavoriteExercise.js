@@ -13,7 +13,7 @@ const favoriteSchema = new Schema({
 
 const favoriteExerciseSchema = new Schema({
   userName: {type: String, required: true},
-  favorites: {type: Schema.Types.Mixed, default: []},
+  favorites: [favoriteSchema],
 });
 
 const FavoriteExercise =

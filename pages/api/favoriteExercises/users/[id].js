@@ -13,9 +13,7 @@ export default async function handler(request, response) {
       userName: id,
       favorites: [],
     });
-    favoriteExercises.favorites.set(favoriteExercisesData.name, {
-      favoriteExercisesData,
-    });
+    favoriteExercises.favorites.push(favoriteExercisesData);
     await favoriteExercises.save();
 
     return response.status(201).json({
