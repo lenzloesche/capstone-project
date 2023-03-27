@@ -8,10 +8,10 @@ import StyledParagraph from "../components/StyledParagraph";
 import fetchStrength from "../apiServices/fetchStrength";
 import StrengthSearchForm from "../components/StrengthSearchForm";
 import NavigationLink from "../components/NavigationLink";
-import useLocalStorageState from "use-local-storage-state";
 import ExerciseDisplayed from "../components/ExerciseDisplayed";
 import apiPostFavorite from "../apiServices/apiPostFavorite";
 import apiGetFavorite from "../apiServices/apiGetFavorite";
+import apiDeleteFavorite from "../apiServices/apiDeleteFavorite";
 
 const showDetailsStart = [
   false,
@@ -33,9 +33,8 @@ export default function ExerciseSearch({userName}) {
   const [dataWithFavorites, setDataWithFavorites] = useState([]);
 
   const [searchInput, setSearchInput] = useState("");
-  const [favoriteExercises, setFavoriteExercises] = useLocalStorageState(
-    "favoriteExercises",
-    {defaultValue: favoriteExerciseStart}
+  const [favoriteExercises, setFavoriteExercises] = useState(
+    favoriteExerciseStart
   );
   const [showDetails, setShowDetails] = useState(showDetailsStart);
   const [fetchingStatus, setFetchingStatus] = useState("none");
@@ -91,6 +90,7 @@ export default function ExerciseSearch({userName}) {
         const newfavoriteExercises = favoriteExercises.slice();
         newfavoriteExercises.splice(alreadyExistsAtIndex, 1);
         setFavoriteExercises(newfavoriteExercises);
+        apiDeleteFavorite(userName, dat.name);
       } else {
         apiPostFavorite(dat);
         setFavoriteExercises([dat, ...favoriteExercises]);
@@ -119,7 +119,10 @@ export default function ExerciseSearch({userName}) {
   console.log("favoriteExercises", favoriteExercises);
 
   useEffect(() => {
-    apiGetFavorite(userName, setFavoriteExercises);
+    console.log("userName new useeffect", userName);
+    if (userName != "DontRender") {
+      apiGetFavorite(userName, setFavoriteExercises);
+    }
   }, [userName]);
 
   if (userName === "DontRender") {

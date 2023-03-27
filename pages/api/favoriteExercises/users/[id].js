@@ -11,6 +11,7 @@ export default async function handler(request, response) {
   } else if (request.method === "POST") {
     const favoriteExercisesData = request.body;
     let favoriteExercises = await FavoriteExercise.find({userName: id});
+
     if (favoriteExercises.length === 0) {
       console.log("favoriteExercises is empty", favoriteExercises);
       favoriteExercises = new FavoriteExercise({
@@ -30,6 +31,29 @@ export default async function handler(request, response) {
       status: 201,
       _id: favoriteExercises._id,
     });
+  } else if (request.method === "DELETE") {
+    const favoriteExercisesData = await JSON.stringify(request.body);
+    const exerciseToDelete = await FavoriteExercise.findOne({
+      userName: id,
+    });
+
+    const findOne = exerciseToDelete.favorites.findIndex((favorite) => {
+      return favoriteExercisesData.includes(favorite.name);
+    });
+    exerciseToDelete.favorites.splice(findOne, 1);
+    await exerciseToDelete.save();
+
+    console.log(
+      "DELETE:",
+      findOne,
+      "favoriteExercisesData",
+      favoriteExercisesData,
+      "id",
+      id
+    );
+    return response
+      .status(200)
+      .json({message: "Succesfully deleted favorite exercise"});
   } else {
     return response.status(405).json({message: "Method not allowed"});
   }
