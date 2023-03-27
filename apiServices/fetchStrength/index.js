@@ -21,10 +21,10 @@ export default async function fetchStrength(
       resetDetails();
     } else {
       setFetchingStatus("Error");
-      console.errror("Response not OK.");
+      console.error("Response not OK.");
     }
   } catch (error) {
     setFetchingStatus("Error");
-    console.errror("Error fetching: ", error);
+    console.error("Error fetching: ", error);
   }
 }

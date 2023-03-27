@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import {createGlobalStyle} from "styled-components";
 
 export default createGlobalStyle`
   *,
@@ -18,7 +18,6 @@ export default createGlobalStyle`
   }
   .small-border{     
     border:1px solid grey;   
-
     background-color:#d96a3f;
     border-radius:10px;
   }
@@ -31,4 +30,10 @@ export default createGlobalStyle`
     margin:0;
     width:200px;
   }
+
+.bookmark{
+  position:relative;
+  right:-120px;
+}
+
 `;
