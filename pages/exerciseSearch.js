@@ -78,8 +78,9 @@ export default function ExerciseSearch({userName}) {
     dat.isFavorite = true;
     dat.user = userName;
     if (favoriteExercises.length === 0) {
-      setFavoriteExercises([dat]);
       apiPostFavorite(dat);
+
+      setFavoriteExercises([dat]);
     } else {
       const alreadyExistsAtIndex = favoriteExercises.findIndex(
         (favoriteExercise) => {
@@ -91,8 +92,8 @@ export default function ExerciseSearch({userName}) {
         newfavoriteExercises.splice(alreadyExistsAtIndex, 1);
         setFavoriteExercises(newfavoriteExercises);
       } else {
-        setFavoriteExercises([dat, ...favoriteExercises]);
         apiPostFavorite(dat);
+        setFavoriteExercises([dat, ...favoriteExercises]);
       }
     }
   }
@@ -117,7 +118,9 @@ export default function ExerciseSearch({userName}) {
   }, [data, favoriteExercises]);
   console.log("favoriteExercises", favoriteExercises);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    apiGetFavorite(userName);
+  }, []);
 
   if (userName === "DontRender") {
     return (

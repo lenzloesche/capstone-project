@@ -1,20 +1,28 @@
-export default async function apiGet(userName, setData, setFetchingStatus) {
-  setFetchingStatus("Currently fetching");
+export default async function apiGet(
+  userName,
+  setFavoriteExercises,
+  setFetchingStatus
+) {
+  // setFetchingStatus("Currently fetching");
   try {
-    const response = await fetch(`/api/exercises/users/${userName}`);
+    const response = await fetch(`/api/favoriteExercises/users/${userName}`);
     if (response.ok) {
       const dataFetch = await response.json();
-      for (let i = 0; i < dataFetch.length; i++) {
-        dataFetch[i].date = new Date(dataFetch[i].date);
+      console.log("dataFetch ?", dataFetch);
+
+      if (dataFetch.length === 0) {
+        console.log("dataFetch empty", dataFetch);
+      } else {
+        console.log("dataFetch", dataFetch[0].favorites);
       }
-      setData(dataFetch);
-      setFetchingStatus("Done fetching");
+      //   setFavoriteExercises(dataFetch);
+      //   setFetchingStatus("Done fetching");
     } else {
       console.error("Response not OK.");
-      setFetchingStatus("Error");
+      //  setFetchingStatus("Error");
     }
   } catch (error) {
     console.error("Error fetching: ", error);
-    setFetchingStatus("Error");
+    // setFetchingStatus("Error");
   }
 }

@@ -9,12 +9,20 @@ export default async function handler(request, response) {
     return response.status(200).json(favoriteExercises);
   } else if (request.method === "POST") {
     const favoriteExercisesData = request.body;
-    const favoriteExercises = new FavoriteExercise({
-      userName: id,
-      favorites: [],
-    });
-    favoriteExercises.favorites.push(favoriteExercisesData);
-    await favoriteExercises.save();
+    let favoriteExercises = await FavoriteExercise.find({userName: id});
+    if (favoriteExercises.length === 0) {
+      console.log("favoriteExercises is empty", favoriteExercises);
+      favoriteExercises = new FavoriteExercise({
+        userName: id,
+        favorites: [],
+      });
+      favoriteExercises.favorites.push(favoriteExercisesData);
+      await favoriteExercises.save();
+    } else {
+      console.log("favoriteExercises", favoriteExercises);
+      favoriteExercises[0].favorites.push(favoriteExercisesData);
+      await favoriteExercises[0].save();
+    }
 
     return response.status(201).json({
       statusText: "Successfully created favoriteExercises",
