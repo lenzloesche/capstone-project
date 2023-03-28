@@ -7,7 +7,7 @@ import {useState, useEffect} from "react";
 import GraphDate from "../GraphComponents/GraphDate";
 
 export default function Graph({data, graphIsVisible}) {
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(0.0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -15,10 +15,10 @@ export default function Graph({data, graphIsVisible}) {
         if (prevTimer >= 70) {
           return -20;
         } else {
-          return prevTimer + 1;
+          return prevTimer + 0.25;
         }
       });
-    }, 100);
+    }, 25);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -30,8 +30,8 @@ export default function Graph({data, graphIsVisible}) {
   }
 
   const dateSelected = new Date();
-  let checkTimer = timer < 0 ? 0 : timer;
-  checkTimer = checkTimer > 55 ? 55 : checkTimer;
+  let checkTimer = timer <= 0 ? 0 : timer;
+  checkTimer = checkTimer >= 55 ? 55 : checkTimer;
 
   const dayInMilliseconds = checkTimer * 24 * 60 * 60 * 1000;
   const date = new Date(dateSelected - dayInMilliseconds);
@@ -55,12 +55,12 @@ export default function Graph({data, graphIsVisible}) {
   });
 
   if (data.length === 0) {
-    return;
+    return <FormContainer></FormContainer>;
   }
-  if (!graphIsVisible) return;
+  if (!graphIsVisible) return <FormContainer></FormContainer>;
   const offset = 290;
-  const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
-
+  const stretchFactor = 10;
+  const xValue = timer === checkTimer ? timer % 1 : 1;
   return (
     <FormContainer>
       <GraphChart>
@@ -75,12 +75,12 @@ export default function Graph({data, graphIsVisible}) {
             return (
               <div key={uid()}>
                 <PointOnGraph
-                  left={index * 10 + 100}
+                  left={(index + xValue) * stretchFactor + 100}
                   bottom={eachKilom}
                   color="green"
                 ></PointOnGraph>
                 {eachEntry.date.getDay() === 0 ? (
-                  <GraphDate left={index * 10 + 100}>
+                  <GraphDate left={(index + xValue) * stretchFactor + 100}>
                     {eachEntry.date.getMonth() +
                       1 +
                       "/" +
@@ -96,12 +96,12 @@ export default function Graph({data, graphIsVisible}) {
               <div key={uid()}>
                 <PointOnGraph
                   key={uid()}
-                  left={index * 10 + 100}
+                  left={(index + xValue) * stretchFactor + 100}
                   color="grey"
                   bottom={offset}
                 ></PointOnGraph>
                 {eachEntry.date.getDay() === 0 ? (
-                  <GraphDate left={index * 10 + 100}>
+                  <GraphDate left={(index + xValue) * stretchFactor + 100}>
                     {eachEntry.date.getMonth() +
                       1 +
                       "/" +
