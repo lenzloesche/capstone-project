@@ -58,15 +58,13 @@ export default function CalendarColoredDiv(
   if (filterStrength) {
     if (dateSelected === dat) {
       return (
-        <Div color="var(--button-color)" isItSelected>
+        <Div color="#d96a3f" isItSelected>
           {dat.getMonth() + 1 + "/" + dat.getDate()}
         </Div>
       );
     }
     return (
-      <Div color="var(--button-color)">
-        {dat.getMonth() + 1 + "/" + dat.getDate()}
-      </Div>
+      <Div color="#d96a3f">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
     );
   }
   if (dateSelected === dat) {

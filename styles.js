@@ -3,7 +3,7 @@ import {createGlobalStyle} from "styled-components";
 export default createGlobalStyle`
 :root{
   --button-color2: #d96a3f;
-  --button-color: #a8431d;
+  --button-color: #D6694D;
 }
   *,
   *::before,
