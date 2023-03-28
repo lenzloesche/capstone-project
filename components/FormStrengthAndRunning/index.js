@@ -29,7 +29,7 @@ export default function FormStrengthAndRunning({
             alt="strength image of an Arm"
             width="100"
             height="100"
-            isSelected={sportSelected === "strength" ? true : false}
+            isitselected={sportSelected === "strength" ? true : false}
           ></StyledImage>
           <StyledImage
             className={sportSelected === "running" ? "border" : "small-border"}
@@ -40,7 +40,7 @@ export default function FormStrengthAndRunning({
             alt="running image runner"
             width="100"
             height="100"
-            isSelected={sportSelected === "running" ? true : false}
+            isitselected={sportSelected === "running" ? true : false}
           ></StyledImage>
         </ImageContainer>
         <StyledParagraphNormal className="big-text">

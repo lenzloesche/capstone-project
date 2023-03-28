@@ -1,5 +1,9 @@
 import ExerciseSearch from "../pages/exerciseSearch";
-import {render, screen, fireEvent} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
+
+const apiGetFavorite = require("../apiServices/apiGetFavorite");
+jest.mock("../apiServices/apiGetFavorite", () => () => {});
+
 test("see if search bar is rendered.", () => {
   render(<ExerciseSearch />);
   const searchName = screen.getAllByText(/search/i);
