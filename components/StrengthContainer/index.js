@@ -6,6 +6,7 @@ const Container1 = styled.div`
   align-items: center;
   background-color: lightgrey;
   background-image: url("jumpwoman.jpg");
+
   background-repeat: repeat;
   background-position: center top;
   margin-bottom: 70px;
