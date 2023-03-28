@@ -52,6 +52,7 @@ export default function Calendar({userName}) {
     mins: "",
   });
   const [fetchingStatus, setFetchingStatus] = useState("none");
+  const [graphIsVisible, setGraphIsVisible] = useState(true);
 
   const weekday = [
     "Sunday",
@@ -242,6 +243,10 @@ export default function Calendar({userName}) {
     setSportSelected(whichOne);
   }
 
+  function handleGraphClick() {
+    setGraphIsVisible(!graphIsVisible);
+  }
+
   if (userName === "DontRender") {
     return (
       <>
@@ -264,9 +269,9 @@ export default function Calendar({userName}) {
         </Header>
         {userName !== undefined ? (
           <>
-            <GraphText>Running Graph</GraphText>
+            <GraphText onClick={handleGraphClick}>Running Graph</GraphText>
 
-            <Graph data={data}></Graph>
+            <Graph data={data} graphIsVisible={graphIsVisible}></Graph>
             {editMode.editModeOn ? (
               <FormStrengthAndRunning
                 handleImageClick={handleImageClick}

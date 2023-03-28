@@ -6,7 +6,7 @@ import GraphParagraph from "../GraphComponents/GraphParagraph";
 import {useState, useEffect} from "react";
 import GraphDate from "../GraphComponents/GraphDate";
 
-export default function Graph({data}) {
+export default function Graph({data, graphIsVisible}) {
   const [timer, setTimer] = useState(0);
 
   useEffect(() => {
@@ -19,7 +19,6 @@ export default function Graph({data}) {
         }
       });
     }, 100);
-
     return () => clearInterval(intervalId);
   }, []);
 
@@ -58,6 +57,7 @@ export default function Graph({data}) {
   if (data.length === 0) {
     return;
   }
+  if (!graphIsVisible) return;
   const offset = 290;
   const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
 
