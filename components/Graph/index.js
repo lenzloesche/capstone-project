@@ -2,6 +2,7 @@ import FormContainer from "../FormContainer";
 import PointOnGraph from "../GraphComponents/PointOnGraph";
 import {uid} from "uid";
 import GraphChart from "../GraphComponents/GraphChart";
+import GraphParagraph from "../GraphComponents/GraphParagraph";
 
 export default function Graph({data, dateSelected}) {
   let selectedData = null;
@@ -31,29 +32,40 @@ export default function Graph({data, dateSelected}) {
   });
 
   if (data.length === 0) return;
-
-  console.log(newGraph);
+  const offset = 270;
   return (
     <FormContainer>
       <GraphChart>
         {newGraph.map((eachEntry, index) => {
           if (eachEntry != undefined) {
-            if (eachEntry.kiloms > 400) {
-              eachEntry.kiloms = 400;
+            if (eachEntry.kiloms > 300) {
+              eachEntry.kiloms = 300;
             }
-            const eachKilom = 260 - Number(eachEntry.kiloms) / 3;
+            const eachKilom = offset - Number(eachEntry.kiloms) / 2;
 
             return (
               <PointOnGraph
                 key={uid()}
                 left={index * 10 + 100}
                 bottom={eachKilom}
+                color="green"
               ></PointOnGraph>
             );
           } else {
-            return;
+            return (
+              <PointOnGraph
+                key={uid()}
+                left={index * 10 + 100}
+                color="grey"
+                bottom={offset}
+              ></PointOnGraph>
+            );
           }
         })}
+        <GraphParagraph>
+          ____________________________
+          <br />3 weeks
+        </GraphParagraph>
       </GraphChart>
     </FormContainer>
   );
