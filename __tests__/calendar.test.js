@@ -38,6 +38,8 @@ describe("Calendar", () => {
     fireEvent.click(divToClick);
 
     const buttonToClick = screen.getByText("New for selected Date");
+    window.scrollTo = jest.fn();
+
     fireEvent.click(buttonToClick);
 
     const exercise = await screen.findAllByText(/exercise/i);
