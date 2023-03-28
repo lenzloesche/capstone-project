@@ -1,20 +1,6 @@
 import ExerciseSearch from "../pages/exerciseSearch";
 import {render, screen} from "@testing-library/react";
-const todaysDate = new Date();
 
-/* const fakeData = [
-  {
-    name: "Test1",
-    difficulty: "easy",
-    muscle: "shoulders",
-    type: "strength",
-    equipment: "dumbell",
-    instructions: "TESTINSTRUCTIONS",
-  },
-];
-const userName = "Test";
-const setFavoriteExercises = () => {};
-const setFetchingStatus = () => {}; */
 const apiGetFavorite = require("../apiServices/apiGetFavorite");
 jest.mock("../apiServices/apiGetFavorite", () => () => {});
 
