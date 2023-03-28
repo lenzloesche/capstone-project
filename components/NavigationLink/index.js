@@ -10,7 +10,7 @@ const StyledNavigationLink = styled.a`
   font-size: 18px;
   text-decoration: none;
   background-color: ${(props) =>
-    props.selected ? "hsla(223, 57%, 77%, 1)" : "#d96a3f"};
+    props.selected ? "hsla(223, 57%, 77%, 1)" : "var(--button-color)"};
   :hover {
     color: white;
     background-color: black;
