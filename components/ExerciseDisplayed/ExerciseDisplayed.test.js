@@ -47,3 +47,21 @@ test("test if title is displayed. and tests if instructions is only displayed if
   fireEvent.click(button);
   expect(instructions).not.toBeInTheDocument;
 });
+
+test("when you click the favorite icon, the function is triggered.", () => {
+  const handleFavoriteClickMock = jest.fn();
+
+  render(
+    <ExerciseDisplayed
+      showFavorites={showFavorites}
+      dat={dat}
+      handleFavoriteClick={handleFavoriteClickMock}
+      handleDetailsClick={handleDetailsClick}
+      showDetails={showDetails}
+      index={index}
+    />
+  );
+  const favoriteIcon = screen.getByAltText(/star/i);
+  fireEvent.click(favoriteIcon);
+  expect(handleFavoriteClickMock).toHaveBeenCalled();
+});

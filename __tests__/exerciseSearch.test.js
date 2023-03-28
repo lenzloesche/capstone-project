@@ -1,5 +1,5 @@
 import ExerciseSearch from "../pages/exerciseSearch";
-import {render, screen, fireEvent} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 test("see if search bar is rendered.", () => {
   render(<ExerciseSearch />);
   const searchName = screen.getAllByText(/search/i);
