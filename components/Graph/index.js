@@ -73,9 +73,8 @@ export default function Graph({data}) {
                 : eachEntry.kiloms;
             const eachKilom = offset - Number(newkiloms) / 2;
             return (
-              <>
+              <div key={uid()}>
                 <PointOnGraph
-                  key={uid()}
                   left={index * 10 + 100}
                   bottom={eachKilom}
                   color="green"
@@ -90,11 +89,11 @@ export default function Graph({data}) {
                 ) : (
                   ""
                 )}
-              </>
+              </div>
             );
           } else {
             return (
-              <>
+              <div key={uid()}>
                 <PointOnGraph
                   key={uid()}
                   left={index * 10 + 100}
@@ -111,7 +110,7 @@ export default function Graph({data}) {
                 ) : (
                   ""
                 )}
-              </>
+              </div>
             );
           }
         })}
