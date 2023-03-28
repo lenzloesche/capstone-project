@@ -14,7 +14,7 @@ export default function CalendarColoredDiv(
   if (allEntries.length === 0) {
     if (dateSelected === dat) {
       return (
-        <Div color="#a3b6e6" isSelected>
+        <Div color="#a3b6e6" isItSelected>
           {dat.getMonth() + 1 + "/" + dat.getDate()}
         </Div>
       );
@@ -34,7 +34,7 @@ export default function CalendarColoredDiv(
   if (filterRunning && filterStrength) {
     if (dateSelected === dat) {
       return (
-        <Div color="#d93f45" isSelected>
+        <Div color="#d93f45" isItSelected>
           {dat.getMonth() + 1 + "/" + dat.getDate()}
         </Div>
       );
@@ -46,7 +46,7 @@ export default function CalendarColoredDiv(
   if (filterRunning) {
     if (dateSelected === dat) {
       return (
-        <Div color="#f89348" isSelected>
+        <Div color="#f89348" isItSelected>
           {dat.getMonth() + 1 + "/" + dat.getDate()}
         </Div>
       );
@@ -58,7 +58,7 @@ export default function CalendarColoredDiv(
   if (filterStrength) {
     if (dateSelected === dat) {
       return (
-        <Div color="#d96a3f" isSelected>
+        <Div color="#d96a3f" isItSelected>
           {dat.getMonth() + 1 + "/" + dat.getDate()}
         </Div>
       );
@@ -69,7 +69,7 @@ export default function CalendarColoredDiv(
   }
   if (dateSelected === dat) {
     return (
-      <Div color="#a3b6e6" isSelected>
+      <Div color="#a3b6e6" isItSelected>
         {dat.getMonth() + 1 + "/" + dat.getDate()}
       </Div>
     );

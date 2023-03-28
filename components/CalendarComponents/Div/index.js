@@ -30,8 +30,8 @@ const DivHelperSelected = styled.div`
   }
 `;
 
-export default function Div({color, isSelected, children}) {
-  if (isSelected) {
+export default function Div({color, isItSelected, children}) {
+  if (isItSelected) {
     return <DivHelperSelected color={color}>{children}</DivHelperSelected>;
   }
   return <DivHelper color={color}>{children}</DivHelper>;
