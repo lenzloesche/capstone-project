@@ -5,6 +5,7 @@ import GraphChart from "../GraphComponents/GraphChart";
 import GraphParagraph from "../GraphComponents/GraphParagraph";
 import {useState, useEffect} from "react";
 import GraphDate from "../GraphComponents/GraphDate";
+import GraphBorders from "../GraphComponents/GraphBorders";
 
 export default function Graph({data, graphIsVisible}) {
   const [timer, setTimer] = useState(0.0);
@@ -61,8 +62,12 @@ export default function Graph({data, graphIsVisible}) {
   const offset = 290;
   const stretchFactor = 10;
   const xValue = timer === checkTimer ? timer % 1 : 1;
+  const leftOffset = 90;
   return (
     <FormContainer>
+      <GraphBorders left="48px" />
+      <GraphBorders left="300px" />
+
       <GraphChart>
         {newGraph.map((eachEntry, index) => {
           if (eachEntry.kiloms != undefined) {
@@ -75,12 +80,14 @@ export default function Graph({data, graphIsVisible}) {
             return (
               <div key={uid()}>
                 <PointOnGraph
-                  left={(index + xValue) * stretchFactor + 100}
+                  left={(index + xValue) * stretchFactor + leftOffset}
                   bottom={eachKilom}
                   color="green"
                 ></PointOnGraph>
                 {eachEntry.date.getDay() === 0 ? (
-                  <GraphDate left={(index + xValue) * stretchFactor + 100}>
+                  <GraphDate
+                    left={(index + xValue) * stretchFactor + leftOffset}
+                  >
                     {eachEntry.date.getMonth() +
                       1 +
                       "/" +
@@ -96,12 +103,14 @@ export default function Graph({data, graphIsVisible}) {
               <div key={uid()}>
                 <PointOnGraph
                   key={uid()}
-                  left={(index + xValue) * stretchFactor + 100}
+                  left={(index + xValue) * stretchFactor + leftOffset}
                   color="grey"
                   bottom={offset}
                 ></PointOnGraph>
                 {eachEntry.date.getDay() === 0 ? (
-                  <GraphDate left={(index + xValue) * stretchFactor + 100}>
+                  <GraphDate
+                    left={(index + xValue) * stretchFactor + leftOffset}
+                  >
                     {eachEntry.date.getMonth() +
                       1 +
                       "/" +
