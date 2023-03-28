@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
-const PointOnGraph = styled.div`
+//attrs is used to not generate too many css classes and keep it inline
+const PointOnGraph = styled.div.attrs((props) => ({
+  style: {
+    left: `${props.left}px`,
+    top: `${props.bottom}px`,
+  },
+}))`
   width: 6px;
   height: 6px;
   background-color: ${(props) => props.color};
   position: absolute;
-  left: ${(props) => (props.left ? props.left : "")}px;
-  top: ${(props) => (props.bottom ? props.bottom : "")}px;
 `;
+
 export default PointOnGraph;

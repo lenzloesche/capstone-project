@@ -11,13 +11,13 @@ export default function Graph({data}) {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimer((prevTimer) => {
-        if (prevTimer >= 55) {
+        if (prevTimer >= 70) {
           return -20;
         } else {
           return prevTimer + 1;
         }
       });
-    }, 200);
+    }, 100);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -30,7 +30,9 @@ export default function Graph({data}) {
   }
 
   const dateSelected = new Date();
-  const checkTimer = timer < 0 ? 0 : timer;
+  let checkTimer = timer < 0 ? 0 : timer;
+  checkTimer = checkTimer > 55 ? 55 : checkTimer;
+
   const dayInMilliseconds = checkTimer * 24 * 60 * 60 * 1000;
   const date = new Date(dateSelected - dayInMilliseconds);
   const graph = [];
@@ -56,11 +58,8 @@ export default function Graph({data}) {
       <GraphChart>
         {newGraph.map((eachEntry, index) => {
           if (eachEntry != undefined) {
-            if (eachEntry.kiloms > 300) {
-              eachEntry.kiloms = 300;
-            }
-            const eachKilom = offset - Number(eachEntry.kiloms) / 2;
-
+            const newkiloms = eachEntry.kiloms > 300 ? 300 : eachEntry.kiloms;
+            const eachKilom = offset - Number(newkiloms) / 2;
             return (
               <PointOnGraph
                 key={uid()}
