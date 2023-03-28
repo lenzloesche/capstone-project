@@ -266,7 +266,7 @@ export default function Calendar({userName}) {
           <>
             <GraphText>Running Graph</GraphText>
 
-            <Graph data={data} dateSelected={dateSelected}></Graph>
+            <Graph data={data}></Graph>
             {editMode.editModeOn ? (
               <FormStrengthAndRunning
                 handleImageClick={handleImageClick}

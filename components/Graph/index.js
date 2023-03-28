@@ -3,8 +3,25 @@ import PointOnGraph from "../GraphComponents/PointOnGraph";
 import {uid} from "uid";
 import GraphChart from "../GraphComponents/GraphChart";
 import GraphParagraph from "../GraphComponents/GraphParagraph";
+import {useState, useEffect} from "react";
 
-export default function Graph({data, dateSelected}) {
+export default function Graph({data}) {
+  const [timer, setTimer] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTimer((prevTimer) => {
+        if (prevTimer >= 55) {
+          return -20;
+        } else {
+          return prevTimer + 1;
+        }
+      });
+    }, 200);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   let selectedData = null;
   if (data) {
     selectedData = data
@@ -12,11 +29,10 @@ export default function Graph({data, dateSelected}) {
       .slice();
   }
 
-  if (dateSelected === undefined) {
-    return;
-  }
-
-  const date = dateSelected;
+  const dateSelected = new Date();
+  const checkTimer = timer < 0 ? 0 : timer;
+  const dayInMilliseconds = checkTimer * 24 * 60 * 60 * 1000;
+  const date = new Date(dateSelected - dayInMilliseconds);
   const graph = [];
   const lengthOfGraph = 21;
 
@@ -31,7 +47,9 @@ export default function Graph({data, dateSelected}) {
     });
   });
 
-  if (data.length === 0) return;
+  if (data.length === 0) {
+    return;
+  }
   const offset = 270;
   return (
     <FormContainer>
@@ -62,10 +80,7 @@ export default function Graph({data, dateSelected}) {
             );
           }
         })}
-        <GraphParagraph>
-          ____________________________
-          <br />3 weeks
-        </GraphParagraph>
+        <GraphParagraph>____________________________</GraphParagraph>
       </GraphChart>
     </FormContainer>
   );
