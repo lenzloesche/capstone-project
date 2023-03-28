@@ -3,21 +3,25 @@ import PointOnGraph from "../GraphComponents/PointOnGraph";
 import {uid} from "uid";
 import GraphChart from "../GraphComponents/GraphChart";
 
-const date = new Date();
-const graph = [];
-const lengthOfGraph = 21;
-
-for (let day = 0; day < lengthOfGraph; day++) {
-  const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
-  graph.unshift(new Date(date - dayInMilliseconds));
-}
-
-export default function Graph({data}) {
+export default function Graph({data, dateSelected}) {
   let selectedData = null;
   if (data) {
     selectedData = data
       ?.filter((dat) => dat.sportSelected === "running")
       .slice();
+  }
+
+  if (dateSelected === undefined) {
+    return;
+  }
+
+  const date = dateSelected;
+  const graph = [];
+  const lengthOfGraph = 21;
+
+  for (let day = 0; day < lengthOfGraph; day++) {
+    const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
+    graph.unshift(new Date(date - dayInMilliseconds));
   }
 
   const newGraph = graph.map((eachEntry) => {
@@ -34,8 +38,10 @@ export default function Graph({data}) {
       <GraphChart>
         {newGraph.map((eachEntry, index) => {
           if (eachEntry != undefined) {
+            if (eachEntry.kiloms > 400) {
+              eachEntry.kiloms = 400;
+            }
             const eachKilom = 260 - Number(eachEntry.kiloms) / 3;
-            console.log("eachEntry.kiloms", eachEntry.kiloms, eachKilom);
 
             return (
               <PointOnGraph

@@ -11,6 +11,7 @@ import StyledParagraph from "../components/StyledParagraph";
 import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
 import NavigationLink from "../components/NavigationLink";
 import Graph from "../components/Graph";
+import GraphText from "../components/GraphComponents/GraphText";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -255,7 +256,6 @@ export default function Calendar({userName}) {
       </>
     );
   }
-  console.log(data);
   return (
     <>
       <StrengthContainer>
@@ -264,7 +264,9 @@ export default function Calendar({userName}) {
         </Header>
         {userName !== undefined ? (
           <>
-            <Graph data={data}></Graph>
+            <GraphText>Running Graph</GraphText>
+
+            <Graph data={data} dateSelected={dateSelected}></Graph>
             {editMode.editModeOn ? (
               <FormStrengthAndRunning
                 handleImageClick={handleImageClick}
