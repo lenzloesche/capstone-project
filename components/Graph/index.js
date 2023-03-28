@@ -4,6 +4,7 @@ import {uid} from "uid";
 import GraphChart from "../GraphComponents/GraphChart";
 import GraphParagraph from "../GraphComponents/GraphParagraph";
 import {useState, useEffect} from "react";
+import GraphDate from "../GraphComponents/GraphDate";
 
 export default function Graph({data}) {
   const [timer, setTimer] = useState(0);
@@ -44,38 +45,73 @@ export default function Graph({data}) {
   }
 
   const newGraph = graph.map((eachEntry) => {
-    return selectedData.find((eachData) => {
+    const foundDate = selectedData.find((eachData) => {
       return eachEntry.toDateString() === eachData.date.toDateString();
     });
+    if (foundDate === undefined) {
+      return {date: eachEntry};
+    } else {
+      return foundDate;
+    }
   });
 
   if (data.length === 0) {
     return;
   }
-  const offset = 270;
+  const offset = 290;
+  const oneDayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
+
   return (
     <FormContainer>
       <GraphChart>
         {newGraph.map((eachEntry, index) => {
-          if (eachEntry != undefined) {
-            const newkiloms = eachEntry.kiloms > 300 ? 300 : eachEntry.kiloms;
+          if (eachEntry.kiloms != undefined) {
+            const furthestAnyoneCanRunInOneDay = 320;
+            const newkiloms =
+              eachEntry.kiloms > furthestAnyoneCanRunInOneDay
+                ? furthestAnyoneCanRunInOneDay
+                : eachEntry.kiloms;
             const eachKilom = offset - Number(newkiloms) / 2;
             return (
-              <PointOnGraph
-                key={uid()}
-                left={index * 10 + 100}
-                bottom={eachKilom}
-                color="green"
-              ></PointOnGraph>
+              <>
+                <PointOnGraph
+                  key={uid()}
+                  left={index * 10 + 100}
+                  bottom={eachKilom}
+                  color="green"
+                ></PointOnGraph>
+                {eachEntry.date.getDay() === 0 ? (
+                  <GraphDate left={index * 10 + 100}>
+                    {eachEntry.date.getMonth() +
+                      1 +
+                      "/" +
+                      eachEntry.date.getDate()}
+                  </GraphDate>
+                ) : (
+                  ""
+                )}
+              </>
             );
           } else {
             return (
-              <PointOnGraph
-                key={uid()}
-                left={index * 10 + 100}
-                color="grey"
-                bottom={offset}
-              ></PointOnGraph>
+              <>
+                <PointOnGraph
+                  key={uid()}
+                  left={index * 10 + 100}
+                  color="grey"
+                  bottom={offset}
+                ></PointOnGraph>
+                {eachEntry.date.getDay() === 0 ? (
+                  <GraphDate left={index * 10 + 100}>
+                    {eachEntry.date.getMonth() +
+                      1 +
+                      "/" +
+                      eachEntry.date.getDate()}
+                  </GraphDate>
+                ) : (
+                  ""
+                )}
+              </>
             );
           }
         })}

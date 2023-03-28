@@ -7,8 +7,8 @@ const PointOnGraph = styled.div.attrs((props) => ({
     top: `${props.bottom}px`,
   },
 }))`
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
   background-color: ${(props) => props.color};
   position: absolute;
 `;
