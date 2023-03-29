@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const GraphBorders = styled.div`
   z-index: 5;
-  top: 112px;
+  top: 0;
   height: 220px;
   position: absolute;
   width: 50px;

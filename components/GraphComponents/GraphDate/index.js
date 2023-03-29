@@ -5,7 +5,7 @@ const GraphDate = styled.p.attrs((props) => ({
     left: `${props.left}px`,
   },
 }))`
-  top: 286px;
+  top: 170px;
   position: absolute;
 `;
 

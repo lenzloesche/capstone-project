@@ -10,5 +10,6 @@ const FormContainer = styled.div`
   margin: 10px;
   padding: 10px;
   background: hsla(223, 57%, 77%, 0.75);
+  position: relative;
 `;
 export default FormContainer;

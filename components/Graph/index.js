@@ -59,14 +59,15 @@ export default function Graph({data, graphIsVisible}) {
     return <FormContainer></FormContainer>;
   }
   if (!graphIsVisible) return <FormContainer></FormContainer>;
-  const offset = 290;
+  const offset = 176;
   const stretchFactor = 10;
-  const xValue = timer === checkTimer ? timer % 1 : 1;
-  const leftOffset = 90;
+  const xValue = checkTimer % 1;
+  console.log(checkTimer % 1);
+  const leftOffset = 30;
   return (
     <FormContainer>
-      <GraphBorders left="48px" />
-      <GraphBorders left="300px" />
+      <GraphBorders left="0px" />
+      <GraphBorders left="250px" />
 
       <GraphChart>
         {newGraph.map((eachEntry, index) => {
