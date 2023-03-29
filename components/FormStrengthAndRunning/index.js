@@ -82,7 +82,6 @@ export default function FormStrengthAndRunning({
           />
         ) : (
           <RunningForm
-            favoriteExercises={favoriteExercises}
             handleSubmit={handleSubmit}
             handleCancelClick={handleCancelClick}
             handleChange={handleChange}
