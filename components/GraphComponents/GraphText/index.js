@@ -11,6 +11,7 @@ border-radius: 10px;
 margin: 0;
 background: hsla(223, 57%, 77%, 0.75);
 background-color:#d96a3f;
+:hover{cursor:pointer;}
 `;
 
 export default GraphText;
