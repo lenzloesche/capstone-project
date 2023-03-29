@@ -1,9 +1,16 @@
 import GlobalStyle from "../styles";
 import Head from "next/head";
 import {useEffect, useState} from "react";
+import apiGetFavorite from "../apiServices/apiGetFavorite";
+const favoriteExerciseStart = [];
 
 export default function App({Component, pageProps}) {
   const [userName, setUserName] = useState("DontRender");
+  const [favoriteExercises, setFavoriteExercises] = useState(
+    favoriteExerciseStart
+  );
+  const [fetchingStatus, setFetchingStatus] = useState("none");
+
   function handleUserNameFormSubmit(event, userInput) {
     event.preventDefault();
     setUserName(userInput);
@@ -18,6 +25,12 @@ export default function App({Component, pageProps}) {
     setUserName(savedUserName);
   }, []);
 
+  useEffect(() => {
+    if (userName !== "DontRender") {
+      apiGetFavorite(userName, setFavoriteExercises, setFetchingStatus);
+    }
+  }, [userName]);
+
   return (
     <>
       <GlobalStyle />
@@ -25,6 +38,10 @@ export default function App({Component, pageProps}) {
         <title>Capstone Project Fitness App</title>
       </Head>
       <Component
+        favoriteExercises={favoriteExercises}
+        setFavoriteExercises={setFavoriteExercises}
+        fetchingStatus={fetchingStatus}
+        setFetchingStatus={setFetchingStatus}
         userName={userName}
         handleUserNameFormSubmit={handleUserNameFormSubmit}
         {...pageProps}

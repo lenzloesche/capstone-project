@@ -15,6 +15,7 @@ export default function FormStrengthAndRunning({
   handleChange,
   inputText,
   day,
+  favoriteExercises,
 }) {
   return (
     <>
@@ -72,6 +73,7 @@ export default function FormStrengthAndRunning({
 
         {sportSelected === "strength" ? (
           <StrengthForm
+            favoriteExercises={favoriteExercises}
             handleSubmit={handleSubmit}
             handleCancelClick={handleCancelClick}
             handleChange={handleChange}
