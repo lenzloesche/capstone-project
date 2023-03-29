@@ -9,6 +9,7 @@ const FormContainer = styled.div`
   margin: 10px;
   padding: 10px;
   background: hsla(223, 57%, 77%, 0.75);
+  position: relative;
   backdrop-filter: blur(5px);
 `;
 export default FormContainer;

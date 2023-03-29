@@ -10,6 +10,8 @@ import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
 import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
 import NavigationLink from "../components/NavigationLink";
+import Graph from "../components/Graph";
+import GraphText from "../components/GraphComponents/GraphText";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -50,6 +52,7 @@ export default function Calendar({userName}) {
     mins: "",
   });
   const [fetchingStatus, setFetchingStatus] = useState("none");
+  const [graphIsVisible, setGraphIsVisible] = useState(true);
 
   const weekday = [
     "Sunday",
@@ -240,6 +243,10 @@ export default function Calendar({userName}) {
     setSportSelected(whichOne);
   }
 
+  function handleGraphClick() {
+    setGraphIsVisible(!graphIsVisible);
+  }
+
   if (userName === "DontRender") {
     return (
       <>
@@ -254,7 +261,6 @@ export default function Calendar({userName}) {
       </>
     );
   }
-
   return (
     <>
       <StrengthContainer>
@@ -263,6 +269,9 @@ export default function Calendar({userName}) {
         </Header>
         {userName !== undefined ? (
           <>
+            <GraphText onClick={handleGraphClick}>Running Graph</GraphText>
+
+            <Graph data={data} graphIsVisible={graphIsVisible}></Graph>
             {editMode.editModeOn ? (
               <FormStrengthAndRunning
                 handleImageClick={handleImageClick}
