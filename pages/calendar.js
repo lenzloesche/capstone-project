@@ -25,7 +25,7 @@ let date = new Date();
 let startingData = [];
 let dateSelectedStart = undefined;
 
-export default function Calendar({userName}) {
+export default function Calendar({userName, favoriteExercises}) {
   const [data, setData] = useState(startingData);
   const [sportSelected, setSportSelected] = useState("strength");
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
@@ -274,6 +274,7 @@ export default function Calendar({userName}) {
             <Graph data={data} graphIsVisible={graphIsVisible}></Graph>
             {editMode.editModeOn ? (
               <FormStrengthAndRunning
+                favoriteExercises={favoriteExercises}
                 handleImageClick={handleImageClick}
                 sportSelected={sportSelected}
                 editMode={editMode}

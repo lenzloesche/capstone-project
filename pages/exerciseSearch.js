@@ -26,18 +26,19 @@ const showDetailsStart = [
   false,
 ];
 
-const favoriteExerciseStart = [];
-
-export default function ExerciseSearch({userName}) {
+export default function ExerciseSearch({
+  userName,
+  favoriteExercises,
+  setFavoriteExercises,
+  fetchingStatus,
+  setFetchingStatus,
+}) {
   const [data, setData] = useState([]);
   const [dataWithFavorites, setDataWithFavorites] = useState([]);
 
   const [searchInput, setSearchInput] = useState("");
-  const [favoriteExercises, setFavoriteExercises] = useState(
-    favoriteExerciseStart
-  );
+
   const [showDetails, setShowDetails] = useState(showDetailsStart);
-  const [fetchingStatus, setFetchingStatus] = useState("none");
   const [showFavorites, setShowFavorites] = useState(false);
 
   function handleDetailsClick(index) {
@@ -117,12 +118,6 @@ export default function ExerciseSearch({userName}) {
     setDataWithFavorites(newData);
   }, [data, favoriteExercises]);
 
-  useEffect(() => {
-    if (userName != "DontRender") {
-      apiGetFavorite(userName, setFavoriteExercises, setFetchingStatus);
-    }
-  }, [userName]);
-
   if (userName === "DontRender") {
     return (
       <>
@@ -137,6 +132,7 @@ export default function ExerciseSearch({userName}) {
       </>
     );
   }
+
   return (
     <>
       <StrengthContainer>

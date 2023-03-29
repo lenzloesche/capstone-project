@@ -2,6 +2,7 @@ import Input from "../Input";
 import Label from "../Label";
 import Form from "../Form";
 import StyledButton from "../StyledButton";
+import FavoriteSelect from "../CalendarComponents/FavoriteSelect";
 
 export default function RunningForm({
   handleSubmit,
@@ -9,6 +10,7 @@ export default function RunningForm({
   handleChange,
   editMode,
   inputText,
+  favoriteExercises,
 }) {
   return (
     <Form
@@ -17,7 +19,7 @@ export default function RunningForm({
       }}
     >
       <Label htmlFor="exerciseRunning">Which exercise?</Label>
-
+      <FavoriteSelect favoriteExercises={favoriteExercises} />
       <Input
         id="exerciseRunning"
         type="text"
