@@ -20,7 +20,10 @@ export default function StrengthForm({
         }}
       >
         <Label htmlFor="exerciseStrength">Which exercise?</Label>
-        <FavoriteSelect favoriteExercises={favoriteExercises} />
+        <FavoriteSelect
+          favoriteExercises={favoriteExercises}
+          handleChange={handleChange}
+        />
         <Input
           id="exerciseStrength"
           type="text"
