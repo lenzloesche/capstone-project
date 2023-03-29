@@ -90,7 +90,7 @@ export default function StrengthSearchForm({
           </Form>
         </>
       ) : (
-        <h2>Favorites</h2>
+        <h2>Favorite Exercises</h2>
       )}
     </FormContainer>
   );

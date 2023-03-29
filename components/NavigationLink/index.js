@@ -3,14 +3,14 @@ import styled from "styled-components";
 const StyledNavigationLink = styled.a`
   color: black;
   border: 1px solid black;
-  box-shadow: 0 0 5px black;
+
   border-radius: 5px;
   padding: 5px;
   margin: 5px;
   font-size: 18px;
   text-decoration: none;
   background-color: ${(props) =>
-    props.selected ? "hsla(223, 57%, 77%, 1)" : "#d96a3f"};
+    props.selected ? "hsla(223, 57%, 77%, 1)" : "var(--button-color)"};
   :hover {
     color: white;
     background-color: black;
