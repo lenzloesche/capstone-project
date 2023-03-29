@@ -1,6 +1,10 @@
 import {createGlobalStyle} from "styled-components";
 
 export default createGlobalStyle`
+:root{
+  --button-color2: #d96a3f;
+  --button-color: #D6694D;
+}
   *,
   *::before,
   *::after {
@@ -18,7 +22,7 @@ export default createGlobalStyle`
   }
   .small-border{     
     border:1px solid grey;   
-    background-color:#d96a3f;
+    background-color: var(--button-color);
     border-radius:10px;
   }
   .light-border{
