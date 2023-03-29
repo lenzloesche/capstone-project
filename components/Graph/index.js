@@ -16,10 +16,10 @@ export default function Graph({data, graphIsVisible}) {
         if (prevTimer >= 70) {
           return -20;
         } else {
-          return prevTimer + 0.25;
+          return prevTimer + 1;
         }
       });
-    }, 25);
+    }, 100);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -61,7 +61,8 @@ export default function Graph({data, graphIsVisible}) {
   if (!graphIsVisible) return <FormContainer></FormContainer>;
   const offset = 176;
   const stretchFactor = 10;
-  const xValue = checkTimer - Math.round(checkTimer);
+  //const xValue = checkTimer - Math.round(checkTimer);
+  const xValue = 0;
   const leftOffset = 46;
   return (
     <FormContainer>
