@@ -61,9 +61,8 @@ export default function Graph({data, graphIsVisible}) {
   if (!graphIsVisible) return <FormContainer></FormContainer>;
   const offset = 176;
   const stretchFactor = 10;
-  const xValue = checkTimer % 1;
-  console.log(checkTimer % 1);
-  const leftOffset = 30;
+  const xValue = checkTimer - Math.round(checkTimer);
+  const leftOffset = 46;
   return (
     <FormContainer>
       <GraphBorders left="0px" />
