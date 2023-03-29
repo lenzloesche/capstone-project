@@ -3,7 +3,6 @@ import StyledSelect from "../../StyledSelect";
 
 export default function FavoriteSelect({favoriteExercises, handleChange}) {
   function handleSelectChange(event) {
-    console.log(event.target.value);
     handleChange(event, "exerciseStrength");
   }
 
