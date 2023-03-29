@@ -5,7 +5,7 @@ export default function FavoriteSelect({favoriteExercises, handleChange}) {
   function handleSelectChange(event) {
     handleChange(event, "exerciseStrength");
   }
-
+  if (!favoriteExercises) return;
   if (favoriteExercises.length === 0) {
     return (
       <>
