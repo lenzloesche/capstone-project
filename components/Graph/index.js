@@ -118,7 +118,7 @@ export default function Graph({data, graphIsVisible}) {
             );
           }
         })}
-        <GraphParagraph>____________________________</GraphParagraph>
+        <GraphParagraph>_____________________________________-</GraphParagraph>
       </GraphChart>
     </FormContainer>
   );
