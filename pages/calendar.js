@@ -4,7 +4,6 @@ import StrengthContainer from "../components/StrengthContainer";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
 import Navigation from "../components/Navigation";
-import apiGet from "../apiServices/apiGet";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
@@ -12,6 +11,8 @@ import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
 import NavigationLink from "../components/NavigationLink";
 import Graph from "../components/Graph";
 import GraphText from "../components/GraphComponents/GraphText";
+import FormContainer from "../components/FormContainer";
+import StyledParagraphNormal from "../components/StyledParagraphNormal";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -25,7 +26,14 @@ let date = new Date();
 
 let dateSelectedStart = undefined;
 
-export default function Calendar({userName, favoriteExercises, data, setData}) {
+export default function Calendar({
+  userName,
+  favoriteExercises,
+  data,
+  setData,
+  fetchingStatus,
+  setFetchingStatus,
+}) {
   const [sportSelected, setSportSelected] = useState("strength");
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
 
@@ -50,7 +58,7 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
     kiloms: "",
     mins: "",
   });
-  const [fetchingStatus, setFetchingStatus] = useState("none");
+
   const [graphIsVisible, setGraphIsVisible] = useState(true);
 
   const weekday = [
@@ -196,6 +204,27 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
       </>
     );
   }
+
+  if (data.length === 0 && fetchingStatus === "Currently fetching") {
+    return (
+      <>
+        <StrengthContainer>
+          <Header>
+            <Heading>Fitness App</Heading>
+          </Header>
+          <FormContainer>
+            <StyledParagraphNormal>Loading...</StyledParagraphNormal>
+          </FormContainer>{" "}
+        </StrengthContainer>
+        <Navigation selected={"calendar"} userName={userName}>
+          <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
+            Info: {fetchingStatus}
+          </StyledParagraph>
+        </Navigation>
+      </>
+    );
+  }
+
   return (
     <>
       <StrengthContainer>
