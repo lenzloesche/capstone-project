@@ -22,11 +22,10 @@ const ObjectId = (
 ) => s(d.now() / 1000) + " ".repeat(h).replace(/./g, () => s(m.random() * h));
 
 let date = new Date();
-let startingData = [];
+
 let dateSelectedStart = undefined;
 
-export default function Calendar({userName, favoriteExercises}) {
-  const [data, setData] = useState(startingData);
+export default function Calendar({userName, favoriteExercises, data, setData}) {
   const [sportSelected, setSportSelected] = useState("strength");
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
 
@@ -221,18 +220,6 @@ export default function Calendar({userName, favoriteExercises}) {
       setInputText(newInputText);
     }
   }, [editMode]);
-
-  useEffect(() => {
-    if (
-      data.length > 0 ||
-      userName === undefined ||
-      userName === "" ||
-      userName === "DontRender"
-    ) {
-    } else {
-      apiGet(userName, setData, setFetchingStatus);
-    }
-  }, [userName]);
 
   function handleChange(event, key) {
     const newInputText = {...inputText, [key]: event.target.value};

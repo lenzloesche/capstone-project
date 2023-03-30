@@ -82,6 +82,10 @@ export default function CalendarHeatmap({
     scrollTo(0, 0);
   }
 
+  if (!data) {
+    return <StyledParagraphNormal>Loading...</StyledParagraphNormal>;
+  }
+
   return (
     <>
       <CalendarText>Calendar</CalendarText>
