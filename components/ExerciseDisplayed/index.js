@@ -2,6 +2,7 @@ import FormContainer from "../FormContainer";
 import Image from "next/image";
 import StyledParagraphPadding from "../StyledParagraphPadding";
 import StyledButton from "../StyledButton";
+import StyledImage from "../StyledImage";
 
 export default function ExerciseDisplayed({
   showFavorites,
@@ -14,7 +15,7 @@ export default function ExerciseDisplayed({
   return (
     <FormContainer>
       {dat.isFavorite || showFavorites ? (
-        <Image
+        <StyledImage
           onClick={() => {
             handleFavoriteClick(dat);
           }}
@@ -23,9 +24,10 @@ export default function ExerciseDisplayed({
           alt="star image"
           width="40"
           height="40"
-        ></Image>
+          isitselected={false}
+        ></StyledImage>
       ) : (
-        <Image
+        <StyledImage
           onClick={() => {
             handleFavoriteClick(dat);
           }}
@@ -34,7 +36,8 @@ export default function ExerciseDisplayed({
           alt="star image"
           width="40"
           height="40"
-        ></Image>
+          isitselected={false}
+        ></StyledImage>
       )}
       <StyledParagraphPadding>Name: {dat?.name}</StyledParagraphPadding>
       <StyledButton

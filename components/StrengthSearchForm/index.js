@@ -5,6 +5,7 @@ import StyledSelect from "../StyledSelect";
 import StyledButton from "../StyledButton";
 import ImageContainer from "../ImageContainer";
 import Form from "../Form";
+import StyledImage from "../StyledImage";
 
 export default function StrengthSearchForm({
   handleSubmit,
@@ -18,22 +19,24 @@ export default function StrengthSearchForm({
     <FormContainer>
       {" "}
       <ImageContainer>
-        <Image
+        <StyledImage
           onClick={handleShowSearchClick}
           className={showFavorites ? "small-border" : "border"}
           src="/search.svg"
           alt="search image of a magnifying glass"
           width="100"
           height="100"
-        ></Image>
-        <Image
+          isitselected={showFavorites ? false : true}
+        ></StyledImage>
+        <StyledImage
           onClick={handleShowFavoritesClick}
           className={showFavorites ? "border" : "small-border"}
           src="/bookmarkstar.svg"
           alt="star image"
           width="100"
           height="100"
-        ></Image>
+          isitselected={showFavorites ? true : false}
+        ></StyledImage>
       </ImageContainer>
       {!showFavorites ? (
         <>

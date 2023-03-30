@@ -39,5 +39,8 @@ export default createGlobalStyle`
   position:relative;
   right:-120px;
 }
+.bookmark:hover{
+  cursor pointer;
+}
 
 `;
