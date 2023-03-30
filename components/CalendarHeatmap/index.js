@@ -27,6 +27,7 @@ export default function CalendarHeatmap({
   ObjectId,
   dateSelected,
   setDateSelected,
+  setGraphIsVisible,
 }) {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
@@ -61,6 +62,8 @@ export default function CalendarHeatmap({
     const newEditMode = {editModeOn: true, selectedData};
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
+    setGraphIsVisible(false);
+
     scrollTo(0, 0);
   }
 
@@ -74,6 +77,8 @@ export default function CalendarHeatmap({
       selectedData: {date: randomDate},
     };
     setEditMode(newEditMode);
+
+    setGraphIsVisible(false);
     scrollTo(0, 0);
   }
 

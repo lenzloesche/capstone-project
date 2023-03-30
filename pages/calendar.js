@@ -298,6 +298,7 @@ export default function Calendar({userName, favoriteExercises}) {
               setFetchingStatus={setFetchingStatus}
               dateSelected={dateSelected}
               setDateSelected={setDateSelected}
+              setGraphIsVisible={setGraphIsVisible}
             />
           </>
         ) : (
