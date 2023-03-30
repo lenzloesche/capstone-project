@@ -26,6 +26,7 @@ export default function StrengthSearchForm({
           alt="search image of a magnifying glass"
           width="100"
           height="100"
+          priority
           isitselected={showFavorites ? false : true}
         ></StyledImage>
         <StyledImage
@@ -35,6 +36,7 @@ export default function StrengthSearchForm({
           alt="star image"
           width="100"
           height="100"
+          priority
           isitselected={showFavorites ? true : false}
         ></StyledImage>
       </ImageContainer>
