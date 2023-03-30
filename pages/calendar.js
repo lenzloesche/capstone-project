@@ -90,37 +90,9 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
     apiPost(save, setFetchingStatus);
   }
 
-  function addNewEntryRunning(
-    forDate,
-    newObjectId,
-    kiloms,
-    mins,
-    exerciseRunning,
-    sportSelected
-  ) {
-    const NewDate = forDate;
-    const save = {
-      userName: userName,
-      _id: newObjectId,
-      date: NewDate,
-      sportSelected: sportSelected,
-      kiloms: kiloms,
-      mins: mins,
-      exerciseRunning: exerciseRunning,
-    };
-    const newData = data.slice();
-    newData.push(save);
-    setData(newData);
-    apiPost(save, setFetchingStatus);
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
-    if (editMode.editModeOn) {
-      saveEdit(event);
-    } else {
-      saveNew(event);
-    }
+    saveEdit(event);
     clearForm();
   }
 
@@ -159,30 +131,6 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
     setData(newData);
 
     editMode.editModeOn = false;
-  }
-
-  function saveNew(event) {
-    const newObjectId = ObjectId();
-    if (sportSelected === "strength") {
-      addNewEntryStrength(
-        new Date(),
-        newObjectId,
-        event.target.elements.reps.value,
-        event.target.elements.sets.value,
-        event.target.elements.kilos.value,
-        event.target.elements.exerciseStrength.value,
-        sportSelected
-      );
-    } else {
-      addNewEntryRunning(
-        new Date(),
-        newObjectId,
-        event.target.elements.kiloms.value,
-        event.target.elements.mins.value,
-        event.target.elements.exerciseRunning.value,
-        sportSelected
-      );
-    }
   }
 
   function handleCancelClick() {

@@ -70,7 +70,7 @@ export default function CalendarHeatmap({
   function handleNewEntryClick(selectedDat) {
     const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
     const randomDate = new Date(selectedDat - randomDater);
-    addNewEntry(randomDate, ObjectId(), "", "", "", "", "strength");
+    addNewEntry(randomDate, ObjectId(), "0", "0", "0", "Exercise", "strength");
 
     const newEditMode = {
       editModeOn: true,
@@ -121,7 +121,7 @@ export default function CalendarHeatmap({
           ""
         )}
       </FormContainer>
-      {selectedData.map((selectedDat, index) => {
+      {selectedData.map((selectedDat) => {
         return (
           <FormContainer key={uid()}>
             <StyledParagraphNormal>
