@@ -5,7 +5,6 @@ import GraphChart from "../GraphComponents/GraphChart";
 import GraphParagraph from "../GraphComponents/GraphParagraph";
 import {useState, useEffect} from "react";
 import GraphDate from "../GraphComponents/GraphDate";
-import GraphBorders from "../GraphComponents/GraphBorders";
 
 export default function Graph({data, graphIsVisible}) {
   const [timer, setTimer] = useState(0.0);
@@ -16,10 +15,10 @@ export default function Graph({data, graphIsVisible}) {
         if (prevTimer >= 70) {
           return -20;
         } else {
-          return prevTimer + 1;
+          return prevTimer + 0.25;
         }
       });
-    }, 100);
+    }, 25);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -33,11 +32,10 @@ export default function Graph({data, graphIsVisible}) {
   const dateSelected = new Date();
   let checkTimer = timer <= 0 ? 0 : timer;
   checkTimer = checkTimer >= 55 ? 55 : checkTimer;
-
-  const dayInMilliseconds = checkTimer * 24 * 60 * 60 * 1000;
+  const dayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
   const date = new Date(dateSelected - dayInMilliseconds);
   const graph = [];
-  const lengthOfGraph = 21;
+  const lengthOfGraph = 70;
 
   for (let day = 0; day < lengthOfGraph; day++) {
     const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
@@ -61,14 +59,10 @@ export default function Graph({data, graphIsVisible}) {
   if (!graphIsVisible) return <FormContainer></FormContainer>;
   const offset = 176;
   const stretchFactor = 10;
-  //const xValue = checkTimer - Math.round(checkTimer);
-  const xValue = 0;
-  const leftOffset = 46;
+  const xValue = checkTimer;
+  const leftOffset = -466;
   return (
     <FormContainer>
-      <GraphBorders left="0px" />
-      <GraphBorders left="250px" />
-
       <GraphChart>
         {newGraph.map((eachEntry, index) => {
           if (eachEntry.kiloms != undefined) {
@@ -124,7 +118,7 @@ export default function Graph({data, graphIsVisible}) {
             );
           }
         })}
-        <GraphParagraph>____________________________</GraphParagraph>
+        <GraphParagraph>_____________________________________-</GraphParagraph>
       </GraphChart>
     </FormContainer>
   );

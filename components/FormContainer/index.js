@@ -11,5 +11,6 @@ const FormContainer = styled.div`
   background: hsla(223, 57%, 77%, 0.75);
   position: relative;
   backdrop-filter: blur(5px);
+  overflow: hidden;
 `;
 export default FormContainer;
