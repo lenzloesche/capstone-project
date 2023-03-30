@@ -18,11 +18,6 @@ const fakeData = [
 
 const userName = "TestName";
 
-const apiGet = require("../apiServices/apiGet");
-jest.mock("../apiServices/apiGet", () => (currentUser, setData) => {
-  setData(fakeData);
-});
-
 const apiPost = require("../apiServices/apiPost");
 jest.mock("../apiServices/apiPost", () => () => {});
 
@@ -31,7 +26,7 @@ jest.mock("../apiServices/apiDelete", () => () => {});
 
 describe("Calendar", () => {
   it("Test if there are Input fields with label: Kilograms, reps, sets", async () => {
-    render(<Calendar userName={userName} />);
+    render(<Calendar userName={userName} data={fakeData} setData={() => {}} />);
 
     const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
     const divToClick = screen.getByText(dateMonth);
@@ -56,7 +51,7 @@ describe("Calendar", () => {
     expect(inputsText.length).toBeGreaterThan(0);
   });
   it("if you click on the image, then you have different input fields.", async () => {
-    render(<Calendar userName={userName} />);
+    render(<Calendar userName={userName} data={fakeData} setData={() => {}} />);
 
     const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
     const divToClick = screen.getByText(dateMonth);
@@ -73,7 +68,7 @@ describe("Calendar", () => {
   });
 
   it("Test if there is a calendar with different divs that can be clicked and a different date is displayed.", async () => {
-    render(<Calendar userName={userName} />);
+    render(<Calendar userName={userName} data={fakeData} setData={() => {}} />);
     const divs = await screen.getAllByRole("generic");
     expect(divs.length).toBeGreaterThanOrEqual(70);
     const dateText = await screen.getByText(/select a date/i);
@@ -84,7 +79,7 @@ describe("Calendar", () => {
     expect(dateText.innerHTML.includes(dateMonth)).toBe(true);
   });
   it("Test if there is the entry that got fetched and you can delete the entry.", async () => {
-    render(<Calendar userName={userName} />);
+    render(<Calendar userName={userName} data={fakeData} setData={() => {}} />);
 
     const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
     const divToClick = screen.getByText(dateMonth);
