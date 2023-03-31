@@ -32,8 +32,8 @@ export default function CalendarHeatmap({
 
   const [lastXDays, setLastXDays] = useState([]);
   useEffect(() => {
-    changeHeatmap(date);
-  }, []);
+    changeHeatmap(startDate);
+  }, [data]);
 
   function changeHeatmap(startingDate) {
     const newHeatmap = [];
@@ -41,11 +41,8 @@ export default function CalendarHeatmap({
       const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
       newHeatmap.unshift(new Date(startingDate - dayInMilliseconds));
     }
-
     setHeatmap(newHeatmap);
-
     const dayInMilliseconds = lengthOfHeatmap * 24 * 60 * 60 * 1000;
-
     const newLastXDays = data?.filter(
       (date) => startingDate >= startingDate - dayInMilliseconds
     );
