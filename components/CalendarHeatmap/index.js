@@ -88,7 +88,12 @@ export default function CalendarHeatmap({
 
   return (
     <>
-      <CalendarText>Calendar</CalendarText>
+      <CalendarText>
+        <StyledButton>{"<<"}</StyledButton>
+        <StyledButton>{"<"}</StyledButton>
+        Calendar<StyledButton>{">"}</StyledButton>
+        <StyledButton>{">>"}</StyledButton>
+      </CalendarText>
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
           return (
