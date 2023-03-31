@@ -24,7 +24,7 @@ const ObjectId = (
 
 let date = new Date();
 
-let dateSelectedStart = undefined;
+let dateSelectedStart = date;
 
 export default function Calendar({
   userName,

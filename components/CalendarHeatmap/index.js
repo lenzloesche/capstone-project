@@ -29,8 +29,8 @@ export default function CalendarHeatmap({
   const newStartDate = new Date(date - lengthOfHeatmap);
   const [startDate, setStartDate] = useState(newStartDate);
   const [heatmap, setHeatmap] = useState([]);
-  const [lastXDays, setLastXDays] = useState([]);
 
+  const [lastXDays, setLastXDays] = useState([]);
   useEffect(() => {
     changeHeatmap(date);
   }, []);
@@ -41,7 +41,9 @@ export default function CalendarHeatmap({
       const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
       newHeatmap.unshift(new Date(startingDate - dayInMilliseconds));
     }
+
     setHeatmap(newHeatmap);
+
     const dayInMilliseconds = lengthOfHeatmap * 24 * 60 * 60 * 1000;
 
     const newLastXDays = data?.filter(
@@ -144,7 +146,13 @@ export default function CalendarHeatmap({
         {heatmap.map((dat, index) => {
           return (
             <div key={dat} onClick={() => handleClick(dat)}>
-              {CalendarColoredDiv(dat, index, lastXDays, dateSelected, heatmap)}
+              <CalendarColoredDiv
+                dat={dat}
+                heatmapPosition={index}
+                lastXDays={lastXDays}
+                dateSelected={dateSelected}
+                heatmap={heatmap}
+              />
             </div>
           );
         })}
