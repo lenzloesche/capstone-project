@@ -24,9 +24,17 @@ export default function Graph({data, graphIsVisible}) {
 
   let selectedData = null;
   if (data) {
-    selectedData = data
-      ?.filter((dat) => dat.sportSelected === "running")
-      .slice();
+    if (data.length !== 0) {
+      selectedData = data
+        ?.filter((dat) => dat.sportSelected === "running")
+        .slice();
+    }
+  } else {
+    return <FormContainer></FormContainer>;
+  }
+
+  if (data.length === 0) {
+    return <FormContainer></FormContainer>;
   }
 
   const dateSelected = new Date();
@@ -53,9 +61,6 @@ export default function Graph({data, graphIsVisible}) {
     }
   });
 
-  if (data.length === 0) {
-    return <FormContainer></FormContainer>;
-  }
   if (!graphIsVisible) return <FormContainer></FormContainer>;
   const offset = 176;
   const stretchFactor = 10;

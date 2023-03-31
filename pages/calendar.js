@@ -4,7 +4,6 @@ import StrengthContainer from "../components/StrengthContainer";
 import Header from "../components/Header";
 import Heading from "../components/Heading";
 import Navigation from "../components/Navigation";
-import apiGet from "../apiServices/apiGet";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
 import StyledParagraph from "../components/StyledParagraph";
@@ -12,6 +11,8 @@ import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
 import NavigationLink from "../components/NavigationLink";
 import Graph from "../components/Graph";
 import GraphText from "../components/GraphComponents/GraphText";
+import FormContainer from "../components/FormContainer";
+import StyledParagraphNormal from "../components/StyledParagraphNormal";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -22,11 +23,17 @@ const ObjectId = (
 ) => s(d.now() / 1000) + " ".repeat(h).replace(/./g, () => s(m.random() * h));
 
 let date = new Date();
-let startingData = [];
+
 let dateSelectedStart = undefined;
 
-export default function Calendar({userName, favoriteExercises}) {
-  const [data, setData] = useState(startingData);
+export default function Calendar({
+  userName,
+  favoriteExercises,
+  data,
+  setData,
+  fetchingStatus,
+  setFetchingStatus,
+}) {
   const [sportSelected, setSportSelected] = useState("strength");
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
 
@@ -51,7 +58,7 @@ export default function Calendar({userName, favoriteExercises}) {
     kiloms: "",
     mins: "",
   });
-  const [fetchingStatus, setFetchingStatus] = useState("none");
+
   const [graphIsVisible, setGraphIsVisible] = useState(true);
 
   const weekday = [
@@ -91,37 +98,9 @@ export default function Calendar({userName, favoriteExercises}) {
     apiPost(save, setFetchingStatus);
   }
 
-  function addNewEntryRunning(
-    forDate,
-    newObjectId,
-    kiloms,
-    mins,
-    exerciseRunning,
-    sportSelected
-  ) {
-    const NewDate = forDate;
-    const save = {
-      userName: userName,
-      _id: newObjectId,
-      date: NewDate,
-      sportSelected: sportSelected,
-      kiloms: kiloms,
-      mins: mins,
-      exerciseRunning: exerciseRunning,
-    };
-    const newData = data.slice();
-    newData.push(save);
-    setData(newData);
-    apiPost(save, setFetchingStatus);
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
-    if (editMode.editModeOn) {
-      saveEdit(event);
-    } else {
-      saveNew(event);
-    }
+    saveEdit(event);
     clearForm();
   }
 
@@ -162,30 +141,6 @@ export default function Calendar({userName, favoriteExercises}) {
     editMode.editModeOn = false;
   }
 
-  function saveNew(event) {
-    const newObjectId = ObjectId();
-    if (sportSelected === "strength") {
-      addNewEntryStrength(
-        new Date(),
-        newObjectId,
-        event.target.elements.reps.value,
-        event.target.elements.sets.value,
-        event.target.elements.kilos.value,
-        event.target.elements.exerciseStrength.value,
-        sportSelected
-      );
-    } else {
-      addNewEntryRunning(
-        new Date(),
-        newObjectId,
-        event.target.elements.kiloms.value,
-        event.target.elements.mins.value,
-        event.target.elements.exerciseRunning.value,
-        sportSelected
-      );
-    }
-  }
-
   function handleCancelClick() {
     clearForm();
   }
@@ -222,18 +177,6 @@ export default function Calendar({userName, favoriteExercises}) {
     }
   }, [editMode]);
 
-  useEffect(() => {
-    if (
-      data.length > 0 ||
-      userName === undefined ||
-      userName === "" ||
-      userName === "DontRender"
-    ) {
-    } else {
-      apiGet(userName, setData, setFetchingStatus);
-    }
-  }, [userName]);
-
   function handleChange(event, key) {
     const newInputText = {...inputText, [key]: event.target.value};
     setInputText(newInputText);
@@ -261,6 +204,27 @@ export default function Calendar({userName, favoriteExercises}) {
       </>
     );
   }
+
+  if (data.length === 0 && fetchingStatus === "Currently fetching") {
+    return (
+      <>
+        <StrengthContainer>
+          <Header>
+            <Heading>Fitness App</Heading>
+          </Header>
+          <FormContainer>
+            <StyledParagraphNormal>Loading...</StyledParagraphNormal>
+          </FormContainer>{" "}
+        </StrengthContainer>
+        <Navigation selected={"calendar"} userName={userName}>
+          <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
+            Info: {fetchingStatus}
+          </StyledParagraph>
+        </Navigation>
+      </>
+    );
+  }
+
   return (
     <>
       <StrengthContainer>
@@ -298,6 +262,7 @@ export default function Calendar({userName, favoriteExercises}) {
               setFetchingStatus={setFetchingStatus}
               dateSelected={dateSelected}
               setDateSelected={setDateSelected}
+              setGraphIsVisible={setGraphIsVisible}
             />
           </>
         ) : (

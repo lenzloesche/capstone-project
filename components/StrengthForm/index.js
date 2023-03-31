@@ -63,17 +63,13 @@ export default function StrengthForm({
         ></Input>
 
         <StyledButton type="submit">Save</StyledButton>
-        {editMode.editModeOn ? (
-          <StyledButton
-            onClick={(event) => {
-              handleCancelClick(event);
-            }}
-          >
-            Cancel
-          </StyledButton>
-        ) : (
-          ""
-        )}
+        <StyledButton
+          onClick={(event) => {
+            handleCancelClick(event);
+          }}
+        >
+          Cancel
+        </StyledButton>
       </Form>
     </>
   );

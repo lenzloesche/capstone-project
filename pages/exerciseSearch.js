@@ -10,7 +10,6 @@ import StrengthSearchForm from "../components/StrengthSearchForm";
 import NavigationLink from "../components/NavigationLink";
 import ExerciseDisplayed from "../components/ExerciseDisplayed";
 import apiPostFavorite from "../apiServices/apiPostFavorite";
-import apiGetFavorite from "../apiServices/apiGetFavorite";
 import apiDeleteFavorite from "../apiServices/apiDeleteFavorite";
 
 const showDetailsStart = [

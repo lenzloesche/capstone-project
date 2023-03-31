@@ -11,6 +11,8 @@ const PointOnGraph = styled.div.attrs((props) => ({
   height: 12px;
   background-color: ${(props) => props.color};
   position: absolute;
+  border-radius: 6px;
+  ${(props) => (props.color === "grey" ? "" : " border: 1px solid black;")}
 `;
 
 export default PointOnGraph;

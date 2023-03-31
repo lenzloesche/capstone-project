@@ -27,6 +27,7 @@ export default function CalendarHeatmap({
   ObjectId,
   dateSelected,
   setDateSelected,
+  setGraphIsVisible,
 }) {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
@@ -61,20 +62,28 @@ export default function CalendarHeatmap({
     const newEditMode = {editModeOn: true, selectedData};
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
+    setGraphIsVisible(false);
+
     scrollTo(0, 0);
   }
 
   function handleNewEntryClick(selectedDat) {
     const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
     const randomDate = new Date(selectedDat - randomDater);
-    addNewEntry(randomDate, ObjectId(), "", "", "", "", "strength");
+    addNewEntry(randomDate, ObjectId(), "0", "0", "0", "Exercise", "strength");
 
     const newEditMode = {
       editModeOn: true,
       selectedData: {date: randomDate},
     };
     setEditMode(newEditMode);
+
+    setGraphIsVisible(false);
     scrollTo(0, 0);
+  }
+
+  if (!data) {
+    return <StyledParagraphNormal>Loading...</StyledParagraphNormal>;
   }
 
   return (
@@ -112,7 +121,7 @@ export default function CalendarHeatmap({
           ""
         )}
       </FormContainer>
-      {selectedData.map((selectedDat, index) => {
+      {selectedData.map((selectedDat) => {
         return (
           <FormContainer key={uid()}>
             <StyledParagraphNormal>

@@ -1,7 +1,8 @@
-##Capstone Project
+## Capstone Project
 
 This project is called "Fitness App" and it is my capstone project from the "neue fische" boot camp.
 You can currently search for exercises and you can save exercises in a calendar.
+You can favorite exercises and you can see a animation of the running you have done.
 
 ---
 
