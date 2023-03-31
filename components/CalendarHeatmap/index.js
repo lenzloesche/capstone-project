@@ -29,7 +29,7 @@ export default function CalendarHeatmap({
   setDateSelected,
   setGraphIsVisible,
 }) {
-  const startDate = new Date();
+  let startDate = new Date();
   startDate.setDate(startDate.getDate() - lengthOfHeatmap);
   const lastXDays = data?.filter((date) => date.date >= startDate);
 
@@ -85,14 +85,46 @@ export default function CalendarHeatmap({
   if (!data) {
     return <StyledParagraphNormal>Loading...</StyledParagraphNormal>;
   }
-
+  function handleChangeDateCLick(changeWhere) {
+    if (startDate.getDate() + changeWhere >= date) {
+      startDate = date;
+    } else {
+      startDate.setDate(startDate.getDate() + changeWhere);
+    }
+  }
+  console.log(startDate);
   return (
     <>
       <CalendarText>
-        <StyledButton>{"<<"}</StyledButton>
-        <StyledButton>{"<"}</StyledButton>
-        Calendar<StyledButton>{">"}</StyledButton>
-        <StyledButton>{">>"}</StyledButton>
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(-70);
+          }}
+        >
+          {"<<"}
+        </StyledButton>
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(-7);
+          }}
+        >
+          {"<"}
+        </StyledButton>
+        Calendar
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(+7);
+          }}
+        >
+          {">"}
+        </StyledButton>
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(+70);
+          }}
+        >
+          {">>"}
+        </StyledButton>
       </CalendarText>
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
