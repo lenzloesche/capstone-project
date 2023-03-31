@@ -28,8 +28,8 @@ export default function CalendarHeatmap({
 }) {
   const newStartDate = new Date(date - lengthOfHeatmap);
   const [startDate, setStartDate] = useState(newStartDate);
-
   const [heatmap, setHeatmap] = useState([]);
+  const [lastXDays, setLastXDays] = useState([]);
 
   useEffect(() => {
     changeHeatmap(date);
@@ -42,9 +42,13 @@ export default function CalendarHeatmap({
       newHeatmap.unshift(new Date(startingDate - dayInMilliseconds));
     }
     setHeatmap(newHeatmap);
-  }
+    const dayInMilliseconds = lengthOfHeatmap * 24 * 60 * 60 * 1000;
 
-  const lastXDays = data?.filter((date) => date.date >= newStartDate);
+    const newLastXDays = data?.filter(
+      (date) => startingDate >= startingDate - dayInMilliseconds
+    );
+    setLastXDays(newLastXDays);
+  }
 
   function handleClick(dat) {
     setDateSelected(dat);
@@ -76,7 +80,6 @@ export default function CalendarHeatmap({
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
     setGraphIsVisible(false);
-
     scrollTo(0, 0);
   }
 
