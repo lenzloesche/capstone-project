@@ -6,15 +6,11 @@ import CalendarText from "../CalendarComponents/CalendarText";
 import apiDelete from "../../apiServices/apiDelete";
 import StyledParagraphNormal from "../StyledParagraphNormal";
 import CalendarColoredDiv from "../CalendarComponents/CalendarColoredDiv";
+import {useState} from "react";
 
 const date = new Date();
-const heatmap = [];
-const lengthOfHeatmap = 70;
 
-for (let day = 0; day < lengthOfHeatmap; day++) {
-  const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
-  heatmap.unshift(new Date(date - dayInMilliseconds));
-}
+const lengthOfHeatmap = 70;
 
 export default function CalendarHeatmap({
   data,
@@ -29,9 +25,14 @@ export default function CalendarHeatmap({
   setDateSelected,
   setGraphIsVisible,
 }) {
-  let startDate = new Date();
-  startDate.setDate(startDate.getDate() - lengthOfHeatmap);
-  const lastXDays = data?.filter((date) => date.date >= startDate);
+  const newStartDate = new Date(date - lengthOfHeatmap);
+  const [startDate, setStartDate] = useState(newStartDate);
+  const heatmap = [];
+  for (let day = 0; day < lengthOfHeatmap; day++) {
+    const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
+    heatmap.unshift(new Date(date - dayInMilliseconds));
+  }
+  const lastXDays = data?.filter((date) => date.date >= newStartDate);
 
   function handleClick(dat) {
     setDateSelected(dat);
@@ -86,13 +87,11 @@ export default function CalendarHeatmap({
     return <StyledParagraphNormal>Loading...</StyledParagraphNormal>;
   }
   function handleChangeDateCLick(changeWhere) {
-    if (startDate.getDate() + changeWhere >= date) {
-      startDate = date;
-    } else {
-      startDate.setDate(startDate.getDate() + changeWhere);
-    }
+    const dayInMilliseconds = changeWhere * 24 * 60 * 60 * 1000;
+    const newStartDate = new Date(startDate.getTime() + dayInMilliseconds);
+    setStartDate(newStartDate);
   }
-  console.log(startDate);
+
   return (
     <>
       <CalendarText>
