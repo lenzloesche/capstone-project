@@ -7,6 +7,7 @@ import apiDelete from "../../apiServices/apiDelete";
 import StyledParagraphNormal from "../StyledParagraphNormal";
 import CalendarColoredDiv from "../CalendarComponents/CalendarColoredDiv";
 import {useState} from "react";
+import {useEffect} from "react";
 
 const date = new Date();
 
@@ -27,11 +28,22 @@ export default function CalendarHeatmap({
 }) {
   const newStartDate = new Date(date - lengthOfHeatmap);
   const [startDate, setStartDate] = useState(newStartDate);
-  const heatmap = [];
-  for (let day = 0; day < lengthOfHeatmap; day++) {
-    const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
-    heatmap.unshift(new Date(date - dayInMilliseconds));
+
+  const [heatmap, setHeatmap] = useState([]);
+
+  useEffect(() => {
+    changeHeatmap(date);
+  }, []);
+
+  function changeHeatmap(startingDate) {
+    const newHeatmap = [];
+    for (let day = 0; day < lengthOfHeatmap; day++) {
+      const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
+      newHeatmap.unshift(new Date(startingDate - dayInMilliseconds));
+    }
+    setHeatmap(newHeatmap);
   }
+
   const lastXDays = data?.filter((date) => date.date >= newStartDate);
 
   function handleClick(dat) {
@@ -83,15 +95,15 @@ export default function CalendarHeatmap({
     scrollTo(0, 0);
   }
 
-  if (!data) {
+  if (!data || heatmap.length === 0) {
     return <StyledParagraphNormal>Loading...</StyledParagraphNormal>;
   }
   function handleChangeDateCLick(changeWhere) {
     const dayInMilliseconds = changeWhere * 24 * 60 * 60 * 1000;
     const newStartDate = new Date(startDate.getTime() + dayInMilliseconds);
     setStartDate(newStartDate);
+    changeHeatmap(newStartDate);
   }
-
   return (
     <>
       <CalendarText>
