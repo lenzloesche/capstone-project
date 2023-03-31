@@ -13,7 +13,7 @@ export default function Graph({data, graphIsVisible, dateSelected}) {
     const intervalId = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer >= 70) {
-          return -20;
+          return -16;
         } else {
           return prevTimer + 0.25;
         }
@@ -21,6 +21,10 @@ export default function Graph({data, graphIsVisible, dateSelected}) {
     }, 25);
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    setTimer(-16);
+  }, [dateSelected]);
 
   let selectedData = null;
   if (data) {
