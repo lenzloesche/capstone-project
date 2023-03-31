@@ -235,7 +235,11 @@ export default function Calendar({
           <>
             <GraphText onClick={handleGraphClick}>Running Graph</GraphText>
 
-            <Graph data={data} graphIsVisible={graphIsVisible}></Graph>
+            <Graph
+              data={data}
+              graphIsVisible={graphIsVisible}
+              dateSelected={dateSelected}
+            ></Graph>
             {editMode.editModeOn ? (
               <FormStrengthAndRunning
                 favoriteExercises={favoriteExercises}
