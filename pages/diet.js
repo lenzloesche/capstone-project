@@ -8,13 +8,17 @@ import FormContainer from "../components/FormContainer";
 import Input from "../components/Input";
 import StyledButton from "../components/StyledButton";
 import {useState} from "react";
+import fetchDiet from "../apiServices/fetchDiet";
 
-export default function Diet({userName}) {
+export default function Diet({userName, setFetchingStatus}) {
   const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
+    fetchDiet(searchInput, setFetchingStatus, setSearchResults);
   }
+  console.log(searchResults);
   return (
     <>
       <main>
