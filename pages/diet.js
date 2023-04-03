@@ -10,15 +10,37 @@ import StyledButton from "../components/StyledButton";
 import {useState} from "react";
 import fetchDiet from "../apiServices/fetchDiet";
 
+const showResultsStart = [
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+];
+
 export default function Diet({userName, setFetchingStatus}) {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [showResults, setShowResults] = useState(showResultsStart);
 
   function handleSubmit(event) {
     event.preventDefault();
     fetchDiet(searchInput, setFetchingStatus, setSearchResults);
   }
-  console.log(searchResults);
+  console.log(searchResults, showResults);
+
+  function handleDetailClick(event, index) {
+    const newShowResults = showResults.slice();
+    newShowResults[index] = !newShowResults[index];
+    setShowResults(newShowResults);
+    console.log("newShowResults", newShowResults, "index", index);
+  }
+
   return (
     <>
       <main>
@@ -44,12 +66,26 @@ export default function Diet({userName, setFetchingStatus}) {
           </FormContainer>
           {searchResults.length === 0
             ? "No Results"
-            : searchResults.map((oneResult) => {
+            : searchResults.map((oneResult, index) => {
                 return (
                   <FormContainer key={oneResult.name}>
                     <StyledParagraphNormal>
-                      {oneResult.name}
+                      Name: {oneResult.name}
                     </StyledParagraphNormal>
+                    <StyledButton
+                      onClick={(event) => {
+                        handleDetailClick(event, index);
+                      }}
+                    >
+                      Toggle Details
+                    </StyledButton>
+                    {showResults[index] === true ? (
+                      <StyledParagraphNormal>
+                        Calories: {oneResult.calories}
+                      </StyledParagraphNormal>
+                    ) : (
+                      ""
+                    )}
                   </FormContainer>
                 );
               })}
