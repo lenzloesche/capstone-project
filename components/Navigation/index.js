@@ -18,6 +18,7 @@ const StyledList = styled.ul`
   align-items: center;
   justify-content: center;
   list-style-type: none;
+  margin: 0;
 `;
 
 export default function Navigation({selected, children, userName}) {
