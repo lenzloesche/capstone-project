@@ -31,7 +31,9 @@ export default function Navigation({selected, children, userName}) {
               selected={selected === "index" ? true : false}
               href="/"
             >
-              {"User: " + userName}
+              {"User: "}
+              <br />
+              {userName}
             </NavigationLink>
           </li>
           {" - "}
@@ -50,6 +52,15 @@ export default function Navigation({selected, children, userName}) {
               href="/calendar"
             >
               Calendar
+            </NavigationLink>
+          </li>
+          {" - "}
+          <li>
+            <NavigationLink
+              selected={selected === "diet" ? true : false}
+              href="/diet"
+            >
+              Diet
             </NavigationLink>
           </li>
         </StyledList>
