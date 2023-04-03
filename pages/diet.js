@@ -9,6 +9,7 @@ import Input from "../components/Input";
 import StyledButton from "../components/StyledButton";
 import {useState} from "react";
 import fetchDiet from "../apiServices/fetchDiet";
+import BarGraph from "../components/Diagrams/BarGraph";
 
 const showResultsStart = [
   false,
@@ -34,11 +35,10 @@ export default function Diet({userName, setFetchingStatus}) {
   }
   console.log(searchResults, showResults);
 
-  function handleDetailClick(event, index) {
+  function handleDetailClick(index) {
     const newShowResults = showResults.slice();
     newShowResults[index] = !newShowResults[index];
     setShowResults(newShowResults);
-    console.log("newShowResults", newShowResults, "index", index);
   }
 
   return (
@@ -73,16 +73,26 @@ export default function Diet({userName, setFetchingStatus}) {
                       Name: {oneResult.name}
                     </StyledParagraphNormal>
                     <StyledButton
-                      onClick={(event) => {
-                        handleDetailClick(event, index);
+                      onClick={() => {
+                        handleDetailClick(index);
                       }}
                     >
                       Toggle Details
                     </StyledButton>
                     {showResults[index] === true ? (
-                      <StyledParagraphNormal>
-                        Calories: {oneResult.calories}
-                      </StyledParagraphNormal>
+                      <>
+                        <StyledParagraphNormal>
+                          Calories: {oneResult.calories}
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.calories}
+                          minValue={"0"}
+                          maxValue={"100"}
+                          width={"100"}
+                          height={"10"}
+                          color={"ff0000"}
+                        ></BarGraph>
+                      </>
                     ) : (
                       ""
                     )}
