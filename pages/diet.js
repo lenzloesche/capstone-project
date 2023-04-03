@@ -10,6 +10,7 @@ import StyledButton from "../components/StyledButton";
 import {useState} from "react";
 import fetchDiet from "../apiServices/fetchDiet";
 import BarGraph from "../components/Diagrams/BarGraph";
+import Image from "next/image";
 
 const showResultsStart = [
   false,
@@ -23,7 +24,6 @@ const showResultsStart = [
   false,
   false,
 ];
-
 const maxValues = {
   calories: 900,
   fat: 100,
@@ -45,8 +45,6 @@ export default function Diet({userName, setFetchingStatus}) {
     event.preventDefault();
     fetchDiet(searchInput, setFetchingStatus, setSearchResults);
   }
-  console.log(searchResults, showResults);
-
   function handleDetailClick(index) {
     const newShowResults = showResults.slice();
     newShowResults[index] = !newShowResults[index];
@@ -62,6 +60,12 @@ export default function Diet({userName, setFetchingStatus}) {
           </Header>
 
           <FormContainer>
+            <Image
+              src="/food.svg"
+              alt="food image of vegetables"
+              width="100"
+              height="100"
+            ></Image>
             <StyledParagraphNormal>Diet Search</StyledParagraphNormal>
             <Form
               onSubmit={(event) => {
@@ -214,7 +218,6 @@ export default function Diet({userName, setFetchingStatus}) {
               })}
         </StrengthContainer>
       </main>
-
       <Navigation selected={"diet"} userName={userName}></Navigation>
     </>
   );
