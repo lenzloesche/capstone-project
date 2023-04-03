@@ -1,26 +1,25 @@
 import Div from "../Div";
+import React from "react";
 
-export default function CalendarColoredDiv(
+export default function CalendarColoredDiv({
   dat,
   heatmapPosition,
   lastXDays,
   dateSelected,
-  heatmap
-) {
+  heatmap,
+}) {
+  const isSelected =
+    dateSelected.toDateString() === dat.toDateString() ? true : false;
+
   const allEntries = lastXDays.filter(
     (lastDay) =>
       heatmap[heatmapPosition].toDateString() === lastDay.date.toDateString()
   );
   if (allEntries.length === 0) {
-    if (dateSelected === dat) {
-      return (
-        <Div color="#a3b6e6" isItSelected>
-          {dat.getMonth() + 1 + "/" + dat.getDate()}
-        </Div>
-      );
-    }
     return (
-      <Div color="#a3b6e6">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
+      <Div color="#a3b6e6" isItSelected={isSelected}>
+        {dat.getMonth() + 1 + "/" + dat.getDate()}
+      </Div>
     );
   }
 
@@ -32,47 +31,30 @@ export default function CalendarColoredDiv(
   });
 
   if (filterRunning && filterStrength) {
-    if (dateSelected === dat) {
-      return (
-        <Div color="#d93f45" isItSelected>
-          {dat.getMonth() + 1 + "/" + dat.getDate()}
-        </Div>
-      );
-    }
     return (
-      <Div color="#d93f45">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-    );
-  }
-  if (filterRunning) {
-    if (dateSelected === dat) {
-      return (
-        <Div color="#f89348" isItSelected>
-          {dat.getMonth() + 1 + "/" + dat.getDate()}
-        </Div>
-      );
-    }
-    return (
-      <Div color="#f89348">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-    );
-  }
-  if (filterStrength) {
-    if (dateSelected === dat) {
-      return (
-        <Div color="#d96a3f" isItSelected>
-          {dat.getMonth() + 1 + "/" + dat.getDate()}
-        </Div>
-      );
-    }
-    return (
-      <Div color="#d96a3f">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>
-    );
-  }
-  if (dateSelected === dat) {
-    return (
-      <Div color="#a3b6e6" isItSelected>
+      <Div color="#d93f45" isItSelected={isSelected}>
         {dat.getMonth() + 1 + "/" + dat.getDate()}
       </Div>
     );
   }
-  return <Div color="#a3b6e6">{dat.getMonth() + 1 + "/" + dat.getDate()}</Div>;
+  if (filterRunning) {
+    return (
+      <Div color="#f89348" isItSelected={isSelected}>
+        {dat.getMonth() + 1 + "/" + dat.getDate()}
+      </Div>
+    );
+  }
+  if (filterStrength) {
+    return (
+      <Div color="#d96a3f" isItSelected={isSelected}>
+        {dat.getMonth() + 1 + "/" + dat.getDate()}
+      </Div>
+    );
+  }
+
+  return (
+    <Div color="#a3b6e6" isItSelected={isSelected}>
+      {dat.getMonth() + 1 + "/" + dat.getDate()}
+    </Div>
+  );
 }

@@ -6,14 +6,14 @@ import GraphParagraph from "../GraphComponents/GraphParagraph";
 import {useState, useEffect} from "react";
 import GraphDate from "../GraphComponents/GraphDate";
 
-export default function Graph({data, graphIsVisible}) {
+export default function Graph({data, graphIsVisible, dateSelected}) {
   const [timer, setTimer] = useState(0.0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer >= 70) {
-          return -20;
+          return -16;
         } else {
           return prevTimer + 0.25;
         }
@@ -21,6 +21,10 @@ export default function Graph({data, graphIsVisible}) {
     }, 25);
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    setTimer(-16);
+  }, [dateSelected]);
 
   let selectedData = null;
   if (data) {
@@ -37,7 +41,6 @@ export default function Graph({data, graphIsVisible}) {
     return <FormContainer></FormContainer>;
   }
 
-  const dateSelected = new Date();
   let checkTimer = timer <= 0 ? 0 : timer;
   checkTimer = checkTimer >= 55 ? 55 : checkTimer;
   const dayInMilliseconds = 1 * 24 * 60 * 60 * 1000;

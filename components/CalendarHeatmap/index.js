@@ -6,15 +6,12 @@ import CalendarText from "../CalendarComponents/CalendarText";
 import apiDelete from "../../apiServices/apiDelete";
 import StyledParagraphNormal from "../StyledParagraphNormal";
 import CalendarColoredDiv from "../CalendarComponents/CalendarColoredDiv";
+import {useState} from "react";
+import {useEffect} from "react";
 
 const date = new Date();
-const heatmap = [];
-const lengthOfHeatmap = 70;
 
-for (let day = 0; day < lengthOfHeatmap; day++) {
-  const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
-  heatmap.unshift(new Date(date - dayInMilliseconds));
-}
+const lengthOfHeatmap = 70;
 
 export default function CalendarHeatmap({
   data,
@@ -29,9 +26,28 @@ export default function CalendarHeatmap({
   setDateSelected,
   setGraphIsVisible,
 }) {
-  const startDate = new Date();
-  startDate.setDate(startDate.getDate() - lengthOfHeatmap);
-  const lastXDays = data?.filter((date) => date.date >= startDate);
+  const newStartDate = new Date(date - lengthOfHeatmap);
+  const [startDate, setStartDate] = useState(newStartDate);
+  const [heatmap, setHeatmap] = useState([]);
+
+  const [lastXDays, setLastXDays] = useState([]);
+  useEffect(() => {
+    changeHeatmap(startDate);
+  }, [data]);
+
+  function changeHeatmap(startingDate) {
+    const newHeatmap = [];
+    for (let day = 0; day < lengthOfHeatmap; day++) {
+      const dayInMilliseconds = day * 24 * 60 * 60 * 1000;
+      newHeatmap.unshift(new Date(startingDate - dayInMilliseconds));
+    }
+    setHeatmap(newHeatmap);
+    const dayInMilliseconds = lengthOfHeatmap * 24 * 60 * 60 * 1000;
+    const newLastXDays = data?.filter(
+      (date) => startingDate >= startingDate - dayInMilliseconds
+    );
+    setLastXDays(newLastXDays);
+  }
 
   function handleClick(dat) {
     setDateSelected(dat);
@@ -63,7 +79,6 @@ export default function CalendarHeatmap({
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
     setGraphIsVisible(false);
-
     scrollTo(0, 0);
   }
 
@@ -82,18 +97,59 @@ export default function CalendarHeatmap({
     scrollTo(0, 0);
   }
 
-  if (!data) {
+  if (!data || heatmap.length === 0) {
     return <StyledParagraphNormal>Loading...</StyledParagraphNormal>;
   }
-
+  function handleChangeDateCLick(changeWhere) {
+    const dayInMilliseconds = changeWhere * 24 * 60 * 60 * 1000;
+    const newStartDate = new Date(startDate.getTime() + dayInMilliseconds);
+    setStartDate(newStartDate);
+    changeHeatmap(newStartDate);
+  }
   return (
     <>
-      <CalendarText>Calendar</CalendarText>
+      <CalendarText>
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(-70);
+          }}
+        >
+          {"<<"}
+        </StyledButton>
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(-7);
+          }}
+        >
+          {"<"}
+        </StyledButton>
+        Calendar
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(+7);
+          }}
+        >
+          {">"}
+        </StyledButton>
+        <StyledButton
+          onClick={() => {
+            handleChangeDateCLick(+70);
+          }}
+        >
+          {">>"}
+        </StyledButton>
+      </CalendarText>
       <ContainerDiv aria-label="calendar">
         {heatmap.map((dat, index) => {
           return (
             <div key={dat} onClick={() => handleClick(dat)}>
-              {CalendarColoredDiv(dat, index, lastXDays, dateSelected, heatmap)}
+              <CalendarColoredDiv
+                dat={dat}
+                heatmapPosition={index}
+                lastXDays={lastXDays}
+                dateSelected={dateSelected}
+                heatmap={heatmap}
+              />
             </div>
           );
         })}

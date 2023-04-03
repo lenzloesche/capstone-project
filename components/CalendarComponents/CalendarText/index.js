@@ -4,7 +4,7 @@ position relative;
 top:14px;
 left:0px;
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
 width: 300px;
 border-radius: 10px;

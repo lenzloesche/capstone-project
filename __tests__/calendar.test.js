@@ -71,7 +71,7 @@ describe("Calendar", () => {
     render(<Calendar userName={userName} data={fakeData} setData={() => {}} />);
     const divs = await screen.getAllByRole("generic");
     expect(divs.length).toBeGreaterThanOrEqual(70);
-    const dateText = await screen.getByText(/select a date/i);
+    const dateText = await screen.getByText(/date selected/i);
     const todaysDate = new Date();
     const dateMonth = `${todaysDate.getMonth() + 1}/${todaysDate.getDate()}`;
     const divToClick = screen.getByText(dateMonth);
