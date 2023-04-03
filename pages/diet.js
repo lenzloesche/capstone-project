@@ -24,6 +24,18 @@ const showResultsStart = [
   false,
 ];
 
+const maxValues = {
+  calories: 900,
+  fat: 100,
+  protein: 75,
+  sodium: 38000,
+  potassium: 2500,
+  cholesterol: 1000,
+  carbohydrates: 100,
+  fiber: 40,
+  sugar: 100,
+};
+
 export default function Diet({userName, setFetchingStatus}) {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -87,10 +99,111 @@ export default function Diet({userName, setFetchingStatus}) {
                         <BarGraph
                           value={oneResult.calories}
                           minValue={"0"}
-                          maxValue={"100"}
-                          width={"100"}
-                          height={"10"}
-                          color={"ff0000"}
+                          maxValue={maxValues.calories}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+
+                        <StyledParagraphNormal>
+                          Carbohydrates: {oneResult.carbohydrates_total_g}
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.carbohydrates_total_g}
+                          g
+                          minValue={"0"}
+                          maxValue={maxValues.carbohydrates}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Fat Total: {oneResult.fat_total_g}g
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.fat_total_g}
+                          minValue={"0"}
+                          maxValue={maxValues.fat}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Fat Saturated: {oneResult.fat_saturated_g}g
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.fat_saturated_g}
+                          minValue={"0"}
+                          maxValue={maxValues.fat}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Protein: {oneResult.protein_g}g
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.protein_g}
+                          minValue={"0"}
+                          maxValue={maxValues.protein}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Sodium: {oneResult.sodium_mg}mg
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.sodium_mg}
+                          minValue={"0"}
+                          maxValue={maxValues.sodium}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Potassium: {oneResult.potassium_mg}mg
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.potassium_mg}
+                          minValue={"0"}
+                          maxValue={maxValues.potassium}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Cholesterol: {oneResult.cholesterol_mg}mg
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.cholesterol_mg}
+                          minValue={"0"}
+                          maxValue={maxValues.cholesterol}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Fiber: {oneResult.fiber_g}g
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.fiber_g}
+                          minValue={"0"}
+                          maxValue={maxValues.fiber}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
+                        ></BarGraph>
+                        <StyledParagraphNormal>
+                          Sugar: {oneResult.sugar_g}g
+                        </StyledParagraphNormal>
+                        <BarGraph
+                          value={oneResult.sugar_g}
+                          minValue={"0"}
+                          maxValue={maxValues.sugar}
+                          width={"260"}
+                          height={"16"}
+                          color={"21a325"}
                         ></BarGraph>
                       </>
                     ) : (

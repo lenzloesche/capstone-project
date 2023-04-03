@@ -36,16 +36,18 @@ export default function BarGraph({
   color,
 }) {
   let innerWidth = 0;
+  const newValue = maxValue < value ? maxValue : value;
   function calcluateMinMaxValue() {
-    const percentage = (value / (maxValue - minValue)) * 100;
+    const percentage = (newValue / (maxValue - minValue)) * 100;
     innerWidth = Math.round((percentage / 100) * width);
   }
   calcluateMinMaxValue();
+
   return (
     <>
       <BarGraphBorder width={width} height={height}>
         <BarGraphHelper
-          value={value}
+          value={newValue}
           minValue={minValue}
           maxValue={maxValue}
           width={innerWidth}
