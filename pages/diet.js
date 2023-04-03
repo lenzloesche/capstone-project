@@ -42,6 +42,17 @@ export default function Diet({userName, setFetchingStatus}) {
               <StyledButton>Search</StyledButton>
             </Form>
           </FormContainer>
+          {searchResults.length === 0
+            ? "No Results"
+            : searchResults.map((oneResult) => {
+                return (
+                  <FormContainer key={oneResult.name}>
+                    <StyledParagraphNormal>
+                      {oneResult.name}
+                    </StyledParagraphNormal>
+                  </FormContainer>
+                );
+              })}
         </StrengthContainer>
       </main>
 

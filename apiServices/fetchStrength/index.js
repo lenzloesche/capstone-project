@@ -1,6 +1,5 @@
 const url = "https://api.api-ninjas.com/v1/exercises";
 const apiKey = process.env.NEXT_PUBLIC_EXERCISES_APIKEY;
-//const apiKey = NEXT_PUBLIC_EXERCISES_APIKEY;
 
 export default async function fetchStrength(
   input,
