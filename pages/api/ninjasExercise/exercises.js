@@ -1,11 +1,11 @@
-const url = "https://api.api-ninjas.com/v1/";
+const url = "https://api.api-ninjas.com/v1/exercises";
 const apiKey = process.env.EXERCISES_APIKEY;
 
 export default async function handler(request, response) {
   if (request.method === "GET") {
-    const {id} = request.query;
+    const searchterm = request.headers["searchterm"];
     try {
-      const responseNinja = await fetch(url + id, {
+      const responseNinja = await fetch(url + searchterm, {
         headers: {
           "x-api-key": apiKey,
         },
