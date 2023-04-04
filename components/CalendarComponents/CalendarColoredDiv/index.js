@@ -1,6 +1,13 @@
 import Div from "../Div";
 import React from "react";
 
+const calendarColors = {
+  color0: "#a3b6e6",
+  color1: "#d93f45",
+  color2: "#f89348",
+  color3: "#d96a3f",
+};
+
 export default function CalendarColoredDiv({
   dat,
   heatmapPosition,
@@ -17,7 +24,7 @@ export default function CalendarColoredDiv({
   );
   if (allEntries.length === 0) {
     return (
-      <Div color="#a3b6e6" isItSelected={isSelected}>
+      <Div color={calendarColors.color0} isItSelected={isSelected}>
         {dat.getMonth() + 1 + "/" + dat.getDate()}
       </Div>
     );
@@ -32,28 +39,28 @@ export default function CalendarColoredDiv({
 
   if (filterRunning && filterStrength) {
     return (
-      <Div color="#d93f45" isItSelected={isSelected}>
+      <Div color={calendarColors.color1} isItSelected={isSelected}>
         {dat.getMonth() + 1 + "/" + dat.getDate()}
       </Div>
     );
   }
   if (filterRunning) {
     return (
-      <Div color="#f89348" isItSelected={isSelected}>
+      <Div color={calendarColors.color2} isItSelected={isSelected}>
         {dat.getMonth() + 1 + "/" + dat.getDate()}
       </Div>
     );
   }
   if (filterStrength) {
     return (
-      <Div color="#d96a3f" isItSelected={isSelected}>
+      <Div color={calendarColors.color3} isItSelected={isSelected}>
         {dat.getMonth() + 1 + "/" + dat.getDate()}
       </Div>
     );
   }
 
   return (
-    <Div color="#a3b6e6" isItSelected={isSelected}>
+    <Div color={calendarColors.color0} isItSelected={isSelected}>
       {dat.getMonth() + 1 + "/" + dat.getDate()}
     </Div>
   );

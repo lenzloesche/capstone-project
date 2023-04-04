@@ -3,9 +3,21 @@ const apiKey = process.env.EXERCISES_APIKEY;
 
 export default async function handler(request, response) {
   if (request.method === "GET") {
-    const searchterm = request.headers["searchterm"];
+    const {difficulty, name, type, muscle} = request.query;
+    let apiString = "?name=" + name;
+    if (difficulty) {
+      apiString += "&difficulty=" + difficulty;
+    }
+
+    if (type) {
+      apiString += "&type=" + type;
+    }
+    if (muscle) {
+      apiString += "&muscle=" + muscle;
+    }
+
     try {
-      const responseNinja = await fetch(url + searchterm, {
+      const responseNinja = await fetch(url + apiString, {
         headers: {
           "x-api-key": apiKey,
         },

@@ -8,11 +8,7 @@ export default async function fetchStrength(
 ) {
   setFetchingStatus("Fetching Data");
   try {
-    const response = await fetch(url, {
-      headers: {
-        searchterm: input,
-      },
-    });
+    const response = await fetch(url + input);
     if (response.ok) {
       const dataFetch = await response.json();
       SetData(dataFetch);
