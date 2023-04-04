@@ -1,4 +1,4 @@
-const url = "https://api.api-ninjas.com/v1/nutrition?query=";
+const url = "/api/ninjas/";
 const apiKey = process.env.NEXT_PUBLIC_EXERCISES_APIKEY;
 
 export default async function fetchDiet(
