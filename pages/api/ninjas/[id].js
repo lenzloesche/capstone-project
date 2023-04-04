@@ -1,5 +1,5 @@
 const url = "https://api.api-ninjas.com/v1/nutrition?query=";
-const apiKey = process.env.NEXT_PUBLIC_EXERCISES_APIKEY;
+const apiKey = process.env.EXERCISES_APIKEY;
 
 export default async function handler(request, response) {
   if (request.method === "GET") {

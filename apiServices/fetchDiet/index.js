@@ -1,5 +1,4 @@
 const url = "/api/ninjas/";
-const apiKey = process.env.NEXT_PUBLIC_EXERCISES_APIKEY;
 
 export default async function fetchDiet(
   input,
@@ -8,11 +7,7 @@ export default async function fetchDiet(
 ) {
   setFetchingStatus("Fetching Data");
   try {
-    const response = await fetch(url + input, {
-      headers: {
-        "x-api-key": apiKey,
-      },
-    });
+    const response = await fetch(url + input);
     if (response.ok) {
       const dataFetch = await response.json();
       setSearchResults(dataFetch);

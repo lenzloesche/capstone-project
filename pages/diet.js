@@ -61,6 +61,7 @@ export default function Diet({userName, setFetchingStatus}) {
 
           <FormContainer>
             <Image
+              priority
               src="/food.svg"
               alt="food image of vegetables"
               width="100"
