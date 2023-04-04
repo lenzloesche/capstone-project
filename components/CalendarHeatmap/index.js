@@ -8,6 +8,7 @@ import StyledParagraphNormal from "../StyledParagraphNormal";
 import CalendarColoredDiv from "../CalendarComponents/CalendarColoredDiv";
 import {useState} from "react";
 import {useEffect} from "react";
+import CalendarYear from "../CalendarComponents/CalendarYear";
 
 const date = new Date();
 
@@ -123,7 +124,7 @@ export default function CalendarHeatmap({
         >
           {"<"}
         </StyledButton>
-        Calendar
+        <CalendarYear heatmap={heatmap} />
         <StyledButton
           onClick={() => {
             handleChangeDateCLick(+7);
