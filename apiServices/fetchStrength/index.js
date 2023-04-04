@@ -1,5 +1,4 @@
-const url = "https://api.api-ninjas.com/v1/exercises";
-const apiKey = process.env.NEXT_PUBLIC_EXERCISES_APIKEY;
+const url = "/api/ninjasExercise/exercises";
 
 export default async function fetchStrength(
   input,
@@ -9,11 +8,7 @@ export default async function fetchStrength(
 ) {
   setFetchingStatus("Fetching Data");
   try {
-    const response = await fetch(url + input, {
-      headers: {
-        "x-api-key": apiKey,
-      },
-    });
+    const response = await fetch(url + input);
     if (response.ok) {
       const dataFetch = await response.json();
       SetData(dataFetch);
