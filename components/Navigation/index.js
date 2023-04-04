@@ -2,7 +2,7 @@ import styled from "styled-components";
 import NavigationLink from "../NavigationLink";
 
 const StyledNavigation = styled.footer`
-  background-color: #a3b6e6;
+  background-color: var(--background-color);
   display: flex;
   align-items: center;
   justify-content: center;

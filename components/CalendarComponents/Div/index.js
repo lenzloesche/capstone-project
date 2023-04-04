@@ -1,6 +1,7 @@
 import styled from "styled-components";
 const DivHelper = styled.div`
-  background-color: ${(props) => (props.color ? props.color : "#a3b6e6")};
+  background-color: ${(props) =>
+    props.color ? props.color : "var(--background-color)"};
   height: 30px;
   width: 30px;
   margin: 0;
@@ -14,7 +15,8 @@ const DivHelper = styled.div`
   }
 `;
 const DivHelperSelected = styled.div`
-  background-color: ${(props) => (props.color ? props.color : "#a3b6e6")};
+  background-color: ${(props) =>
+    props.color ? props.color : "var(--background-color)"};
   border: 4px solid black;
   height: 30px;
   width: 30px;
