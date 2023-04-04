@@ -1,13 +1,18 @@
-export default function CalendarYear(heatmap) {
-  console.log(heatmap.heatmap[0], heatmap.heatmap[heatmap.heatmap.length - 1]);
+import styled from "styled-components";
 
+const ClaendarYearHelper = styled.div`
+  width: 200px;
+  text-align: center;
+  font-size: 16px;
+`;
+
+export default function CalendarYear(heatmap) {
   function getFirstYear() {
     return heatmap.heatmap[0].getFullYear();
   }
   function getLastYear() {
     return heatmap.heatmap[heatmap.heatmap.length - 1].getFullYear();
   }
-
   function getYears() {
     if (getFirstYear() === getLastYear()) {
       return getFirstYear();
@@ -15,6 +20,5 @@ export default function CalendarYear(heatmap) {
       return getFirstYear() + "/" + getLastYear();
     }
   }
-
-  return <>{heatmap ? getYears() : ""}</>;
+  return <ClaendarYearHelper>{heatmap ? getYears() : ""}</ClaendarYearHelper>;
 }
