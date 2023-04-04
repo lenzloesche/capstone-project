@@ -1,23 +1,17 @@
-const url = "/api/ninjasExercise/exercises";
+const url = "/api/ninjas/";
 
-export default async function fetchStrength(
+export default async function fetchDiet(
   input,
   setFetchingStatus,
-  SetData,
-  resetDetails
+  setSearchResults
 ) {
   setFetchingStatus("Fetching Data");
   try {
-    const response = await fetch(url, {
-      headers: {
-        searchterm: input,
-      },
-    });
+    const response = await fetch(url + input);
     if (response.ok) {
       const dataFetch = await response.json();
-      SetData(dataFetch);
+      setSearchResults(dataFetch);
       setFetchingStatus("Fetching Done");
-      resetDetails();
     } else {
       setFetchingStatus("Error");
       console.error("Response not OK.");

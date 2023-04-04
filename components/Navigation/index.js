@@ -18,6 +18,7 @@ const StyledList = styled.ul`
   align-items: center;
   justify-content: center;
   list-style-type: none;
+  margin: 0;
 `;
 
 export default function Navigation({selected, children, userName}) {
@@ -27,17 +28,16 @@ export default function Navigation({selected, children, userName}) {
         {children}
         <StyledList>
           <li>
-            <NavigationLink
-              selected={selected === "index" ? true : false}
-              href="/"
-            >
-              {"User: " + userName}
+            <NavigationLink selected={selected === "index"} href="/">
+              {"User: "}
+              <br />
+              {userName}
             </NavigationLink>
           </li>
           {" - "}
           <li>
             <NavigationLink
-              selected={selected === "exerciseSearch" ? true : false}
+              selected={selected === "exerciseSearch"}
               href="/exerciseSearch"
             >
               Exercises
@@ -45,11 +45,14 @@ export default function Navigation({selected, children, userName}) {
           </li>
           {" - "}
           <li>
-            <NavigationLink
-              selected={selected === "calendar" ? true : false}
-              href="/calendar"
-            >
+            <NavigationLink selected={selected === "calendar"} href="/calendar">
               Calendar
+            </NavigationLink>
+          </li>
+          {" - "}
+          <li>
+            <NavigationLink selected={selected === "diet"} href="/diet">
+              Diet
             </NavigationLink>
           </li>
         </StyledList>
