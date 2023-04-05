@@ -11,6 +11,7 @@ import {useState} from "react";
 import fetchDiet from "../apiServices/fetchDiet";
 import BarGraph from "../components/Diagrams/BarGraph";
 import Image from "next/image";
+import NavigationLink from "../components/NavigationLink";
 
 const showResultsStart = [
   false,
@@ -55,7 +56,20 @@ export default function Diet({userName}) {
     newShowResults[index] = !newShowResults[index];
     setShowResults(newShowResults);
   }
-
+  if (userName === "DontRender") {
+    return (
+      <>
+        <StrengthContainer>
+          <Header>
+            <Heading>Fitness App</Heading>
+          </Header>
+          <NavigationLink selected={false} href="/">
+            {"Change User "}
+          </NavigationLink>
+        </StrengthContainer>
+      </>
+    );
+  }
   return (
     <>
       <main>
