@@ -9,7 +9,7 @@ const Container1 = styled.div`
 
   background-repeat: repeat;
   background-position: center top;
-  margin-bottom: 70px;
+  margin-bottom: 60px;
   opacity: 1;
   min-height: 100vh;
 `;

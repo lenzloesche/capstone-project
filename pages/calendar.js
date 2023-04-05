@@ -273,11 +273,7 @@ export default function Calendar({
           ""
         )}
       </StrengthContainer>
-      <Navigation selected={"calendar"} userName={userName}>
-        <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
-          Info: {fetchingStatus}
-        </StyledParagraph>
-      </Navigation>
+      <Navigation selected={"calendar"} userName={userName} />
     </>
   );
 }

@@ -153,7 +153,7 @@ export default function ExerciseSearch({
         />
         {showFavorites ? (
           <>
-            {favoriteExercises.map((favoriteExercise, index) => {
+            {favoriteExercises?.map((favoriteExercise, index) => {
               return (
                 <ExerciseDisplayed
                   showFavorites={showFavorites}
@@ -185,11 +185,7 @@ export default function ExerciseSearch({
           })
         )}
       </StrengthContainer>
-      <Navigation selected={"exerciseSearch"} userName={userName}>
-        <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
-          Info: {fetchingStatus}
-        </StyledParagraph>
-      </Navigation>
+      <Navigation selected={"exerciseSearch"} userName={userName} />
     </>
   );
 }

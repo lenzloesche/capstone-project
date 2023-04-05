@@ -38,7 +38,7 @@ export default function App({Component, pageProps}) {
       async function getData() {
         try {
           const data = await apiGetFavorite(userName);
-          setFavoriteExercises(data.value);
+          setFavoriteExercises(data);
         } catch (error) {
           console.error(error);
         }

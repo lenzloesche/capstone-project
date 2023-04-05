@@ -22,10 +22,7 @@ export default function Home({userName, handleUserNameFormSubmit}) {
       {userName === "DontRender" ? (
         ""
       ) : (
-        <Navigation selected={"index"} userName={userName}>
-          {" "}
-          <StyledParagraph>Info:</StyledParagraph>
-        </Navigation>
+        <Navigation selected={"index"} userName={userName} />
       )}
     </>
   );

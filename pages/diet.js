@@ -224,7 +224,7 @@ export default function Diet({userName}) {
               })}
         </StrengthContainer>
       </main>
-      <Navigation selected={"diet"} userName={userName}></Navigation>
+      <Navigation selected={"diet"} userName={userName} />
     </>
   );
 }
