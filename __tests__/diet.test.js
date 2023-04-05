@@ -9,6 +9,7 @@ const fakeData = [
 
 const fetchDiet = require("../apiServices/fetchDiet");
 jest.mock("../apiServices/fetchDiet", () => jest.fn());
+fetchDiet.mockReturnValue(fakeData);
 
 test("there is a search input and button", () => {
   render(<Diet userName="Testuser" />);
@@ -19,18 +20,17 @@ test("there is a search input and button", () => {
 });
 
 test("when you enter a searchterm and hit search, the fetch function is called and the data is displayed.", async () => {
-  /* act(() => {
-    fetchDiet.mockImplementation(() => Promise.resolve(fakeData));
-  }); */
-  fetchDiet.mockReturnValue(fakeData);
-  render(<Diet userName="Testuser" />);
+  await act(async () => {
+    render(<Diet userName="Testuser" />);
+  });
   const input = screen.getByRole("textbox");
   const button = screen.getByRole("button", {name: /search/i});
-  act(() => {
+  await act(async () => {
     fireEvent.change(input, {target: {value: "TestText"}});
     fireEvent.click(button);
-    expect(fetchDiet).toHaveBeenCalled();
   });
-  const testText = screen.getByText(/Testit/i);
+
+  expect(fetchDiet).toHaveBeenCalled();
+  const testText = screen.getByText(/Testit!/i);
   expect(testText).toBeInTheDocument();
 });
