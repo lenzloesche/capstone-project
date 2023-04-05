@@ -16,6 +16,7 @@ export default function App({Component, pageProps}) {
   function handleUserNameFormSubmit(event, userInput) {
     event.preventDefault();
     setUserName(userInput);
+    clearData();
     localStorage.setItem("fitnessAppUserName", JSON.stringify(userInput));
   }
 
@@ -50,6 +51,11 @@ export default function App({Component, pageProps}) {
       }
     }
   }, [userName]);
+
+  function clearData() {
+    setData(startingData);
+    setFavoriteExercises(favoriteExerciseStart);
+  }
 
   return (
     <>

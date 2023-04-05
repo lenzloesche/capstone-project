@@ -197,7 +197,6 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
       </>
     );
   }
-  console.log(data);
   if (data === undefined) {
     return (
       <>
