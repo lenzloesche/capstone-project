@@ -29,8 +29,6 @@ export default function ExerciseSearch({
   userName,
   favoriteExercises,
   setFavoriteExercises,
-  fetchingStatus,
-  setFetchingStatus,
 }) {
   const [data, setData] = useState([]);
   const [dataWithFavorites, setDataWithFavorites] = useState([]);
@@ -67,10 +65,7 @@ export default function ExerciseSearch({
     }
 
     try {
-      const data = await fetchStrength(
-        "?name=" + searchInput + apiString,
-        setFetchingStatus
-      );
+      const data = await fetchStrength("?name=" + searchInput + apiString);
       setData(data);
       resetDetails();
     } catch (error) {
@@ -97,7 +92,7 @@ export default function ExerciseSearch({
         setFavoriteExercises(newfavoriteExercises);
         apiDeleteFavorite(userName, dat.name);
       } else {
-        apiPostFavorite(dat, setFetchingStatus);
+        apiPostFavorite(dat);
         setFavoriteExercises([dat, ...favoriteExercises]);
       }
     }

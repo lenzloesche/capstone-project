@@ -11,7 +11,6 @@ export default function App({Component, pageProps}) {
   const [favoriteExercises, setFavoriteExercises] = useState(
     favoriteExerciseStart
   );
-  const [fetchingStatus, setFetchingStatus] = useState("none");
   const [data, setData] = useState(startingData);
 
   function handleUserNameFormSubmit(event, userInput) {
@@ -63,8 +62,6 @@ export default function App({Component, pageProps}) {
         setData={setData}
         favoriteExercises={favoriteExercises}
         setFavoriteExercises={setFavoriteExercises}
-        fetchingStatus={fetchingStatus}
-        setFetchingStatus={setFetchingStatus}
         userName={userName}
         handleUserNameFormSubmit={handleUserNameFormSubmit}
         {...pageProps}

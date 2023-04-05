@@ -26,14 +26,7 @@ let date = new Date();
 
 let dateSelectedStart = date;
 
-export default function Calendar({
-  userName,
-  favoriteExercises,
-  data,
-  setData,
-  fetchingStatus,
-  setFetchingStatus,
-}) {
+export default function Calendar({userName, favoriteExercises, data, setData}) {
   const [sportSelected, setSportSelected] = useState("strength");
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
 
@@ -205,7 +198,7 @@ export default function Calendar({
     );
   }
 
-  if (data.length === 0 && fetchingStatus === "Currently fetching") {
+  if (data.length === 0) {
     return (
       <>
         <StrengthContainer>
@@ -216,11 +209,7 @@ export default function Calendar({
             <StyledParagraphNormal>Loading...</StyledParagraphNormal>
           </FormContainer>{" "}
         </StrengthContainer>
-        <Navigation selected={"calendar"} userName={userName}>
-          <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
-            Info: {fetchingStatus}
-          </StyledParagraph>
-        </Navigation>
+        <Navigation selected={"calendar"} userName={userName} />
       </>
     );
   }
@@ -263,7 +252,6 @@ export default function Calendar({
               addNewEntry={addNewEntryStrength}
               ObjectId={ObjectId}
               setSportSelected={setSportSelected}
-              setFetchingStatus={setFetchingStatus}
               dateSelected={dateSelected}
               setDateSelected={setDateSelected}
               setGraphIsVisible={setGraphIsVisible}
