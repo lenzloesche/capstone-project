@@ -5,7 +5,7 @@ import apiGetFavorite from "../apiServices/apiGetFavorite";
 import apiGet from "../apiServices/apiGet";
 
 const favoriteExerciseStart = [];
-let startingData = [];
+let startingData = undefined;
 export default function App({Component, pageProps}) {
   const [userName, setUserName] = useState("DontRender");
   const [favoriteExercises, setFavoriteExercises] = useState(

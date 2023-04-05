@@ -197,8 +197,8 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
       </>
     );
   }
-
-  if (data.length === 0) {
+  console.log(data);
+  if (data === undefined) {
     return (
       <>
         <StrengthContainer>
