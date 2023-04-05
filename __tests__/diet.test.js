@@ -18,7 +18,7 @@ const fakeData = [
   },
 ];
 
-test("when you enter a searchterm and hit search, the fetch function is called.", () => {
+test("when you enter a searchterm and hit search, the fetch function is called and the data is displayed.", () => {
   render(<Diet userName="Testuser" />);
   const input = screen.getByRole("textbox");
   const button = screen.getByRole("button", {name: /search/i});
