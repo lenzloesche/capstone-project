@@ -12,6 +12,7 @@ import fetchDiet from "../apiServices/fetchDiet";
 import BarGraph from "../components/Diagrams/BarGraph";
 import Image from "next/image";
 import NavigationLink from "../components/NavigationLink";
+import StyledParagraph from "../components/StyledParagraph";
 
 const showResultsStart = [
   false,
@@ -97,6 +98,9 @@ export default function Diet({userName}) {
                 value={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}
               ></Input>
+              <StyledParagraph>
+                try &quot;carrot&quot; or &quot;meat&quot;
+              </StyledParagraph>
               <StyledButton>Search</StyledButton>
             </Form>
           </FormContainer>
