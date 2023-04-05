@@ -1,5 +1,5 @@
 import Diet from "../pages/diet.js";
-import {render, screen, fireEvent} from "@testing-library/react";
+import {render, screen, fireEvent, act} from "@testing-library/react";
 
 const fetchDiet = require("../apiServices/fetchDiet");
 jest.mock("../apiServices/fetchDiet", () => jest.fn());
@@ -12,6 +12,12 @@ test("there is a search input and button", () => {
   expect(button).toBeInTheDocument();
 });
 
+const fakeData = [
+  {
+    name: "Testit!",
+  },
+];
+
 test("when you enter a searchterm and hit search, the fetch function is called.", () => {
   render(<Diet userName="Testuser" />);
   const input = screen.getByRole("textbox");
@@ -19,4 +25,10 @@ test("when you enter a searchterm and hit search, the fetch function is called."
   fireEvent.change(input, {target: {value: "TestText"}});
   fireEvent.click(button);
   expect(fetchDiet).toHaveBeenCalled();
+  const setSearchResults = fetchDiet.mock.calls[0][2];
+  act(() => {
+    setSearchResults(fakeData);
+  });
+  const testText = screen.getByText(/Testit/i);
+  expect(testText).toBeInTheDocument();
 });
