@@ -21,7 +21,6 @@ export default function CalendarHeatmap({
   setEditMode,
   addNewEntry,
   setSportSelected,
-  setFetchingStatus,
   ObjectId,
   dateSelected,
   setDateSelected,
@@ -33,7 +32,9 @@ export default function CalendarHeatmap({
 
   const [lastXDays, setLastXDays] = useState([]);
   useEffect(() => {
-    changeHeatmap(startDate);
+    if (data && Object.prototype.toString.call(data) === "[object Array]") {
+      changeHeatmap(startDate);
+    }
   }, [data]);
 
   function changeHeatmap(startingDate) {
@@ -54,7 +55,7 @@ export default function CalendarHeatmap({
     setDateSelected(dat);
   }
   let selectedData = null;
-  if (data) {
+  if (data && Object.prototype.toString.call(data) === "[object Array]") {
     selectedData = data
       ?.filter(
         (dat) => dat.date?.toDateString() === dateSelected?.toDateString()
@@ -66,7 +67,7 @@ export default function CalendarHeatmap({
       return dat.date.toString() === date.toString();
     });
     if (indexToDelete != -1) {
-      apiDelete(data[indexToDelete]._id, setFetchingStatus);
+      apiDelete(data[indexToDelete]._id);
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
       setData(newData);
@@ -107,6 +108,7 @@ export default function CalendarHeatmap({
     setStartDate(newStartDate);
     changeHeatmap(newStartDate);
   }
+
   return (
     <>
       <CalendarText>
@@ -178,7 +180,7 @@ export default function CalendarHeatmap({
           ""
         )}
       </FormContainer>
-      {selectedData.map((selectedDat) => {
+      {selectedData?.map((selectedDat) => {
         return (
           <FormContainer key={uid()}>
             <StyledParagraphNormal>

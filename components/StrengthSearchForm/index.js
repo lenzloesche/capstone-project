@@ -6,6 +6,7 @@ import StyledButton from "../StyledButton";
 import ImageContainer from "../ImageContainer";
 import Form from "../Form";
 import StyledImage from "../StyledImage";
+import StyledParagraph from "../StyledParagraph";
 
 export default function StrengthSearchForm({
   handleSubmit,
@@ -26,7 +27,7 @@ export default function StrengthSearchForm({
           alt="search image of a magnifying glass"
           width="100"
           height="100"
-          priority
+          priority={true}
           isitselected={showFavorites ? false : true}
         ></StyledImage>
         <StyledImage
@@ -36,7 +37,7 @@ export default function StrengthSearchForm({
           alt="star image"
           width="100"
           height="100"
-          priority
+          priority={true}
           isitselected={showFavorites ? true : false}
         ></StyledImage>
       </ImageContainer>
@@ -53,6 +54,9 @@ export default function StrengthSearchForm({
               value={searchInput}
               onChange={(event) => setSearchInput(event.target.value)}
             ></Input>
+            <StyledParagraph>
+              try &quot;bell&quot; or &quot;back&quot;
+            </StyledParagraph>
             <StyledButton>Search</StyledButton>
             <p>Filter:</p>
             <StyledSelect id="type" name="type">

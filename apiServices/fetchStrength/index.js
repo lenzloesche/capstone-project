@@ -1,25 +1,15 @@
 const url = "/api/ninjasExercise/exercises";
 
-export default async function fetchStrength(
-  input,
-  setFetchingStatus,
-  SetData,
-  resetDetails
-) {
-  setFetchingStatus("Fetching Data");
+export default async function fetchStrength(input) {
   try {
     const response = await fetch(url + input);
     if (response.ok) {
       const dataFetch = await response.json();
-      SetData(dataFetch);
-      setFetchingStatus("Fetching Done");
-      resetDetails();
+      return dataFetch;
     } else {
-      setFetchingStatus("Error");
-      console.error("Response not OK.");
+      throw new Error("Response not OK.");
     }
   } catch (error) {
-    setFetchingStatus("Error");
-    console.error("Error fetching: ", error);
+    throw new Error("Error fetching: ", error);
   }
 }

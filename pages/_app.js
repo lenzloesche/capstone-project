@@ -5,18 +5,18 @@ import apiGetFavorite from "../apiServices/apiGetFavorite";
 import apiGet from "../apiServices/apiGet";
 
 const favoriteExerciseStart = [];
-let startingData = [];
+let startingData = undefined;
 export default function App({Component, pageProps}) {
   const [userName, setUserName] = useState("DontRender");
   const [favoriteExercises, setFavoriteExercises] = useState(
     favoriteExerciseStart
   );
-  const [fetchingStatus, setFetchingStatus] = useState("none");
   const [data, setData] = useState(startingData);
 
   function handleUserNameFormSubmit(event, userInput) {
     event.preventDefault();
     setUserName(userInput);
+    clearData();
     localStorage.setItem("fitnessAppUserName", JSON.stringify(userInput));
   }
 
@@ -34,10 +34,28 @@ export default function App({Component, pageProps}) {
       userName !== undefined &&
       userName !== ""
     ) {
-      apiGetFavorite(userName, setFavoriteExercises, setFetchingStatus);
-      apiGet(userName, setData, setFetchingStatus);
+      getData();
+      async function getData() {
+        try {
+          const data = await apiGetFavorite(userName);
+          setFavoriteExercises(data);
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          const data = await apiGet(userName);
+          setData(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
     }
   }, [userName]);
+
+  function clearData() {
+    setData(startingData);
+    setFavoriteExercises(favoriteExerciseStart);
+  }
 
   return (
     <>
@@ -50,8 +68,6 @@ export default function App({Component, pageProps}) {
         setData={setData}
         favoriteExercises={favoriteExercises}
         setFavoriteExercises={setFavoriteExercises}
-        fetchingStatus={fetchingStatus}
-        setFetchingStatus={setFetchingStatus}
         userName={userName}
         handleUserNameFormSubmit={handleUserNameFormSubmit}
         {...pageProps}

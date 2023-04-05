@@ -8,6 +8,7 @@ import GraphDate from "../GraphComponents/GraphDate";
 
 export default function Graph({data, graphIsVisible, dateSelected}) {
   const [timer, setTimer] = useState(0.0);
+  const [waitingForData, setWaitingForData] = useState(true);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -21,17 +22,19 @@ export default function Graph({data, graphIsVisible, dateSelected}) {
     }, 25);
     return () => clearInterval(intervalId);
   }, []);
-
   useEffect(() => {
     setTimer(-16);
   }, [dateSelected]);
 
   let selectedData = null;
-  if (data) {
+
+  if (data && Object.prototype.toString.call(data) === "[object Array]") {
     if (data.length !== 0) {
       selectedData = data
         ?.filter((dat) => dat.sportSelected === "running")
         .slice();
+    } else {
+      return <FormContainer></FormContainer>;
     }
   } else {
     return <FormContainer></FormContainer>;

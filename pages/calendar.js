@@ -26,14 +26,7 @@ let date = new Date();
 
 let dateSelectedStart = date;
 
-export default function Calendar({
-  userName,
-  favoriteExercises,
-  data,
-  setData,
-  fetchingStatus,
-  setFetchingStatus,
-}) {
+export default function Calendar({userName, favoriteExercises, data, setData}) {
   const [sportSelected, setSportSelected] = useState("strength");
   const [dateSelected, setDateSelected] = useState(dateSelectedStart);
 
@@ -95,7 +88,7 @@ export default function Calendar({
     const newData = data.slice();
     newData.push(save);
     setData(newData);
-    apiPost(save, setFetchingStatus);
+    apiPost(save);
   }
 
   function handleSubmit(event) {
@@ -135,7 +128,7 @@ export default function Calendar({
     });
     newData[indexToChange] = save;
     newData[indexToChange]._id = data[indexToChange]._id;
-    apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
+    apiUpdate(data[indexToChange]._id, save);
     setData(newData);
 
     editMode.editModeOn = false;
@@ -204,8 +197,7 @@ export default function Calendar({
       </>
     );
   }
-
-  if (data.length === 0 && fetchingStatus === "Currently fetching") {
+  if (data === undefined) {
     return (
       <>
         <StrengthContainer>
@@ -216,11 +208,7 @@ export default function Calendar({
             <StyledParagraphNormal>Loading...</StyledParagraphNormal>
           </FormContainer>{" "}
         </StrengthContainer>
-        <Navigation selected={"calendar"} userName={userName}>
-          <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
-            Info: {fetchingStatus}
-          </StyledParagraph>
-        </Navigation>
+        <Navigation selected={"calendar"} userName={userName} />
       </>
     );
   }
@@ -263,7 +251,6 @@ export default function Calendar({
               addNewEntry={addNewEntryStrength}
               ObjectId={ObjectId}
               setSportSelected={setSportSelected}
-              setFetchingStatus={setFetchingStatus}
               dateSelected={dateSelected}
               setDateSelected={setDateSelected}
               setGraphIsVisible={setGraphIsVisible}
@@ -273,11 +260,7 @@ export default function Calendar({
           ""
         )}
       </StrengthContainer>
-      <Navigation selected={"calendar"} userName={userName}>
-        <StyledParagraph isError={fetchingStatus === "Error" ? true : false}>
-          Info: {fetchingStatus}
-        </StyledParagraph>
-      </Navigation>
+      <Navigation selected={"calendar"} userName={userName} />
     </>
   );
 }
