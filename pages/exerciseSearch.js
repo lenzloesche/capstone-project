@@ -49,7 +49,7 @@ export default function ExerciseSearch({
     setShowDetails(showDetailsStart);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const difficulty = event.target.elements.difficulty.value;
     const type = event.target.elements.type.value;
@@ -65,19 +65,24 @@ export default function ExerciseSearch({
     if (muscle != "all_muscles") {
       apiString += "&muscle=" + muscle;
     }
-    fetchStrength(
-      "?name=" + searchInput + apiString,
-      setFetchingStatus,
-      setData,
-      resetDetails
-    );
+
+    try {
+      const data = await fetchStrength(
+        "?name=" + searchInput + apiString,
+        setFetchingStatus
+      );
+      setData(data);
+      resetDetails();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function handleFavoriteClick(dat) {
     dat.isFavorite = true;
     dat.user = userName;
     if (favoriteExercises.length === 0) {
-      apiPostFavorite(dat, setFetchingStatus);
+      apiPostFavorite(dat);
 
       setFavoriteExercises([dat]);
     } else {
@@ -90,7 +95,7 @@ export default function ExerciseSearch({
         const newfavoriteExercises = favoriteExercises.slice();
         newfavoriteExercises.splice(alreadyExistsAtIndex, 1);
         setFavoriteExercises(newfavoriteExercises);
-        apiDeleteFavorite(userName, dat.name, setFetchingStatus);
+        apiDeleteFavorite(userName, dat.name);
       } else {
         apiPostFavorite(dat, setFetchingStatus);
         setFavoriteExercises([dat, ...favoriteExercises]);

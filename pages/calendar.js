@@ -95,7 +95,7 @@ export default function Calendar({
     const newData = data.slice();
     newData.push(save);
     setData(newData);
-    apiPost(save, setFetchingStatus);
+    apiPost(save);
   }
 
   function handleSubmit(event) {
@@ -135,7 +135,7 @@ export default function Calendar({
     });
     newData[indexToChange] = save;
     newData[indexToChange]._id = data[indexToChange]._id;
-    apiUpdate(data[indexToChange]._id, save, setFetchingStatus);
+    apiUpdate(data[indexToChange]._id, save);
     setData(newData);
 
     editMode.editModeOn = false;

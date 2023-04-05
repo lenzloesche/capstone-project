@@ -34,8 +34,21 @@ export default function App({Component, pageProps}) {
       userName !== undefined &&
       userName !== ""
     ) {
-      apiGetFavorite(userName, setFavoriteExercises, setFetchingStatus);
-      apiGet(userName, setData, setFetchingStatus);
+      getData();
+      async function getData() {
+        try {
+          const data = await apiGetFavorite(userName);
+          setFavoriteExercises(data.value);
+        } catch (error) {
+          console.error(error);
+        }
+        try {
+          const data = await apiGet(userName);
+          setData(data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
     }
   }, [userName]);
 
