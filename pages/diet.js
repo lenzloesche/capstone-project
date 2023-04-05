@@ -41,9 +41,12 @@ export default function Diet({userName, setFetchingStatus}) {
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(showResultsStart);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    fetchDiet(searchInput, setFetchingStatus, setSearchResults);
+    const data = await fetchDiet(searchInput, setFetchingStatus);
+    if (data != "Error") {
+      setSearchResults(data);
+    }
   }
   function handleDetailClick(index) {
     const newShowResults = showResults.slice();
