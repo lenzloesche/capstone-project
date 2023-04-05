@@ -36,14 +36,19 @@ const maxValues = {
   sugar: 100,
 };
 
-export default function Diet({userName, setFetchingStatus}) {
+export default function Diet({userName}) {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(showResultsStart);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    fetchDiet(searchInput, setFetchingStatus, setSearchResults);
+    try {
+      const data = await fetchDiet(searchInput);
+      setSearchResults(data);
+    } catch (error) {
+      console.error(error);
+    }
   }
   function handleDetailClick(index) {
     const newShowResults = showResults.slice();
