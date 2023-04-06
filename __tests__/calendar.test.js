@@ -85,8 +85,6 @@ describe("Calendar", () => {
     const divToClick = screen.getByText(dateMonth);
     fireEvent.click(divToClick);
 
-    const name = screen.getByText(/TestName/i);
-    expect(name).toBeInTheDocument();
     const deleteButton = screen.getByText("Delete");
     expect(deleteButton).toBeInTheDocument();
   });

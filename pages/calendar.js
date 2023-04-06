@@ -187,9 +187,6 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
     return (
       <>
         <StrengthContainer>
-          <Header>
-            <Heading>Fitness App</Heading>
-          </Header>
           <NavigationLink selected={false} href="/">
             {"Change User "}
           </NavigationLink>
@@ -201,9 +198,6 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
     return (
       <>
         <StrengthContainer>
-          <Header>
-            <Heading>Fitness App</Heading>
-          </Header>
           <FormContainer>
             <StyledParagraphNormal>Loading...</StyledParagraphNormal>
           </FormContainer>{" "}
@@ -216,9 +210,6 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
   return (
     <>
       <StrengthContainer>
-        <Header>
-          <Heading>Fitness App</Heading>
-        </Header>
         {userName !== undefined ? (
           <>
             <GraphText onClick={handleGraphClick}>Running Graph</GraphText>

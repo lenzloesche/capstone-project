@@ -10,9 +10,6 @@ export default function Home({userName, handleUserNameFormSubmit}) {
     <>
       <main>
         <StrengthContainer>
-          <Header>
-            <Heading>Fitness App</Heading>
-          </Header>
           <UserNameForm
             userName={userName}
             handleUserNameFormSubmit={handleUserNameFormSubmit}

@@ -4,10 +4,12 @@ const StyledButton1 = styled.button`
   height: 30px;
   width: fit-content;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 16px;
   background-color: var(--button-color);
   font-size: 18px;
   margin: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   :hover {
     cursor: pointer;
     background-color: black;

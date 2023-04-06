@@ -22,7 +22,8 @@ export default function FormStrengthAndRunning({
       <FormContainer>
         <ImageContainer>
           <StyledImage
-            className={sportSelected === "strength" ? "border" : "small-border"}
+            addBorder={sportSelected === "strength"}
+            addSmallBorder={sportSelected !== "strength"}
             onClick={() => {
               handleImageClick("strength");
             }}
@@ -33,7 +34,8 @@ export default function FormStrengthAndRunning({
             isitselected={sportSelected === "strength" ? true : false}
           ></StyledImage>
           <StyledImage
-            className={sportSelected === "running" ? "border" : "small-border"}
+            addBorder={sportSelected === "running"}
+            addSmallBorder={sportSelected !== "running"}
             onClick={() => {
               handleImageClick("running");
             }}
@@ -44,15 +46,15 @@ export default function FormStrengthAndRunning({
             isitselected={sportSelected === "running" ? true : false}
           ></StyledImage>
         </ImageContainer>
-        <StyledParagraphNormal className="big-text">
+        <StyledParagraphNormal bigText>
           Selected: {sportSelected === "running" ? "Running" : "Workout"}
         </StyledParagraphNormal>
         {!editMode.editModeOn ? (
           <>
-            <StyledParagraphNormal className="big-text">
+            <StyledParagraphNormal bigText>
               {"New Entry for today:"}
             </StyledParagraphNormal>
-            <StyledParagraphNormal className="big-text">
+            <StyledParagraphNormal bigText>
               {"It's " +
                 day +
                 `. Did you ${
@@ -61,7 +63,7 @@ export default function FormStrengthAndRunning({
             </StyledParagraphNormal>
           </>
         ) : (
-          <StyledParagraphNormal className="big-text">
+          <StyledParagraphNormal bigText>
             {"Editing for: " +
               (editMode.selectedData.date.getMonth() + 1).toString() +
               "/" +
