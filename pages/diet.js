@@ -61,9 +61,6 @@ export default function Diet({userName}) {
     return (
       <>
         <StrengthContainer>
-          <Header>
-            <Heading>Fitness App</Heading>
-          </Header>
           <NavigationLink selected={false} href="/">
             {"Change User "}
           </NavigationLink>
@@ -75,10 +72,6 @@ export default function Diet({userName}) {
     <>
       <main>
         <StrengthContainer>
-          <Header>
-            <Heading>Fitness App</Heading>
-          </Header>
-
           <FormContainer>
             <Image
               priority

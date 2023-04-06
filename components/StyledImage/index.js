@@ -25,6 +25,9 @@ const StyledImageHelper = ({
 };
 
 const StyledImage = styled(StyledImageHelper)`
+display: flex;
+align-items: center;
+justify-content: center;
   :hover {
     
     ${(props) => (props.isitselected ? "" : "background-color: grey;")}

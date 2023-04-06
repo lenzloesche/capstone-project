@@ -4,7 +4,7 @@ import {uid} from "uid";
 import Heading from "../components/Heading";
 import StrengthContainer from "../components/StrengthContainer";
 import Navigation from "../components/Navigation";
-import StyledParagraph from "../components/StyledParagraph";
+import StyledImage from "../components/StyledImage";
 import fetchStrength from "../apiServices/fetchStrength";
 import StrengthSearchForm from "../components/StrengthSearchForm";
 import NavigationLink from "../components/NavigationLink";
@@ -121,9 +121,6 @@ export default function ExerciseSearch({
     return (
       <>
         <StrengthContainer>
-          <Header>
-            <Heading>Fitness App</Heading>
-          </Header>
           <NavigationLink selected={false} href="/">
             {"Change User "}
           </NavigationLink>
@@ -135,9 +132,6 @@ export default function ExerciseSearch({
   return (
     <>
       <StrengthContainer>
-        <Header>
-          <Heading>Fitness App</Heading>
-        </Header>
         <StrengthSearchForm
           handleSubmit={handleSubmit}
           setSearchInput={setSearchInput}

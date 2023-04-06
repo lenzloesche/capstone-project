@@ -3,6 +3,10 @@ import Head from "next/head";
 import {useEffect, useState} from "react";
 import apiGetFavorite from "../apiServices/apiGetFavorite";
 import apiGet from "../apiServices/apiGet";
+import Header from "../components/Header";
+import Heading from "../components/Heading";
+import NavigationLink from "../components/NavigationLink";
+import StyledImage from "../components/StyledImage";
 
 const favoriteExerciseStart = [];
 let startingData = undefined;
@@ -63,6 +67,17 @@ export default function App({Component, pageProps}) {
       <Head>
         <title>Capstone Project Fitness App</title>
       </Head>
+      <Header>
+        <Heading>|Fitness App</Heading>
+        <NavigationLink selected={false} href="/">
+          <StyledImage
+            width="36"
+            height="36"
+            alt="gear wheel options"
+            src="/gear-wheel.svg"
+          />
+        </NavigationLink>
+      </Header>
       <Component
         data={data}
         setData={setData}

@@ -28,14 +28,6 @@ export default function Navigation({selected, children, userName}) {
         {children}
         <StyledList>
           <li>
-            <NavigationLink selected={selected === "index"} href="/">
-              {"User: "}
-              <br />
-              {userName}
-            </NavigationLink>
-          </li>
-          {" - "}
-          <li>
             <NavigationLink
               selected={selected === "exerciseSearch"}
               href="/exerciseSearch"
