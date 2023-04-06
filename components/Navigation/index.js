@@ -13,7 +13,7 @@ const StyledNavigation = styled.footer`
    position fixed;
   bottom: 0;
   left:-30px;
-  width:calc(100% + 30px);
+  width:calc(100% + 30px);  
 `;
 const StyledList = styled.ul`
   display: flex;

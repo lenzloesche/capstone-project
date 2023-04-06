@@ -19,9 +19,9 @@ export default function ExerciseDisplayed({
           onClick={() => {
             handleFavoriteClick(dat);
           }}
-          className="small-border bookmark"
-          src="/bookmarkstar.svg"
-          alt="star image"
+          className="bookmark"
+          src="/bookmark-solid.svg"
+          alt="bookmark selected image"
           width="40"
           height="40"
           isitselected={false}
@@ -31,9 +31,9 @@ export default function ExerciseDisplayed({
           onClick={() => {
             handleFavoriteClick(dat);
           }}
-          className="small-border bookmark"
-          src="/bookmark.svg"
-          alt="star image"
+          className="bookmark"
+          src="/bookmark-regular.svg"
+          alt="bookmark image"
           width="40"
           height="40"
           isitselected={false}
