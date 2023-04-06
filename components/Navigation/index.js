@@ -9,7 +9,7 @@ const StyledNavigation = styled.footer`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-top:6px;
+  padding-top:2px;
    position fixed;
   bottom: 0;
   left:-30px;
@@ -29,41 +29,43 @@ export default function Navigation({selected, children}) {
       <StyledNavigation>
         {children}
         <StyledList>
+          {"|"}
           <StyledListItem>
             <NavigationLink
               selected={selected === "exerciseSearch"}
               href="/exerciseSearch"
             >
               <StyledImage
-                width="36"
-                height="36"
+                width="30"
+                height="30"
                 alt="dumbbell image exercises"
                 src="/dumbbell-solid.svg"
               />
             </NavigationLink>
           </StyledListItem>
-          {"-"}
+          {"|"}
           <StyledListItem>
             <NavigationLink selected={selected === "calendar"} href="/calendar">
               <StyledImage
-                width="36"
-                height="36"
+                width="30"
+                height="30"
                 alt="calendar image"
                 src="/calendar-solid.svg"
               />
             </NavigationLink>
           </StyledListItem>
-          {"-"}
+          {"|"}
           <StyledListItem>
             <NavigationLink selected={selected === "diet"} href="/diet">
               <StyledImage
-                width="36"
-                height="36"
+                width="30"
+                height="30"
                 alt="bowl food image diet"
                 src="/bowl-food-solid.svg"
               />
             </NavigationLink>
           </StyledListItem>
+          {"|"}
         </StyledList>
       </StyledNavigation>
     </>
