@@ -8,7 +8,7 @@ export default createGlobalStyle`
   *,
   *::before,
   *::after {
-    box-sizing: border-box;
+    box-sizing: border-box;    
   }
 
   @font-face {
@@ -19,17 +19,8 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: system-ui;
-    font-size:18px;
+    font-size:18px;    
     font-family: 'Roboto', sans-serif;
-
   }
   
-  .light-border{
-    border:1px solid grey;
-  }
-  .big-text{
-    font-weight: bold; margin:0; width:200px;
-  }
-
-
 `;

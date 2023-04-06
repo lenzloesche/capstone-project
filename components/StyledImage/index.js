@@ -9,12 +9,11 @@ const StyledImageHelper = ({
   width,
   height,
   priority,
-  bookmark,
-  addBorder,
-  addSmallBorder,
+  className,
 }) => {
   return (
     <Image
+      className={className}
       onClick={onClick}
       src={src}
       alt={alt}
