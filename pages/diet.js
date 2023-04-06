@@ -75,8 +75,8 @@ export default function Diet({userName}) {
           <FormContainer>
             <Image
               priority
-              src="/food.svg"
-              alt="food image of vegetables"
+              src="/bowl-food-solid.svg"
+              alt="food image"
               width="100"
               height="100"
             ></Image>
