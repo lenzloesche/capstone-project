@@ -61,7 +61,7 @@ test("when you click the favorite icon, the function is triggered.", () => {
       index={index}
     />
   );
-  const favoriteIcon = screen.getByAltText(/star/i);
+  const favoriteIcon = screen.getByAltText(/bookmark/i);
   fireEvent.click(favoriteIcon);
   expect(handleFavoriteClickMock).toHaveBeenCalled();
 });
