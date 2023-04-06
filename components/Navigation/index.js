@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import NavigationLink from "../NavigationLink";
+import StyledImage from "../StyledImage";
+import StyledListItem from "../StyledListItem";
 
 const StyledNavigation = styled.footer`
   background-color: var(--background-color);
@@ -7,7 +9,7 @@ const StyledNavigation = styled.footer`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border-top: 1px solid black;
+  padding-top:6px;
    position fixed;
   bottom: 0;
   left:-30px;
@@ -21,32 +23,47 @@ const StyledList = styled.ul`
   margin: 0;
 `;
 
-export default function Navigation({selected, children, userName}) {
+export default function Navigation({selected, children}) {
   return (
     <>
       <StyledNavigation>
         {children}
         <StyledList>
-          <li>
+          <StyledListItem>
             <NavigationLink
               selected={selected === "exerciseSearch"}
               href="/exerciseSearch"
             >
-              Exercises
+              <StyledImage
+                width="36"
+                height="36"
+                alt="dumbbell image exercises"
+                src="/dumbbell-solid.svg"
+              />
             </NavigationLink>
-          </li>
-          {" - "}
-          <li>
+          </StyledListItem>
+          {"-"}
+          <StyledListItem>
             <NavigationLink selected={selected === "calendar"} href="/calendar">
-              Calendar
+              <StyledImage
+                width="36"
+                height="36"
+                alt="calendar image"
+                src="/calendar-solid.svg"
+              />
             </NavigationLink>
-          </li>
-          {" - "}
-          <li>
+          </StyledListItem>
+          {"-"}
+          <StyledListItem>
             <NavigationLink selected={selected === "diet"} href="/diet">
-              Diet
+              <StyledImage
+                width="36"
+                height="36"
+                alt="bowl food image diet"
+                src="/bowl-food-solid.svg"
+              />
             </NavigationLink>
-          </li>
+          </StyledListItem>
         </StyledList>
       </StyledNavigation>
     </>
