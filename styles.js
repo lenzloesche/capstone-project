@@ -11,10 +11,18 @@ export default createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
+
+  @font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+  }
+
   body {
     margin: 0;
     font-family: system-ui;
     font-size:18px;
+    font-family: 'Roboto', sans-serif;
+
   }
   .border{
     border:1px solid grey;   
