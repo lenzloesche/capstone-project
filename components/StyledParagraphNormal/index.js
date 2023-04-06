@@ -5,5 +5,6 @@ const StyledParagraphNormal = styled.p`
   margin: 0;
   font-size: 18px;
   padding: 5px;
+  ${(props) => (props.bigText ? "font-weight: bold; width:200px;" : "")}
 `;
 export default StyledParagraphNormal;

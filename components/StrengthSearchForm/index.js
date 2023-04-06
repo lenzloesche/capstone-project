@@ -22,17 +22,19 @@ export default function StrengthSearchForm({
       <ImageContainer>
         <StyledImage
           onClick={handleShowSearchClick}
-          className={showFavorites ? "small-border" : "border"}
           src="/search.svg"
           alt="search image of a magnifying glass"
           width="100"
           height="100"
           priority={true}
+          addBorder={!showFavorites}
+          addSmallBorder={showFavorites}
           isitselected={showFavorites ? false : true}
         ></StyledImage>
         <StyledImage
           onClick={handleShowFavoritesClick}
-          className={showFavorites ? "border" : "small-border"}
+          addBorder={showFavorites}
+          addSmallBorder={!showFavorites}
           src="/bookmarkstar.svg"
           alt="star image"
           width="100"

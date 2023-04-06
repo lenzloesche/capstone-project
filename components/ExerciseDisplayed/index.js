@@ -19,7 +19,7 @@ export default function ExerciseDisplayed({
           onClick={() => {
             handleFavoriteClick(dat);
           }}
-          className="bookmark"
+          bookmark
           src="/bookmark-solid.svg"
           alt="bookmark selected image"
           width="40"
@@ -31,7 +31,7 @@ export default function ExerciseDisplayed({
           onClick={() => {
             handleFavoriteClick(dat);
           }}
-          className="bookmark"
+          bookmark
           src="/bookmark-regular.svg"
           alt="bookmark image"
           width="40"

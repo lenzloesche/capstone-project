@@ -23,32 +23,13 @@ export default createGlobalStyle`
     font-family: 'Roboto', sans-serif;
 
   }
-  .border{
-    border:1px solid grey;   
-     background-color:  hsla(223, 57%, 77%, 1);
-    border-radius:10px;
-  }
-  .small-border{     
-    border:1px solid grey;   
-    background-color: var(--button-color);
-    border-radius:10px;
-  }
+  
   .light-border{
     border:1px solid grey;
   }
   .big-text{
-    font-weight: bold;
-
-    margin:0;
-    width:200px;
+    font-weight: bold; margin:0; width:200px;
   }
 
-.bookmark{
-  position:relative;
-  right:-120px;
-}
-.bookmark:hover{
-  cursor pointer;
-}
 
 `;
