@@ -1,18 +1,16 @@
 import CalendarHeatmap from "../components/CalendarHeatmap";
 import {useEffect, useState} from "react";
 import StrengthContainer from "../components/StrengthContainer";
-import Header from "../components/Header";
-import Heading from "../components/Heading";
 import Navigation from "../components/Navigation";
 import apiPost from "../apiServices/apiPost";
 import apiUpdate from "../apiServices/apiUpdate";
-import StyledParagraph from "../components/StyledParagraph";
 import FormStrengthAndRunning from "../components/FormStrengthAndRunning";
 import NavigationLink from "../components/NavigationLink";
 import Graph from "../components/Graph";
 import GraphText from "../components/GraphComponents/GraphText";
 import FormContainer from "../components/FormContainer";
 import StyledParagraphNormal from "../components/StyledParagraphNormal";
+import apiDelete from "../apiServices/apiDelete";
 
 // ObjectId from https://stackoverflow.com/a/37438675
 const ObjectId = (
@@ -32,6 +30,7 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
 
   const [editMode, setEditMode] = useState({
     editModeOn: false,
+    newEntry: false,
     selectedData: {
       exerciseStrength: "",
       kilos: "",
@@ -135,12 +134,30 @@ export default function Calendar({userName, favoriteExercises, data, setData}) {
   }
 
   function handleCancelClick() {
+    if (editMode.newEntry === true) {
+      handleDeleteClick(editMode.selectedData.date);
+    }
     clearForm();
+  }
+
+  function handleDeleteClick(date) {
+    const indexToDelete = data.findIndex((dat) => {
+      return dat.date.toString() === date.toString();
+    });
+    if (indexToDelete != -1) {
+      apiDelete(data[indexToDelete]._id);
+      const newData = data.slice();
+      newData.splice(indexToDelete, 1);
+      setData(newData);
+      const newEditMode = {...editMode, editModeOn: false, newEntry: false};
+      setEditMode(newEditMode);
+    }
   }
 
   function clearForm() {
     const newEditMode = {
       editModeOn: false,
+      newEntry: false,
       selectedData: {
         exerciseRunning: "",
         exerciseStrength: "",
