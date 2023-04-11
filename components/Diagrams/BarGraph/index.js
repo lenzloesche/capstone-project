@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import StyledParagraph from "../../StyledParagraph";
 
 const BarGraphHelper = styled.div`
   position: relative;
@@ -23,6 +24,18 @@ const BarGraphBorder = styled.div`
     return props.width;
   }}px;
   height: ${(props) => {
+    return props.height;
+  }}px;
+`;
+
+const MaxValueText = styled(StyledParagraph)`
+  position: relative;
+  left: calc(
+    ${(props) => {
+        return props.width;
+      }}px - 26px
+  );
+  bottom: ${(props) => {
     return props.height;
   }}px;
 `;
@@ -53,8 +66,12 @@ export default function BarGraph({
           width={innerWidth}
           height={height}
           color={color}
-        ></BarGraphHelper>
+        ></BarGraphHelper>{" "}
+        <MaxValueText width={width} height={height}>
+          Max
+        </MaxValueText>
       </BarGraphBorder>
+      <StyledParagraph>-</StyledParagraph>
     </>
   );
 }

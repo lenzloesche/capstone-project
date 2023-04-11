@@ -63,14 +63,17 @@ export default function FormStrengthAndRunning({
             </StyledParagraphNormal>
           </>
         ) : (
-          <StyledParagraphNormal bigText>
-            {"Editing for: " +
-              (editMode.selectedData.date.getMonth() + 1).toString() +
-              "/" +
-              editMode.selectedData.date.getDate().toString() +
-              "/" +
-              editMode.selectedData.date.getFullYear().toString()}
-          </StyledParagraphNormal>
+          <>
+            <StyledParagraphNormal bigText>
+              {"Editing for: " +
+                (editMode.selectedData.date.getMonth() + 1).toString() +
+                "/" +
+                editMode.selectedData.date.getDate().toString() +
+                "/" +
+                editMode.selectedData.date.getFullYear().toString()}
+            </StyledParagraphNormal>
+            <StyledParagraphNormal>-</StyledParagraphNormal>
+          </>
         )}
 
         {sportSelected === "strength" ? (

@@ -1,9 +1,11 @@
 ## Capstone Project
 
 This project is called "Fitness App" and it is my capstone project from the "neue fische" boot camp.
-You can currently search for exercises and you can save exercises in a calendar.
-You can favorite exercises and you can see a animation of the running you have done.
-You can search for a food on the diet site.
+
+- You can search for exercises and favorite them.
+- You can save your exercises in a calendar and you can see a animation of the running you have done.
+- You can search for food on the diet site with more information.
+- You can change the username. Your data is saved and can be accessed from everywhere.
 
 ---
 

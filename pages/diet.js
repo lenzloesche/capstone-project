@@ -114,6 +114,7 @@ export default function Diet({userName}) {
                     </StyledButton>
                     {showResults[index] === true ? (
                       <>
+                        <StyledParagraph>per 100g</StyledParagraph>
                         <StyledParagraphNormal>
                           Calories: {oneResult.calories}
                         </StyledParagraphNormal>

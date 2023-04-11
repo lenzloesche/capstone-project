@@ -71,13 +71,13 @@ export default function CalendarHeatmap({
       const newData = data.slice();
       newData.splice(indexToDelete, 1);
       setData(newData);
-      const newEditMode = {...editMode, editModeOn: false};
+      const newEditMode = {...editMode, editModeOn: false, newEntry: false};
       setEditMode(newEditMode);
     }
   }
 
   function handleEditClick(selectedData) {
-    const newEditMode = {editModeOn: true, selectedData};
+    const newEditMode = {editModeOn: true, newEntry: false, selectedData};
     setEditMode(newEditMode);
     setSportSelected(selectedData.sportSelected);
     setGraphIsVisible(false);
@@ -88,13 +88,18 @@ export default function CalendarHeatmap({
     const randomDater = Math.floor(Math.random() * 6 * 60 * 60 * 1000);
     const randomDate = new Date(selectedDat - randomDater);
     addNewEntry(randomDate, ObjectId(), "0", "0", "0", "Exercise", "strength");
-
     const newEditMode = {
       editModeOn: true,
-      selectedData: {date: randomDate},
+      newEntry: true,
+      selectedData: {
+        date: randomDate,
+        exerciseStrength: "Exercise",
+        kilos: "0",
+        reps: "0",
+        sets: "0",
+      },
     };
     setEditMode(newEditMode);
-
     setGraphIsVisible(false);
     scrollTo(0, 0);
   }

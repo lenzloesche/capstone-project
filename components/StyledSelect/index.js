@@ -6,7 +6,7 @@ const StyledSelect = styled.select`
   border-radius: 10px;
   border: 1px solid grey;
   padding: 8px;
-  width: 100%;
+  width: 200px;
   position: relative;
   :hover {
     cursor: pointer;
