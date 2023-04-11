@@ -5,6 +5,7 @@ This project is called "Fitness App" and it is my capstone project from the "neu
 - You can search for exercises and favorite them.
 - You can save your exercises in a calendar and you can see a animation of the running you have done.
 - You can search for food on the diet site with more information.
+- You can change the username. Your data is saved and can be accessed from everywhere.
 
 ---
 
