@@ -1,6 +1,6 @@
 import ExerciseSearch from "../pages/exerciseSearch";
 import {render, screen, fireEvent, act} from "@testing-library/react";
-/* 
+
 test("see if search bar is rendered.", () => {
   render(<ExerciseSearch />);
   const searchName = screen.getAllByText(/search/i);
@@ -9,7 +9,7 @@ test("see if search bar is rendered.", () => {
   expect(searchBar.length).toBeGreaterThan(0);
   const selects = screen.getAllByRole("combobox");
   expect(selects.length).toBeGreaterThan(2);
-}); */
+});
 
 jest.mock("../apiServices/fetchStrength", () => {
   return {
