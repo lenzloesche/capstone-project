@@ -46,8 +46,7 @@ export default function Graph({data, graphIsVisible, dateSelected}) {
 
   let checkTimer = timer <= 0 ? 0 : timer;
   checkTimer = checkTimer >= 55 ? 55 : checkTimer;
-  const dayInMilliseconds = 1 * 24 * 60 * 60 * 1000;
-  const date = new Date(dateSelected - dayInMilliseconds);
+  const date = new Date(dateSelected);
   const graph = [];
   const lengthOfGraph = 70;
 
