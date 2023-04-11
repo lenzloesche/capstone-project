@@ -1,10 +1,7 @@
 import {useState, useEffect} from "react";
-import Header from "../components/Header";
 import {uid} from "uid";
-import Heading from "../components/Heading";
 import StrengthContainer from "../components/StrengthContainer";
 import Navigation from "../components/Navigation";
-import StyledImage from "../components/StyledImage";
 import fetchStrength from "../apiServices/fetchStrength";
 import StrengthSearchForm from "../components/StrengthSearchForm";
 import NavigationLink from "../components/NavigationLink";
