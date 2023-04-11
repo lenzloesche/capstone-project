@@ -6,12 +6,11 @@ const Container1 = styled.div`
   align-items: center;
   background-color: lightgrey;
   background-image: url("jumpwoman.jpg");
-
   background-repeat: repeat;
   background-position: center top;
   margin-bottom: 56px;
   opacity: 1;
-  min-height: 100vh;
+  min-height: calc(100vh - 116px);
 `;
 
 export default function StrengthContainer({children}) {
