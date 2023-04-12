@@ -1,5 +1,5 @@
 import Diet from "../pages/diet.js";
-import {render, screen, fireEvent, act} from "@testing-library/react";
+import {render, screen, fireEvent, waitFor} from "@testing-library/react";
 
 const fakeData = [
   {
@@ -20,17 +20,14 @@ test("there is a search input and button", () => {
 });
 
 test("when you enter a searchterm and hit search, the fetch function is called and the data is displayed.", async () => {
-  await act(async () => {
-    render(<Diet userName="Testuser" />);
-  });
+  render(<Diet userName="Testuser" />);
   const input = screen.getByRole("textbox");
   const button = screen.getByRole("button", {name: /search/i});
-  await act(async () => {
-    fireEvent.change(input, {target: {value: "TestText"}});
-    fireEvent.click(button);
+  fireEvent.change(input, {target: {value: "TestText"}});
+  fireEvent.click(button);
+  await waitFor(() => {
+    expect(fetchDiet).toHaveBeenCalled();
+    const testText = screen.getByText(/Testit!/i);
+    expect(testText).toBeInTheDocument();
   });
-
-  expect(fetchDiet).toHaveBeenCalled();
-  const testText = screen.getByText(/Testit!/i);
-  expect(testText).toBeInTheDocument();
 });

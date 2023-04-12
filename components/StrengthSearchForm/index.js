@@ -1,5 +1,4 @@
 import FormContainer from "../FormContainer";
-import Image from "next/image";
 import Input from "../Input";
 import StyledSelect from "../StyledSelect";
 import StyledButton from "../StyledButton";
