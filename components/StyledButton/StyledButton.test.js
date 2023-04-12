@@ -8,7 +8,7 @@ test("this button has children", () => {
 });
 
 test("on click a function is called", () => {
-  testFunction = jest.fn();
+  const testFunction = jest.fn();
   render(<StyledButton onClick={testFunction}>TestButton</StyledButton>);
   const button = screen.getByText(/TestButton/i);
   fireEvent.click(button);
