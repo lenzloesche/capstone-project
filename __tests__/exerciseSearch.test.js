@@ -1,5 +1,5 @@
 import ExerciseSearch from "../pages/exerciseSearch";
-import {render, screen, fireEvent, act} from "@testing-library/react";
+import {render, screen, fireEvent, waitFor} from "@testing-library/react";
 
 test("see if search bar is rendered.", () => {
   render(<ExerciseSearch />);
@@ -44,12 +44,14 @@ test("if I search and find a result, there is a favorite button", async () => {
   const searchButton = screen.getByRole("button", {name: /search/i});
   const searchBar = screen.getByRole("textbox");
   fireEvent.change(searchBar, {target: {value: "TestText"}});
-  await act(async () => {
-    await fireEvent.click(searchButton);
+
+  fireEvent.click(searchButton);
+
+  await waitFor(() => {
+    expect(fetchStrength).toHaveBeenCalled();
+    const testInput = screen.getByText(/testinput1/i);
+    expect(testInput).toBeInTheDocument();
+    const favoriteButton = screen.getAllByAltText(/bookmark/i);
+    expect(favoriteButton[0]).toBeInTheDocument();
   });
-  expect(fetchStrength).toHaveBeenCalled();
-  const testInput = screen.getByText(/testinput1/i);
-  expect(testInput).toBeInTheDocument();
-  const favoriteButton = screen.getAllByAltText(/bookmark/i);
-  expect(favoriteButton[0]).toBeInTheDocument();
 });
