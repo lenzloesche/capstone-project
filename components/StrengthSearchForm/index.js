@@ -62,7 +62,6 @@ export default function StrengthSearchForm({
             <StyledParagraph>
               try &quot;bell&quot; or &quot;back&quot;
             </StyledParagraph>
-            <StyledButton>Search</StyledButton>
             <p>Filter:</p>
             <StyledSelect id="type" name="type">
               <option value="all_types">all types</option>
@@ -101,6 +100,7 @@ export default function StrengthSearchForm({
               <option value="traps">traps</option>
               <option value="triceps">triceps</option>
             </StyledSelect>
+            <StyledButton>Search</StyledButton>
           </Form>
         </>
       ) : (
