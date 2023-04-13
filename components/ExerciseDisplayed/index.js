@@ -1,5 +1,4 @@
 import FormContainer from "../FormContainer";
-import Image from "next/image";
 import StyledParagraphPadding from "../StyledParagraphPadding";
 import StyledButton from "../StyledButton";
 import StyledImage from "../StyledImage";
@@ -39,7 +38,9 @@ export default function ExerciseDisplayed({
           isitselected={false}
         ></StyledImage>
       )}
-      <StyledParagraphPadding>Name: {dat?.name}</StyledParagraphPadding>
+      <StyledParagraphPadding>
+        <em>Name:</em> {dat?.name}
+      </StyledParagraphPadding>
       <StyledButton
         onClick={() => {
           handleDetailsClick(index);
@@ -50,15 +51,19 @@ export default function ExerciseDisplayed({
       {showDetails[index] ? (
         <>
           <StyledParagraphPadding>
-            Difficulty: {dat?.difficulty}
-          </StyledParagraphPadding>
-          <StyledParagraphPadding>Muslce: {dat?.muscle}</StyledParagraphPadding>
-          <StyledParagraphPadding>Type: {dat?.type}</StyledParagraphPadding>
-          <StyledParagraphPadding>
-            Equipment: {dat?.equipment}
+            <em>Difficulty:</em> {dat?.difficulty}
           </StyledParagraphPadding>
           <StyledParagraphPadding>
-            Instructions: {dat?.instructions}
+            <em>Muslce:</em> {dat?.muscle}
+          </StyledParagraphPadding>
+          <StyledParagraphPadding>
+            <em>Type:</em> {dat?.type}
+          </StyledParagraphPadding>
+          <StyledParagraphPadding>
+            <em>Equipment:</em> {dat?.equipment}
+          </StyledParagraphPadding>
+          <StyledParagraphPadding>
+            <em>Instructions:</em> {dat?.instructions}
           </StyledParagraphPadding>
         </>
       ) : (
