@@ -39,7 +39,9 @@ export default function UserNameForm({
             }}
           >
             <Label htmlFor="userName">
-              Type in User Name And Press Return:
+              {userName === "DontRender"
+                ? "Start by choosing a user name and press return:"
+                : " Type in user name and press return:"}
             </Label>
             <Input
               type="text"
