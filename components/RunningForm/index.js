@@ -2,6 +2,7 @@ import Input from "../Input";
 import Label from "../Label";
 import Form from "../Form";
 import StyledButton from "../StyledButton";
+import StyledParagraph from "../StyledParagraph";
 
 export default function RunningForm({
   handleSubmit,
@@ -17,7 +18,7 @@ export default function RunningForm({
       }}
     >
       <Label htmlFor="exerciseRunning">Which exercise?</Label>
-
+      <StyledParagraph>Did you walk or run up mountains?</StyledParagraph>
       <Input
         id="exerciseRunning"
         type="text"
