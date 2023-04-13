@@ -6,6 +6,7 @@ import ImageContainer from "../ImageContainer";
 import Form from "../Form";
 import StyledImage from "../StyledImage";
 import StyledParagraph from "../StyledParagraph";
+import StyledParagraphNormal from "../StyledParagraphNormal";
 
 export default function StrengthSearchForm({
   handleSubmit,
@@ -44,7 +45,10 @@ export default function StrengthSearchForm({
       </ImageContainer>
       {!showFavorites ? (
         <>
-          <h2>Exercise Search</h2>
+          <h2>Search for Exercises</h2>
+          <StyledParagraph>
+            Here you can find instructions for a lot of exercises.
+          </StyledParagraph>
           <Form
             onSubmit={(event) => {
               handleSubmit(event);
