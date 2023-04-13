@@ -32,7 +32,7 @@ describe("Calendar", () => {
     const divToClick = screen.getByText(dateMonth);
     fireEvent.click(divToClick);
 
-    const buttonToClick = screen.getByText("New for selected Date");
+    const buttonToClick = screen.getByText("New Exercise Entry");
     window.scrollTo = jest.fn();
 
     fireEvent.click(buttonToClick);
@@ -57,7 +57,7 @@ describe("Calendar", () => {
     const divToClick = screen.getByText(dateMonth);
     fireEvent.click(divToClick);
 
-    const buttonToClick = screen.getByText("New for selected Date");
+    const buttonToClick = screen.getByText("New Exercise Entry");
     fireEvent.click(buttonToClick);
 
     const runnerImage = await screen.getByRole("img", {name: /runner/i});

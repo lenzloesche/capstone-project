@@ -7,9 +7,9 @@ test("the user name is displayed", () => {
   expect(userName).toBeInTheDocument();
 });
 
-test("there is attribution on the page", () => {
+test("there is credits on the page", () => {
   render(<Home userName="TestName" />);
-  const attribution = screen.getByText(/attribution/i);
+  const attribution = screen.getByText(/credits/i);
   expect(attribution).toBeInTheDocument();
 });
 
