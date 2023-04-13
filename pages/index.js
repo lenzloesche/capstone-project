@@ -17,7 +17,7 @@ export default function Home({userName, handleUserNameFormSubmit}) {
             handleUserNameFormSubmit={handleUserNameFormSubmit}
           ></UserNameForm>
           <FormContainer>
-            <StyledParagraphNormal>Attribution</StyledParagraphNormal>
+            <StyledParagraphNormal>Credits</StyledParagraphNormal>
             <Link href="https://pixabay.com/vectors/arm-exercise-fist-flex-health-2029406/">
               <StyledParagraph>Muscle Arm</StyledParagraph>
             </Link>
