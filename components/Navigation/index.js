@@ -3,7 +3,7 @@ import NavigationLink from "../NavigationLink";
 import StyledImage from "../StyledImage";
 import StyledListItem from "../StyledListItem";
 
-const StyledNavigation = styled.footer`
+export const StyledNavigation = styled.footer`
   background-color: var(--background-color);
   display: flex;
   align-items: center;
@@ -14,6 +14,7 @@ const StyledNavigation = styled.footer`
   bottom: 0;
   left:-30px;
   width:calc(100% + 30px);  
+  height:60px;
 `;
 const StyledList = styled.ul`
   display: flex;

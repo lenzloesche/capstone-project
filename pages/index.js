@@ -5,6 +5,7 @@ import StyledParagraph from "../components/StyledParagraph";
 import StyledParagraphNormal from "../components/StyledParagraphNormal";
 import FormContainer from "../components/FormContainer";
 import Link from "next/link";
+import {StyledNavigation} from "../components/Navigation";
 
 export default function Home({userName, handleUserNameFormSubmit}) {
   return (
@@ -73,7 +74,7 @@ export default function Home({userName, handleUserNameFormSubmit}) {
         </StrengthContainer>
       </main>
       {userName === "DontRender" ? (
-        ""
+        <StyledNavigation></StyledNavigation>
       ) : (
         <Navigation selected={"index"} userName={userName} />
       )}
