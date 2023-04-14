@@ -7,7 +7,6 @@ import Form from "../Form";
 import StyledImage from "../StyledImage";
 import StyledParagraph from "../StyledParagraph";
 import Label from "../Label";
-import Heading from "../Heading";
 
 export default function StrengthSearchForm({
   handleSubmit,

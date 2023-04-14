@@ -1,4 +1,3 @@
-import Heading from "../components/Heading";
 import UserNameForm from "../components/UserNameForm";
 import Navigation from "../components/Navigation";
 import StrengthContainer from "../components/StrengthContainer";

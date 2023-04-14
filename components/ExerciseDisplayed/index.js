@@ -2,6 +2,7 @@ import FormContainer from "../FormContainer";
 import StyledParagraphPadding from "../StyledParagraphPadding";
 import StyledButton from "../StyledButton";
 import StyledImage from "../StyledImage";
+import {uid} from "uid";
 
 export default function ExerciseDisplayed({
   showFavorites,
@@ -11,6 +12,12 @@ export default function ExerciseDisplayed({
   showDetails,
   index,
 }) {
+  const instructionsSplit = makeArrayFromText(singleData.instructions);
+  function makeArrayFromText(text) {
+    const sentences = text.split(". ");
+    return sentences;
+  }
+
   return (
     <FormContainer>
       {singleData.isFavorite || showFavorites ? (
@@ -63,8 +70,16 @@ export default function ExerciseDisplayed({
             <em>Equipment:</em> {singleData?.equipment}
           </StyledParagraphPadding>
           <StyledParagraphPadding>
-            <em>Instructions:</em> {singleData?.instructions}
+            <em>Instructions:</em>
           </StyledParagraphPadding>
+          {instructionsSplit.map((sentence) => {
+            return (
+              <StyledParagraphPadding key={uid()}>
+                {sentence}
+                {"."}
+              </StyledParagraphPadding>
+            );
+          })}
         </>
       ) : (
         ""
