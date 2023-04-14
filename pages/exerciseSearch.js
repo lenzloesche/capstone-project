@@ -70,46 +70,48 @@ export default function ExerciseSearch({
     }
   }
 
-  function handleFavoriteClick(dat) {
-    dat.isFavorite = true;
-    dat.user = userName;
+  function handleFavoriteClick(singleData) {
+    singleData.isFavorite = true;
+    singleData.user = userName;
     if (favoriteExercises.length === 0) {
-      apiPostFavorite(dat);
+      apiPostFavorite(singleData);
 
-      setFavoriteExercises([dat]);
+      setFavoriteExercises([singleData]);
     } else {
       const alreadyExistsAtIndex = favoriteExercises.findIndex(
         (favoriteExercise) => {
-          return favoriteExercise.name === dat.name;
+          return favoriteExercise.name === singleData.name;
         }
       );
       if (alreadyExistsAtIndex != -1) {
         const newfavoriteExercises = favoriteExercises.slice();
         newfavoriteExercises.splice(alreadyExistsAtIndex, 1);
         setFavoriteExercises(newfavoriteExercises);
-        apiDeleteFavorite(userName, dat.name);
+        apiDeleteFavorite(userName, singleData.name);
       } else {
-        apiPostFavorite(dat);
-        setFavoriteExercises([dat, ...favoriteExercises]);
+        apiPostFavorite(singleData);
+        setFavoriteExercises([singleData, ...favoriteExercises]);
       }
     }
   }
 
   function handleShowFavoritesClick() {
+    setShowDetails(showDetailsStart);
     setShowFavorites(true);
   }
   function handleShowSearchClick() {
+    setShowDetails(showDetailsStart);
     setShowFavorites(false);
   }
 
   useEffect(() => {
     let newData = data.slice();
-    newData = newData.map((dat) => {
+    newData = newData.map((singleData) => {
       let isFavorite = favoriteExercises.find((favoriteExercise) => {
-        return dat.name === favoriteExercise.name;
+        return singleData.name === favoriteExercise.name;
       });
       isFavorite ? (isFavorite = true) : (isFavorite = false);
-      return {...dat, isFavorite: isFavorite};
+      return {...singleData, isFavorite: isFavorite};
     });
     setDataWithFavorites(newData);
   }, [data, favoriteExercises]);
@@ -144,7 +146,7 @@ export default function ExerciseSearch({
                 <ExerciseDisplayed
                   showFavorites={showFavorites}
                   key={uid()}
-                  dat={favoriteExercise}
+                  singleData={favoriteExercise}
                   handleFavoriteClick={handleFavoriteClick}
                   handleDetailsClick={handleDetailsClick}
                   showDetails={showDetails}
@@ -156,12 +158,12 @@ export default function ExerciseSearch({
         ) : data?.length === 0 ? (
           <p>No Results</p>
         ) : (
-          dataWithFavorites?.map((dat, index) => {
+          dataWithFavorites?.map((singleData, index) => {
             return (
               <ExerciseDisplayed
                 showFavorites={showFavorites}
                 key={uid()}
-                dat={dat}
+                singleData={singleData}
                 handleFavoriteClick={handleFavoriteClick}
                 handleDetailsClick={handleDetailsClick}
                 showDetails={showDetails}

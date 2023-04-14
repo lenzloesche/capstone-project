@@ -70,16 +70,20 @@ export default function App({Component, pageProps}) {
       </Head>
       <Header>
         <Heading>|Fitness App</Heading>
-        <SettingsButton>
-          <NavigationLink selected={false} href="/">
-            <StyledImage
-              width="36"
-              height="36"
-              alt="gear wheel options"
-              src="/gear-wheel.svg"
-            />
-          </NavigationLink>
-        </SettingsButton>
+        {userName === "DontRender" ? (
+          ""
+        ) : (
+          <SettingsButton>
+            <NavigationLink selected={false} href="/">
+              <StyledImage
+                width="36"
+                height="36"
+                alt="gear wheel options"
+                src="/gear-wheel.svg"
+              />
+            </NavigationLink>
+          </SettingsButton>
+        )}
       </Header>
       <Component
         data={data}

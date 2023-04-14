@@ -9,6 +9,7 @@ import CalendarColoredDiv from "../CalendarComponents/CalendarColoredDiv";
 import {useState} from "react";
 import {useEffect} from "react";
 import CalendarYear from "../CalendarComponents/CalendarYear";
+import StyledParagraph from "../StyledParagraph";
 
 const date = new Date();
 
@@ -174,13 +175,18 @@ export default function CalendarHeatmap({
             : "Select a Date above"}
         </p>
         {dateSelected ? (
-          <StyledButton
-            onClick={() => {
-              handleNewEntryClick(dateSelected);
-            }}
-          >
-            New for selected Date
-          </StyledButton>
+          <>
+            <StyledButton
+              onClick={() => {
+                handleNewEntryClick(dateSelected);
+              }}
+            >
+              New Exercise Entry
+            </StyledButton>
+            <StyledParagraph>
+              You can track your results in the calendar
+            </StyledParagraph>
+          </>
         ) : (
           ""
         )}

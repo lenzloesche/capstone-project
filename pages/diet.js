@@ -81,6 +81,10 @@ export default function Diet({userName}) {
               height="100"
             ></Image>
             <StyledParagraphNormal>Diet Search</StyledParagraphNormal>
+            <StyledParagraph>
+              Check out the nutritional values of your food to become even
+              fitter.
+            </StyledParagraph>
             <Form
               onSubmit={(event) => {
                 handleSubmit(event);

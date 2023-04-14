@@ -6,6 +6,7 @@ import ImageContainer from "../ImageContainer";
 import Form from "../Form";
 import StyledImage from "../StyledImage";
 import StyledParagraph from "../StyledParagraph";
+import Label from "../Label";
 
 export default function StrengthSearchForm({
   handleSubmit,
@@ -44,21 +45,25 @@ export default function StrengthSearchForm({
       </ImageContainer>
       {!showFavorites ? (
         <>
-          <h2>Exercise Search</h2>
           <Form
             onSubmit={(event) => {
               handleSubmit(event);
             }}
           >
-            {" "}
+            <Label htmlFor="searchInput">
+              <h2>Exercise Search</h2>{" "}
+            </Label>
+            <StyledParagraph>
+              Here you can find instructions for a lot of exercises.
+            </StyledParagraph>
             <Input
+              id="searchInput"
               value={searchInput}
               onChange={(event) => setSearchInput(event.target.value)}
             ></Input>
             <StyledParagraph>
               try &quot;bell&quot; or &quot;back&quot;
             </StyledParagraph>
-            <StyledButton>Search</StyledButton>
             <p>Filter:</p>
             <StyledSelect id="type" name="type">
               <option value="all_types">all types</option>
@@ -97,6 +102,7 @@ export default function StrengthSearchForm({
               <option value="traps">traps</option>
               <option value="triceps">triceps</option>
             </StyledSelect>
+            <StyledButton>Search</StyledButton>
           </Form>
         </>
       ) : (

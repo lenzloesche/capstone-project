@@ -24,9 +24,13 @@ export default function UserNameForm({
   return (
     <>
       <FormContainer>
-        <StyledButton onClick={() => setShowForm(!showForm)}>
-          {showForm ? "Hide Form" : "Change User Name"}
-        </StyledButton>
+        {userName === "DontRender" ? (
+          ""
+        ) : (
+          <StyledButton onClick={() => setShowForm(!showForm)}>
+            {showForm ? "Hide Form" : "Change User Name"}
+          </StyledButton>
+        )}
         {!showForm ? <p>User Name: {userName}</p> : ""}
         {showForm ? (
           <Form
@@ -35,7 +39,9 @@ export default function UserNameForm({
             }}
           >
             <Label htmlFor="userName">
-              Type in User Name And Press Return:
+              {userName === "DontRender"
+                ? "Start by choosing a user name and press return:"
+                : " Type in user name and press return:"}
             </Label>
             <Input
               type="text"

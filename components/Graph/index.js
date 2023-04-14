@@ -8,7 +8,6 @@ import GraphDate from "../GraphComponents/GraphDate";
 
 export default function Graph({data, graphIsVisible, dateSelected}) {
   const [timer, setTimer] = useState(0.0);
-  const [waitingForData, setWaitingForData] = useState(true);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

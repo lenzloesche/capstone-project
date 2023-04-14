@@ -32,7 +32,7 @@ test("test if title is displayed. and tests if instructions is only displayed if
   render(
     <ExerciseDisplayed
       showFavorites={showFavorites}
-      dat={dat}
+      singleData={dat}
       handleFavoriteClick={handleFavoriteClick}
       handleDetailsClick={handleDetailsClick}
       showDetails={showDetails}
@@ -54,7 +54,7 @@ test("when you click the favorite icon, the function is triggered.", () => {
   render(
     <ExerciseDisplayed
       showFavorites={showFavorites}
-      dat={dat}
+      singleData={dat}
       handleFavoriteClick={handleFavoriteClickMock}
       handleDetailsClick={handleDetailsClick}
       showDetails={showDetails}

@@ -1,23 +1,29 @@
 import FormContainer from "../FormContainer";
-import Image from "next/image";
 import StyledParagraphPadding from "../StyledParagraphPadding";
 import StyledButton from "../StyledButton";
 import StyledImage from "../StyledImage";
+import {uid} from "uid";
 
 export default function ExerciseDisplayed({
   showFavorites,
-  dat,
+  singleData,
   handleFavoriteClick,
   handleDetailsClick,
   showDetails,
   index,
 }) {
+  const instructionsSplit = makeArrayFromText(singleData.instructions);
+  function makeArrayFromText(text) {
+    const sentences = text.split(". ");
+    return sentences;
+  }
+
   return (
     <FormContainer>
-      {dat.isFavorite || showFavorites ? (
+      {singleData.isFavorite || showFavorites ? (
         <StyledImage
           onClick={() => {
-            handleFavoriteClick(dat);
+            handleFavoriteClick(singleData);
           }}
           bookmark
           src="/bookmark-solid.svg"
@@ -29,7 +35,7 @@ export default function ExerciseDisplayed({
       ) : (
         <StyledImage
           onClick={() => {
-            handleFavoriteClick(dat);
+            handleFavoriteClick(singleData);
           }}
           bookmark
           src="/bookmark-regular.svg"
@@ -39,7 +45,9 @@ export default function ExerciseDisplayed({
           isitselected={false}
         ></StyledImage>
       )}
-      <StyledParagraphPadding>Name: {dat?.name}</StyledParagraphPadding>
+      <StyledParagraphPadding>
+        <em>Name:</em> {singleData?.name}
+      </StyledParagraphPadding>
       <StyledButton
         onClick={() => {
           handleDetailsClick(index);
@@ -50,16 +58,28 @@ export default function ExerciseDisplayed({
       {showDetails[index] ? (
         <>
           <StyledParagraphPadding>
-            Difficulty: {dat?.difficulty}
-          </StyledParagraphPadding>
-          <StyledParagraphPadding>Muslce: {dat?.muscle}</StyledParagraphPadding>
-          <StyledParagraphPadding>Type: {dat?.type}</StyledParagraphPadding>
-          <StyledParagraphPadding>
-            Equipment: {dat?.equipment}
+            <em>Difficulty:</em> {singleData?.difficulty}
           </StyledParagraphPadding>
           <StyledParagraphPadding>
-            Instructions: {dat?.instructions}
+            <em>Muslce:</em> {singleData?.muscle}
           </StyledParagraphPadding>
+          <StyledParagraphPadding>
+            <em>Type:</em> {singleData?.type}
+          </StyledParagraphPadding>
+          <StyledParagraphPadding>
+            <em>Equipment:</em> {singleData?.equipment}
+          </StyledParagraphPadding>
+          <StyledParagraphPadding>
+            <em>Instructions:</em>
+          </StyledParagraphPadding>
+          {instructionsSplit.map((sentence) => {
+            return (
+              <StyledParagraphPadding key={uid()}>
+                {sentence}
+                {"."}
+              </StyledParagraphPadding>
+            );
+          })}
         </>
       ) : (
         ""

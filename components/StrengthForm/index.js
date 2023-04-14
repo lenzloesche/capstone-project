@@ -19,11 +19,14 @@ export default function StrengthForm({
           handleSubmit(event);
         }}
       >
-        <Label htmlFor="exerciseStrength">Which exercise?</Label>
+        <Label htmlFor="exerciseStrength">
+          Enter Exercise Name or choose a favorite Exercise
+        </Label>
         <FavoriteSelect
           favoriteExercises={favoriteExercises}
           handleChange={handleChange}
         />
+
         <Input
           id="exerciseStrength"
           type="text"

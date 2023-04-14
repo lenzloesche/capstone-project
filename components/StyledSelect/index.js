@@ -11,5 +11,8 @@ const StyledSelect = styled.select`
   :hover {
     cursor: pointer;
   }
+  :focus-visible {
+    outline: 0;
+  }
 `;
 export default StyledSelect;
