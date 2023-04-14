@@ -5,7 +5,7 @@ const StyledParagraph = styled.p`
   margin: 0;
   color: ${(props) => (props.isError ? "red" : "black")};
   font-size: 12px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
 `;
 export default StyledParagraph;

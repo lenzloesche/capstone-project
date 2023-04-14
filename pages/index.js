@@ -42,7 +42,7 @@ export default function Home({userName, handleUserNameFormSubmit}) {
               <StyledParagraph>by thehalaldesign.</StyledParagraph>
               <StyledParagraph>---</StyledParagraph>
               <Link href="https://pixabay.com/vectors/bookmark-label-reading-simple-6751603/">
-                <StyledParagraph>Boomkark</StyledParagraph>
+                <StyledParagraph>Bookmark</StyledParagraph>
               </Link>
               <StyledParagraph>by Hedgye.</StyledParagraph>
               <StyledParagraph>---</StyledParagraph>

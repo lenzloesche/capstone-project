@@ -5,7 +5,7 @@ import StyledImage from "../StyledImage";
 
 export default function ExerciseDisplayed({
   showFavorites,
-  dat,
+  singleData,
   handleFavoriteClick,
   handleDetailsClick,
   showDetails,
@@ -13,10 +13,10 @@ export default function ExerciseDisplayed({
 }) {
   return (
     <FormContainer>
-      {dat.isFavorite || showFavorites ? (
+      {singleData.isFavorite || showFavorites ? (
         <StyledImage
           onClick={() => {
-            handleFavoriteClick(dat);
+            handleFavoriteClick(singleData);
           }}
           bookmark
           src="/bookmark-solid.svg"
@@ -28,7 +28,7 @@ export default function ExerciseDisplayed({
       ) : (
         <StyledImage
           onClick={() => {
-            handleFavoriteClick(dat);
+            handleFavoriteClick(singleData);
           }}
           bookmark
           src="/bookmark-regular.svg"
@@ -39,7 +39,7 @@ export default function ExerciseDisplayed({
         ></StyledImage>
       )}
       <StyledParagraphPadding>
-        <em>Name:</em> {dat?.name}
+        <em>Name:</em> {singleData?.name}
       </StyledParagraphPadding>
       <StyledButton
         onClick={() => {
@@ -51,19 +51,19 @@ export default function ExerciseDisplayed({
       {showDetails[index] ? (
         <>
           <StyledParagraphPadding>
-            <em>Difficulty:</em> {dat?.difficulty}
+            <em>Difficulty:</em> {singleData?.difficulty}
           </StyledParagraphPadding>
           <StyledParagraphPadding>
-            <em>Muslce:</em> {dat?.muscle}
+            <em>Muslce:</em> {singleData?.muscle}
           </StyledParagraphPadding>
           <StyledParagraphPadding>
-            <em>Type:</em> {dat?.type}
+            <em>Type:</em> {singleData?.type}
           </StyledParagraphPadding>
           <StyledParagraphPadding>
-            <em>Equipment:</em> {dat?.equipment}
+            <em>Equipment:</em> {singleData?.equipment}
           </StyledParagraphPadding>
           <StyledParagraphPadding>
-            <em>Instructions:</em> {dat?.instructions}
+            <em>Instructions:</em> {singleData?.instructions}
           </StyledParagraphPadding>
         </>
       ) : (

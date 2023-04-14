@@ -144,7 +144,7 @@ export default function ExerciseSearch({
                 <ExerciseDisplayed
                   showFavorites={showFavorites}
                   key={uid()}
-                  dat={favoriteExercise}
+                  singleData={favoriteExercise}
                   handleFavoriteClick={handleFavoriteClick}
                   handleDetailsClick={handleDetailsClick}
                   showDetails={showDetails}
@@ -156,12 +156,12 @@ export default function ExerciseSearch({
         ) : data?.length === 0 ? (
           <p>No Results</p>
         ) : (
-          dataWithFavorites?.map((dat, index) => {
+          dataWithFavorites?.map((singleData, index) => {
             return (
               <ExerciseDisplayed
                 showFavorites={showFavorites}
                 key={uid()}
-                dat={dat}
+                singleData={singleData}
                 handleFavoriteClick={handleFavoriteClick}
                 handleDetailsClick={handleDetailsClick}
                 showDetails={showDetails}
