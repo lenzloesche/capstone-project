@@ -28,7 +28,10 @@ const BarGraphBorder = styled.div`
   }}px;
 `;
 
-const MaxValueText = styled(StyledParagraph)`
+const MaxValueText = styled.p`
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
   position: relative;
   left: calc(
     ${(props) => {
