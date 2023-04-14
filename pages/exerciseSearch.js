@@ -96,9 +96,11 @@ export default function ExerciseSearch({
   }
 
   function handleShowFavoritesClick() {
+    setShowDetails(showDetailsStart);
     setShowFavorites(true);
   }
   function handleShowSearchClick() {
+    setShowDetails(showDetailsStart);
     setShowFavorites(false);
   }
 
